@@ -12,8 +12,8 @@ public class EquipmentsService {
 	@Autowired
 	EquipmentsMapper equipmentsMapper;
 	
-	public void equipmentsAdd(Equipments equipments) {
-		equipmentsMapper.equipmentsAdd(equipments);
+	public int equipmentsAdd(Equipments equipments) {
+		return equipmentsMapper.equipmentsAdd(equipments);
 		
 	}
 

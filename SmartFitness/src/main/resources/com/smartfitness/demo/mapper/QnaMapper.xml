@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartfitness.demo.mapper.QnaMapper">
+
+	<select id="selcetQnaPaging" resultType="com.smartfitness.demo.model.Qna">
+		select * from (
+		select @rownum := @rownum+1 as rownum, q.*
+			from (select @rownum := 0) R, qna q
+			where @rownum &lt; #{cri.pageNum}*#{cri.amount}
+		) a
+		where rownum > (#{cri.pageNum}-1) * #{cri.amount};
+	</select>
+
+	<select id="countQna" resultType="int">
+		select count(*) from qna;
+	</select>
+	
+	<insert id="qnaWrite" parameterType="com.smartfitness.demo.model.Qna">
+		insert into qna values(null, qna_title=#{qna.qnaTitle},qna_contents=#{qna.qnaContents},qna_date=#{qna.qnaDate},qna_file=#{qna.qnaFile},mem_id=#{qna.memId})
+	</insert>
+	
+	<insert id="qnaAnswer" parameterType="com.smartfitness.demo.model.Answer">
+		insert into answer values(null, qna_seq=#{answer.qnaSeq},ans_contents=#{answer.ansContents},ans_file=#{answer.ansFile},ans_date=now(),admin_id=#{answer.adminId})
+	</insert>
+</mapper>
