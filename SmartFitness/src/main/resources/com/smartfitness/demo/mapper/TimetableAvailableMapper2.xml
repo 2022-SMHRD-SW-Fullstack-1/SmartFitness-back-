@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.smartfitness.demo.mapper.TimetableAvailableMapper2">
+	
+	<select id="selectTimetable" resultType="com.smartfitness.demo.model.TimetableAvailable2">
+		select * from programtimetable_available where pr_seq=#{prSeq} and ra_switch="0";
+	</select>
+	int pgSeq, String reserv
+	<update id="reservTimetable">
+		update timetable_available2
+		set ra_#{reserv} = "N",pg_cur_cnt=pg_cur_cnt+1
+		where ra_#{reserv} = "Y"\
+		and pg_seq=#{pgSeq}
+		and pg_max>pg_curr_cnt
+	</update>
 </mapper>

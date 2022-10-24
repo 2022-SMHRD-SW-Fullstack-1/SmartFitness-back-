@@ -6,4 +6,10 @@
 	<select id="selectTimetable" resultType="com.smartfitness.demo.model.TimetableAvailable">
 		select * from timetable_available where em_seq=#{emSeq} and ra_switch="O";
 	</select>
+	<update id="reservTimetable" parameterType="com.smartfitness.demo.model.TimetableAvailable">
+		update timetable_available
+		set ra_#{timetableAvailable} = "N"
+		where ra_#{timetableAvailable} = "Y"
+		and em_seq=#{emSeq}
+	</update>
 </mapper>
