@@ -2,8 +2,6 @@ package com.smartfitness.demo.controller;
 
 import java.util.HashMap;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,35 +17,35 @@ import com.smartfitness.demo.model.TimetableAvailable;
 import com.smartfitness.demo.service.EquipmentsService;
 import com.smartfitness.demo.service.TimetableAvailableService;
 
-@RequestMapping("equipments")
+@RequestMapping("/equipments")
 @RestController
 public class EquipmentsRestController {
-	
+
 	Gson gson = new Gson();
-	
+
 	@Autowired
 	EquipmentsMapper equipmentsMapper;
-	
+
 	@Autowired
 	EquipmentsService equipmentsService;
-	
+
 	@Autowired
 	TimetableAvailableService timetableAvailableService;
-	
-	//운동 기구 정보 추가
+
+	// 운동 기구 정보 추가
 	@PostMapping("/equipments/add")
 	public String equipmentsAdd(@RequestBody Equipments equipments) {
 		System.out.println(equipments.toString());
-		equipmentsService.equipmentsAdd(equipments);
-		HashMap<String,Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("result", "success");
-		
-		String result = gson.toJson(resultMap);
-		
-		return result;
+		int cnt = equipmentsService.equipmentsAdd(equipments);
+		if (cnt > 0) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
 	}
-	
-	//운동 기구 예약 가능 시간 확인
+
+	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/equipments/timetable/{emSeq}")
 	public String selectTimetableAvailable(@PathVariable("emSeq") int emSeq) {
 		System.out.println(emSeq);
@@ -55,17 +53,21 @@ public class EquipmentsRestController {
 		String result = gson.toJson(timetable);
 		return result;
 	}
-	
-	//운동 기구 예약
+
+	// 운동 기구 예약
 	@PostMapping("/equipments/timetable/{emSeq}/reserv")
-	public String reservEquipments(@PathVariable("emSeq") int emSeq,@RequestBody TimetableAvailable timetableAvailable) {
-	System.out.println(emSeq);
-	System.out.println(timetableAvailable);
-	int cnt = timetableAvailableService.reservTimetable(emSeq,timetableAvailable);
-	HashMap<String,Object> resultMap = new HashMap<String, Object>();
-	resultMap.put("result", "success");
-	String result = gson.toJson(resultMap);
-	return result;
+	public String reservEquipments(@PathVariable("emSeq") int emSeq,
+			@RequestBody TimetableAvailable timetableAvailable) {
+		System.out.println(emSeq);
+		System.out.println(timetableAvailable);
+		int cnt = timetableAvailableService.reservTimetable(emSeq, timetableAvailable);
+		if (cnt > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
+	// 운동 기구 예약 취소
+
 }

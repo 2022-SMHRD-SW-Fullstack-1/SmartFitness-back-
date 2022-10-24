@@ -7,6 +7,6 @@ import com.smartfitness.demo.model.Equipments;
 @Mapper
 public interface EquipmentsMapper {
 
-	void equipmentsAdd(Equipments equipments);
+	int equipmentsAdd(Equipments equipments);
 
 }
