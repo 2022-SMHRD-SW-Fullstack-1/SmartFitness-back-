@@ -1,5 +1,12 @@
 package com.smartfitness.demo.mapper;
 
-public class EquipmentsMapper {
+import org.apache.ibatis.annotations.Mapper;
+
+import com.smartfitness.demo.model.Equipments;
+
+@Mapper
+public interface EquipmentsMapper {
+
+	void equipmentsAdd(Equipments equipments);
 
 }
