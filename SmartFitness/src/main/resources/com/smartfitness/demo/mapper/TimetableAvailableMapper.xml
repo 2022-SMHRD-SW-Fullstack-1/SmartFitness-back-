@@ -4,6 +4,6 @@
 	namespace="com.smartfitness.demo.mapper.TimetableAvailableMapper">
 	
 	<select id="selectTimetable" resultType="com.smartfitness.demo.model.TimetableAvailable">
-		select * from timetable_available where em_seq=#{emSeq};
+		select * from timetable_available where em_seq=#{emSeq} and ra_switch="O";
 	</select>
 </mapper>

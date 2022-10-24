@@ -48,7 +48,7 @@ public class TimetableAvailable {
     private String ra20002030;
 
     // 예약 가능 날짜 
-    private Timestamp raDate;
+    private String raSwitch;
 
     // 운동 기구 순번 
     private Integer emSeq;
