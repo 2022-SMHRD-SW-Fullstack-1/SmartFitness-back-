@@ -1,5 +1,11 @@
 package com.smartfitness.demo.mapper;
 
-public class TimetableAvailableMapper {
+import java.util.List;
+
+import com.smartfitness.demo.model.TimetableAvailable;
+
+public interface TimetableAvailableMapper {
+
+	List<TimetableAvailable> selectTimetable(int emSeq);
 
 }
