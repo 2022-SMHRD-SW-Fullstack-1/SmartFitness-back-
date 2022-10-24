@@ -22,6 +22,8 @@ import com.smartfitness.demo.service.TimetableAvailableService;
 @RestController
 public class EquipmentsRestController {
 	
+	Gson gson = new Gson();
+	
 	@Autowired
 	EquipmentsMapper equipmentsMapper;
 	
@@ -39,31 +41,29 @@ public class EquipmentsRestController {
 		HashMap<String,Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", "success");
 		
-		Gson gson = new Gson();
 		String result = gson.toJson(resultMap);
 		
 		return result;
 	}
 	
 	//운동 기구 예약 가능 시간 확인
-	@GetMapping("/euipments/timetable/{emSeq}")
+	@GetMapping("/equipments/timetable/{emSeq}")
 	public String selectTimetableAvailable(@PathVariable("emSeq") int emSeq) {
 		System.out.println(emSeq);
-		HashMap<String,Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("result", timetableAvailableService.selectTimetableAvailable(emSeq));
-		
-		Gson gson = new Gson();
-		String result = gson.toJson(resultMap);
-		
-		return result; 
+		TimetableAvailable timetable = timetableAvailableService.selectTimetableAvailable(emSeq);
+		String result = gson.toJson(timetable);
+		return result;
 	}
 	
 	//운동 기구 예약
-	@PostMapping("/equipments/reserv")
-	public String reservEquipments() {
-		
-	
-	String result="";
+	@PostMapping("/equipments/timetable/{emSeq}/reserv")
+	public String reservEquipments(@PathVariable("emSeq") int emSeq,@RequestBody TimetableAvailable timetableAvailable) {
+	System.out.println(emSeq);
+	System.out.println(timetableAvailable);
+	int cnt = timetableAvailableService.reservTimetable(emSeq,timetableAvailable);
+	HashMap<String,Object> resultMap = new HashMap<String, Object>();
+	resultMap.put("result", "success");
+	String result = gson.toJson(resultMap);
 	return result;
 	}
 	

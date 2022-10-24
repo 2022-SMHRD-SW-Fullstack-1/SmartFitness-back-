@@ -12,8 +12,14 @@ public class TimetableAvailableService {
 	@Autowired
 	TimetableAvailableMapper timetableAvailableMapper;
 	
-	public List<TimetableAvailable> selectTimetableAvailable(int emSeq) {
+	public TimetableAvailable selectTimetableAvailable(int emSeq) {
 		return timetableAvailableMapper.selectTimetable(emSeq);
+	}
+
+	public int reservTimetable(int emSeq, TimetableAvailable timetableAvailable) {
+		int cnt = timetableAvailableMapper.reservTimetable(emSeq, timetableAvailable);
+		return cnt;
+		
 	}
 
 }

@@ -6,6 +6,8 @@ import com.smartfitness.demo.model.TimetableAvailable;
 
 public interface TimetableAvailableMapper {
 
-	List<TimetableAvailable> selectTimetable(int emSeq);
+	TimetableAvailable selectTimetable(int emSeq);
+
+	int reservTimetable(int emSeq, TimetableAvailable timetableAvailable);
 
 }
