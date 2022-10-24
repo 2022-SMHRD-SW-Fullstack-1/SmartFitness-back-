@@ -19,35 +19,45 @@ public class Members {
 	private String mem_pw;
 	
 	
-	   // 회원 아이디 
+	   // 회원 아이디
+	@NonNull
     private String memId;
 
-    // 회원 비밀번호 
+    // 회원 비밀번호
+	@NonNull
     private String memPw;
 
-    // 회원 등급 
+    // 회원 등급
+	@NonNull
     private String memGrade;
 
-    // 회원 가입일 
+    // 회원 가입일
+	@NonNull
     private Date memJoindate;
 
-    // 회원 이름 
+    // 회원 이름
+	@NonNull
     private String memName;
 
-    // 회원 주소 
+    // 회원 주소
+	@NonNull
     private String memAddr;
 
-    // 회원 생년월일 
+    // 회원 생년월일
+	@NonNull
     private String memBirthdate;
 
-    // 회원 전화번호 
+    // 회원 전화번호
+	@NonNull
     private String memPhone;
 
     // 회원 유형 일반회원:'M', 관리자:'A'
-    private String memType;
+	@NonNull
+	private String memType;
 
     // 소속 센터 순번 
-    private Integer ctrId;
+	@NonNull
+	private Integer ctrId;
 	
 	
 
