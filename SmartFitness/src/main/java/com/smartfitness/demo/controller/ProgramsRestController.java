@@ -1,35 +1,47 @@
 package com.smartfitness.demo.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Mapper.MemberMapper;
-import com.example.demo.config.jwt.JwtTokenProvider;
 import com.google.gson.Gson;
-import com.smartfitness.demo.mapper.ProgramsMapper;
+import com.smartfitness.demo.model.Programs;
 import com.smartfitness.demo.service.ProgramsService;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("programs")
 public class ProgramsRestController {
 	
-	private final ProgramsMapper programMapper;
 	
 	Gson gson = new Gson();
 	
 	@Autowired
-	ProgramsService programService;
+	ProgramsService programsService;
 	
 	
 	//프로그램 정보 추가
-	PostMapping("programs/add")
-	public String programsAdd(@RequestBody Equip)
+	@PostMapping("programs/add")
+	public String programsAdd(@RequestBody Programs programs) {
+		System.out.println(programs.toString());
+		programsService.programsAdd(programs);
+	//~DB에 넣기 위해
+		HashMap<String,Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", "success");
+		
+		String result = gson.toJson(resultMap);
+		//hashMap을 uri로 바꾸는 작업		
+		
+		return result;
+		
+	}
+	
+	//운동 프로그램 예약 가능 시간 확인
+	@GetMapping("/programs/timetable/{prSeq}")
+	
 	
 	
 }
