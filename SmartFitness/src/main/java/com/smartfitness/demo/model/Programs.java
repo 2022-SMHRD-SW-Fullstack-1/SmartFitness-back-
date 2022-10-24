@@ -3,7 +3,7 @@ package com.smartfitness.demo.model;
 import lombok.NonNull;
 
 //운동 프로그램 정보 
-public class AthleticsInfo {
+public class Programs {
 	
 	
 	
