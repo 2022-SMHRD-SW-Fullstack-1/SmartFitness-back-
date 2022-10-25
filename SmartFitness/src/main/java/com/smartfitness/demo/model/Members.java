@@ -11,14 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Members {
-  
-	
-	@NonNull
-	private String mem_id;
-	@NonNull
-	private String mem_pw;
-	
-	
+
 	   // 회원 아이디
 	@NonNull
     private String memId;
