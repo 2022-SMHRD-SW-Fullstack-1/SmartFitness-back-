@@ -12,7 +12,7 @@ public class ProgramsService {
 	@Autowired
 	ProgramsMapper programsMapper;
 	
-	public void programsAdd(Programs programs) {
-		programsMapper.programsAdd(programs);
+	public int programsAdd(Programs programs) {
+		return programsMapper.programsAdd(programs);
 	}
 }

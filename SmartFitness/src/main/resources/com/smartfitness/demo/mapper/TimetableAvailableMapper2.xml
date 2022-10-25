@@ -8,9 +8,19 @@
 	</select>
 	<update id="reservTimetable">
 		update timetable_available2
-		set ra_#{reserv} = "N",pg_cur_cnt=pg_cur_cnt+1
+		set ra_#{reserv} = "N"
 		where ra_#{reserv} = "Y"
 		and pg_seq=#{pgSeq}
 		and pg_max>pg_curr_cnt
+		
+		update programs
+		set pg_cur_cnt=pg_cur_cnt+1
+	</update>
+	
+	<update id="cancelTimetable">
+		update timetable_available2
+		set ra_#{cancel} = "Y", pg_curr_cnt
+		where ra_#{cancel} = "N"
+		and ra_seq=#{pgrSeq}
 	</update>
 </mapper>
