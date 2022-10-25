@@ -30,7 +30,7 @@ public class EquipmentsRestController {
 	EquipmentsService equipmentsService;
 
 	@Autowired
-	TimetableAvailableService timetableAvailableService;
+	TimetableAvailableService timetableService;
 
 	// 운동 기구 정보 추가
 	@PostMapping("/equipments/add")
@@ -49,7 +49,7 @@ public class EquipmentsRestController {
 	@GetMapping("/equipments/timetable/{emSeq}")
 	public String selectTimetableAvailable(@PathVariable("emSeq") int emSeq) {
 		System.out.println(emSeq);
-		TimetableAvailable timetable = timetableAvailableService.selectTimetableAvailable(emSeq);
+		TimetableAvailable timetable = timetableService.selectTimetable(emSeq);
 		String result = gson.toJson(timetable);
 		return result;
 	}
@@ -60,7 +60,7 @@ public class EquipmentsRestController {
 			@RequestBody TimetableAvailable timetableAvailable) {
 		System.out.println(emSeq);
 		System.out.println(timetableAvailable);
-		int cnt = timetableAvailableService.reservTimetable(emSeq, timetableAvailable);
+		int cnt = timetableService.reservTimetable(emSeq, timetableAvailable);
 		if (cnt > 0) {
 			return "success";
 		} else {

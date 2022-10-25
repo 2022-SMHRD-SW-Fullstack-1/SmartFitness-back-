@@ -12,14 +12,14 @@ import com.smartfitness.demo.model.TimetableAvailable;
 public class TimetableAvailableService {
 
 	@Autowired
-	TimetableAvailableMapper timetableAvailableMapper;
+	TimetableAvailableMapper timetableMapper;
 	
-	public TimetableAvailable selectTimetableAvailable(int emSeq) {
-		return timetableAvailableMapper.selectTimetable(emSeq);
+	public TimetableAvailable selectTimetable(int emSeq) {
+		return timetableMapper.selectTimetable(emSeq);
 	}
 
 	public int reservTimetable(int emSeq, TimetableAvailable timetableAvailable) {
-		int cnt = timetableAvailableMapper.reservTimetable(emSeq, timetableAvailable);
+		int cnt = timetableMapper.reservTimetable(emSeq, timetableAvailable);
 		return cnt;
 		
 	}
