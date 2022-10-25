@@ -29,7 +29,7 @@ public class QnaRestController {
 	QnaService qnaService;
 	
 	// qna게시판에 쓰인 글, 전체 확인
-	@GetMapping("/qna")
+	@GetMapping("/all")
 	public String qnaAll(Criteria cri) {
 		//고른 페이지에서 보여줘야 하는 메세지 리스트
 		List<Qna> qnaList = qnaService.selectQnaPaging(cri);
@@ -45,7 +45,7 @@ public class QnaRestController {
 	}
 	
 	// qna게시판에 글 쓰기
-	@PostMapping("/qna/write")
+	@PostMapping("/write")
 	public String qnaWrite(Qna qna) {
 		int cnt = qnaService.qnaWrite(qna);
 		if(cnt>0) {
@@ -57,7 +57,7 @@ public class QnaRestController {
 	}
 	
 	// qna글에 답변하기
-	@PostMapping("/qna/{qnaSeq}/answer")
+	@PostMapping("/{qnaSeq}/answer")
 	public String qnaAnswer(@PathVariable("qnaSeq") int qnaSeq,
 			@RequestBody Answer answer) {
 		int cnt = qnaService.qnaAnswer(answer);

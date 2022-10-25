@@ -31,7 +31,7 @@ public class ProgramsRestController {
 	TimetableAvailableService2 timetableService;
 
 	// 프로그램 정보 추가
-	@PostMapping("programs/add")
+	@PostMapping("/add")
 	public String programsAdd(@RequestBody Programs programs) {
 		System.out.println(programs.toString());
 		int cnt = programsService.programsAdd(programs);
@@ -45,7 +45,7 @@ public class ProgramsRestController {
 	}
 
 	// 운동 프로그램 예약 가능 시간 확인
-	@GetMapping("/programs/timetable/{prSeq}")
+	@GetMapping("/timetable/{prSeq}")
 	public String selectTimetableAvailable2(@PathVariable("prSeq") int prSeq) {
 		System.out.println(prSeq);
 		TimetableAvailable2 timetable = timetableService.selectTimetable(prSeq);
@@ -54,7 +54,7 @@ public class ProgramsRestController {
 	}
 
 	// 운동 프로그램 예약
-	@PostMapping("/programs/timetable/{prSeq}/reserv")
+	@PostMapping("/timetable/{prSeq}/reserv")
 	public String reservPrograms(@PathVariable("prSeq") int prSeq, 
 			@RequestBody String reserv) {
 		System.out.println(prSeq);
@@ -70,7 +70,7 @@ public class ProgramsRestController {
 	
 	// 운동 프로그램 취소
 //	@PostMapping("/members/mypage/pg/cancel/{}")
-	@PostMapping("/programs/timetable/{pgrSeq}/cancel")
+	@PostMapping("/timetable/{pgrSeq}/cancel")
 	public String cancelPrograms(@PathVariable("pgrSeq") int pgrSeq) 
 			{
 		int cnt = timetableService.cancelTimetable(pgrSeq);
