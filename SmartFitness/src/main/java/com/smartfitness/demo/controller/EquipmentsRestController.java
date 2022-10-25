@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -33,7 +34,7 @@ public class EquipmentsRestController {
 	TimetableAvailableService timetableService;
 
 	// 운동 기구 정보 추가
-	@PostMapping("/equipments/add")
+	@PostMapping("/add")
 	public String equipmentsAdd(@RequestBody Equipments equipments) {
 		System.out.println(equipments.toString());
 		int cnt = equipmentsService.equipmentsAdd(equipments);
@@ -46,7 +47,7 @@ public class EquipmentsRestController {
 	}
 
 	// 운동 기구 예약 가능 시간 확인
-	@GetMapping("/equipments/timetable/{emSeq}")
+	@GetMapping("/timetable/{emSeq}")
 	public String selectTimetableAvailable(@PathVariable("emSeq") int emSeq) {
 		System.out.println(emSeq);
 		TimetableAvailable timetable = timetableService.selectTimetable(emSeq);
@@ -55,7 +56,7 @@ public class EquipmentsRestController {
 	}
 
 	// 운동 기구 예약
-	@PostMapping("/equipments/timetable/{emSeq}/reserv")
+	@PostMapping("/timetable/{emSeq}/reserv")
 	public String reservEquipments(@PathVariable("emSeq") int emSeq,
 			@RequestBody TimetableAvailable timetableAvailable) {
 		System.out.println(emSeq);

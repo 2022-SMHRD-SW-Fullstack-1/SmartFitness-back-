@@ -70,8 +70,8 @@ public class ProgramsRestController {
 	
 	// 운동 프로그램 취소
 //	@PostMapping("/members/mypage/pg/cancel/{}")
-	@PostMapping("/programs/timetable/{pgrSeq}/cancel")
-	public String cancelPrograms(@PathVariable("pgrSeq") int pgrSeq) 
+	@PostMapping("/mypage/pg/cancel/{pgrseq}")
+	public String cancelPrograms(@PathVariable("pgrseq") int pgrSeq) 
 			{
 		int cnt = timetableService.cancelTimetable(pgrSeq);
 		

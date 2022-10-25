@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Members {
 
-	   // 회원 아이디
+	// 회원 아이디
 	@NonNull
     private String memId;
 
@@ -51,7 +51,5 @@ public class Members {
     // 소속 센터 순번 
 	@NonNull
 	private Integer ctrId;
-	
-	
 
 }
