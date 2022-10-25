@@ -71,3 +71,13 @@ public class EquipmentsRestController {
 	// 운동 기구 예약 취소
 
 }
+
+
+
+
+
+
+
+
+
+
