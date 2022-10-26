@@ -21,7 +21,7 @@ import com.smartfitness.demo.service.TimetableAvailableService;
 import com.smartfitness.demo.service.TimetableAvailableService2;
 
 @RestController
-@RequestMapping("programs")
+@RequestMapping("/programs")
 public class ProgramsRestController {
 
 	Gson gson = new Gson();
@@ -29,8 +29,7 @@ public class ProgramsRestController {
 	@Autowired
 	ProgramsService programsService;
 
-	@Autowired
-	TimetableAvailableService2 timetableService;
+	
 	
 	@Autowired
 	CalenderService calenderService;
@@ -48,49 +47,15 @@ public class ProgramsRestController {
 		}
 
 	}
-
-	// 운동 프로그램 예약 가능 시간 확인
-	@GetMapping("/timetable/{pr_seq}")
-	public String selectTimetableAvailable2(@PathVariable("pr_seq") int pr_seq) {
-		System.out.println(pr_seq);
-		TimetableAvailable2 timetable = timetableService.selectTimetable(pr_seq);
-		String result = gson.toJson(timetable);
-		return result;	
-	}
-
-	// 운동 프로그램 예약
-	@PostMapping("/timetable/{prSeq}/reserv")
-	public String reservPrograms(@PathVariable("pr_seq") int pr_seq, 
-			@RequestBody String reserv) {
-		System.out.println(pr_seq);
-		System.out.println(reserv);
-		int cnt = timetableService.reservTimetable(pr_seq, reserv);
-
-		if (cnt > 0) {
-			return "success";
-		} else {
-			return "fail";
-		}
-	}
-	
-
-	@PostMapping("/mypage/pg/cancel/{pgrseq}")
-	public String cancelPrograms(@PathVariable("pgrseq") int pgr_seq) 
-			{
-		int cnt = timetableService.cancelTimetable(pgr_seq);
-		
-		if(cnt > 0) {
-			return "success";
-		}else {
-			return "fail";
-		}
-		
-	}
 	
 	
-	@PostMapping("/timetable/cal")
+	
+	
+	//프로그램 예약하기
+	@PostMapping("/reserv")
 	public String reservPrograms(@RequestBody Calender calender)
-	{
+	{	
+		calenderService.enrollPT(calender);
 		int cnt = calenderService.calenderAdd(calender);
 		if(cnt > 0 ) {
 			return "success";
@@ -101,25 +66,35 @@ public class ProgramsRestController {
 		
 	}
 	
-	//PT 결제하기
-
-	@PostMapping("/PT/enroll")
-	public String enrollPT(@RequestBody HashMap<String,Object> map) {
-		programsService.enrollPT(map);
+	//프로그램 취소하기
+	@GetMapping("/cancel/{cal_seq}")
+	public String cancelPrograms(@PathVariable("cal_seq") int num) {
+		calenderService.reset(num);
+		int cnt = calenderService.cancelPrograms(num);
 		
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", "success");
-		
-		Gson gson = new Gson();
-		
-		String result = gson.toJson(resultMap);
-		
-		return result;
-		
+		if(cnt > 0 ) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
 		
 	}
-
 	
+//	//PT 결제하기(잔여 횟수)
+//	@PostMapping("/PT/enroll")
+//	public String enrollPT(@RequestBody HashMap<String,Object> map) {
+//		programsService.enrollPT(map);
+//		
+//		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+//		resultMap.put("result", "success");
+//		
+//		Gson gson = new Gson();
+//		
+//		String result = gson.toJson(resultMap);
+//		
+//		return result;		
+//	}	
 }
 
 

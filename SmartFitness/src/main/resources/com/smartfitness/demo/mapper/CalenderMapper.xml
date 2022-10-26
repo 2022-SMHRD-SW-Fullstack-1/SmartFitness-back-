@@ -8,8 +8,30 @@
 	
 	<update id="calenderC" parameterType="com.smartfitness.demo.model.Calender">
 		update members 
-		pt_cnt=pt_cnt-1
+		set pt_cnt=pt_cnt-1
 		where mem_id = #{mem_id}
+	</update>
+	
+	<update id="enrollPT" >
+		update members
+		set pt_cnt = #{PT_cnt}
+		where mem_id = #{mem_id}
+	</update>
+	
+	<delete id="cancelPrograms">
+		delete From Calender
+		where cal_seq=#{num}
+	</delete>
+	
+	<update id="resetCnt">
+		update members
+		set pt_cnt=0
+		where mem_id=(
+			select mem_id
+			from Calender
+			where cal_seq=#{num}
+			
+		)
 	</update>
 	
 </mapper>

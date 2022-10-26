@@ -12,7 +12,6 @@ public class Calender {
 	//예약 번호
 	private Integer cal_seq;
 	
-
 	//시간 정보
 	private String time;
 	
@@ -25,7 +24,8 @@ public class Calender {
 	//트레이너 이름
 	private String trainer_name;
 	
-	
+	//PT 결제시 횟수
+	private Integer PT_cnt;
 }
 
 
