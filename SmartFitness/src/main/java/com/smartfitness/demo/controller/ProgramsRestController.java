@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.smartfitness.demo.model.Calender;
 import com.smartfitness.demo.model.Programs;
 import com.smartfitness.demo.model.TimetableAvailable;
 import com.smartfitness.demo.model.TimetableAvailable2;
+import com.smartfitness.demo.service.CalenderService;
 import com.smartfitness.demo.service.ProgramsService;
 import com.smartfitness.demo.service.TimetableAvailableService;
 import com.smartfitness.demo.service.TimetableAvailableService2;
@@ -29,6 +31,9 @@ public class ProgramsRestController {
 
 	@Autowired
 	TimetableAvailableService2 timetableService;
+	
+	@Autowired
+	CalenderService calenderService;
 
 	// 프로그램 정보 추가
 	@PostMapping("/add")
@@ -68,8 +73,6 @@ public class ProgramsRestController {
 		}
 	}
 	
-	// 운동 프로그램 취소
-//	@PostMapping("/members/mypage/pg/cancel/{}")
 
 	@PostMapping("/mypage/pg/cancel/{pgrseq}")
 	public String cancelPrograms(@PathVariable("pgrseq") int pgrSeq) 
@@ -85,5 +88,36 @@ public class ProgramsRestController {
 	}
 	
 	
+	@PostMapping("/timetable/cal")
+	public String reservPrograms(@RequestBody Calender calender)
+	{
+		int cnt = calenderService.calenderAdd(calender);
+		if(cnt > 0 ) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
+		
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
