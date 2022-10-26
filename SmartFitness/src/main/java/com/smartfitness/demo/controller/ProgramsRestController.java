@@ -102,7 +102,21 @@ public class ProgramsRestController {
 	}
 	
 	//PT 결제하기
-	@PostMapping("/")
+	@PostMapping("/PT/enroll")
+	public String enrollPT(@RequestBody HashMap<String,Object> map) {
+		programsService.enrollPT(map);
+		
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", "success");
+		
+		Gson gson = new Gson();
+		
+		String result = gson.toJson(resultMap);
+		
+		return result;
+		
+		
+	}
 	
 }
 

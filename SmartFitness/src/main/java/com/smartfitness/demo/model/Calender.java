@@ -12,11 +12,8 @@ public class Calender {
 	//예약 번호
 	private Integer calSeq;
 	
-	//시작 날짜
-	private String startTime;
-	
-	//종료 날짜
-	private String endTime;
+	//시간 정보
+	private String time;
 	
 	//프로그램 이름
 	private String programName;
@@ -29,3 +26,5 @@ public class Calender {
 	
 	
 }
+
+

@@ -5,4 +5,10 @@
 	<insert id="programsAdd" parameterType="com.smartfitness.demo.model.Programs">
 		insert into programs values(null,#{pg_name},#{pg_max},#{pg_info},#{pg_img1},#{pg_img2})
 	</insert>
+	
+	<update id="enrollPT" >
+		update members
+		set pt_cnt = #{num}
+		where mem_id = #{mem_id}
+	</update>
 </mapper>
