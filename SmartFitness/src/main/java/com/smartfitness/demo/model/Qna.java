@@ -18,20 +18,20 @@ public class Qna {
 //	     PRIMARY KEY (qna_seq)
 //	);
 	// 질답 순번 
-    private Integer qnaSeq;
+    private Integer qna_seq;
 
     // 질답 제목 
-    private String qnaTitle;
+    private String qna_title;
 
     // 질답 내용 
-    private String qnaContents;
+    private String qna_contents;
 
     // 질답 작성일자 
-    private String qnaDate;
+    private String qna_date;
 
     // 질답 첨부파일 
-    private String qnaFile;
+    private String qna_file;
 
     // 질답 작성자 
-    private String memId;
+    private String mem_id;
 }

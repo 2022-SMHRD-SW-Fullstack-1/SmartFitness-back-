@@ -54,12 +54,12 @@ public class EquipmentsRestController {
 	}
 
 	// 운동 기구 예약
-	@PostMapping("/timetable/{emSeq}/reserv")
-	public String reservEquipments(@PathVariable("emSeq") int emSeq,
-			@RequestBody TimetableAvailable timetableAvailable) {
-		System.out.println(emSeq);
-		System.out.println(timetableAvailable);
-		int cnt = timetableService.reservTimetable(emSeq, timetableAvailable);
+	@PostMapping("/reserv/{em_seq}/{time}")
+	public String reservEquipments(@PathVariable("em_seq") int em_seq,
+			@PathVariable("time") String time) {
+		System.out.println(em_seq);
+		System.out.println(time);
+		int cnt = timetableService.reservTimetable(em_seq, time);
 		if (cnt > 0) {
 			return "success";
 		} else {

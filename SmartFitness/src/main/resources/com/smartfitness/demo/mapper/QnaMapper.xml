@@ -16,10 +16,10 @@
 	</select>
 	
 	<insert id="qnaWrite" parameterType="com.smartfitness.demo.model.Qna">
-		insert into qna values(null, qna_title=#{qna.qnaTitle},qna_contents=#{qna.qnaContents},qna_date=#{qna.qnaDate},qna_file=#{qna.qnaFile},mem_id=#{qna.memId})
+		insert into qna values(null, qna_title=#{qna_title},qna_contents=#{qna_contents},qna_date=#{qna_date},qna_file=#{qna_file},mem_id=#{mem_id})
 	</insert>
 	
 	<insert id="qnaAnswer" parameterType="com.smartfitness.demo.model.Answer">
-		insert into answer values(null, qna_seq=#{answer.qnaSeq},ans_contents=#{answer.ansContents},ans_file=#{answer.ansFile},ans_date=now(),admin_id=#{answer.adminId})
+		insert into answer values(null, qna_seq=#{qna_seq},ans_contents=#{ans_contents},ans_file=#{ans_file},ans_date=now(),admin_id=#{admin_id})
 	</insert>
 </mapper>

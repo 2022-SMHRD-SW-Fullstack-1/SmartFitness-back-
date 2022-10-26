@@ -21,21 +21,21 @@ public class Programs {
 
  // 운동 프로그램 번호
  @NonNull
- private Integer pgSeq;
+ private Integer pg_seq;
 
  // 운동 프로그램 이름
  @NonNull
- private String pgName;
+ private String pg_name;
 
  // 운동 프로그램 정원 
- private Integer pgMax;
+ private Integer pg_max;
 
  // 운동 프로그램 설명 
- private String pgInfo;
+ private String pg_info;
 
  // 운동 프로그램 사진1 
- private String pgImg1;
+ private String pg_img1;
 
  // 운동 프로그램 사진2 
- private String pgImg2;
+ private String pg_img2;
 }

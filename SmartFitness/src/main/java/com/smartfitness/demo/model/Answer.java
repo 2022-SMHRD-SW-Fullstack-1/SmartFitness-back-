@@ -18,20 +18,20 @@ public class Answer {
 //	     PRIMARY KEY (ans_seq)
 //	);
 	// 답변 순번 
-    private Integer ansSeq;
+    private Integer ans_seq;
 
     // 질답 순번 
-    private Integer qnaSeq;
+    private Integer qna_seq;
 
     // 답변 내용 
-    private String ansContent;
+    private String ans_content;
 
     // 답변 첨부파일 
-    private String ansFile;
+    private String ans_file;
 
     // 답변 작성일자 
-    private String ansDate;
+    private String ans_date;
 
     // 답변 작성자 
-    private String adminId;
+    private String admin_id;
 }
