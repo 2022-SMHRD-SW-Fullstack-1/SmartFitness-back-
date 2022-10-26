@@ -41,12 +41,12 @@ public class MembersRestController {
 	public String joinMembers(@RequestBody Members members) {
 		System.out.println(members.toString());
 		try {
-			members.setMem_type("M"); // 일반M / 관리자A
-			membersService.join(members);
 			String rawPassword=members.getMem_pw();
 			String encPassword=passwordEncoder.encode(rawPassword);
 			members.setMem_pw(encPassword);
+			members.setMem_type("M"); // 일반M / 관리자A
 			System.out.println(members);
+			membersService.join(members);
 			return "success";
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -73,8 +73,8 @@ public class MembersRestController {
 		}
 		
 		String token= jwtTokenProvider.createToken(members.getMem_id(), members.getMem_name());
-		String user_id=members.getMem_id();
 		String user_name=members.getMem_name();
+		String user_id=members.getMem_id();
 		Auth auth=new Auth(token, user_id, user_name);
 		String result = gson.toJson(auth);
 		System.out.println(result);
