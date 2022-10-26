@@ -21,7 +21,6 @@ public class Members {
     private String mem_pw;
 
     // 회원 등급
-	@NonNull
     private String mem_grade;
 
     // 회원 가입일
@@ -35,7 +34,6 @@ public class Members {
     private String mem_addr;
 
     // 회원 생년월일
-	@NonNull
     private String mem_birthdate;
 
     // 회원 전화번호
@@ -48,5 +46,7 @@ public class Members {
     // 소속 센터 순번 
 	@NonNull
 	private Integer ctr_id;
+	
+	private Integer pt_cnt;
 
 }

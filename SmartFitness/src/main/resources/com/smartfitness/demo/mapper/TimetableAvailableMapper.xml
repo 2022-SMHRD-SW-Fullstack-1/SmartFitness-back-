@@ -4,7 +4,7 @@
 	namespace="com.smartfitness.demo.mapper.TimetableAvailableMapper">
 	
 	<select id="selectTimetable" resultType="com.smartfitness.demo.model.TimetableAvailable">
-		select * from timetable_available where em_seq=#{emSeq} and ra_switch="O";
+		select * from timetable_available where em_seq=#{em_seq} and ra_switch="O";
 	</select>
 	<update id="reservTimetable" parameterType="com.smartfitness.demo.model.TimetableAvailable">
 		update timetable_available

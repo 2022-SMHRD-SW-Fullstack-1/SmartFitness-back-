@@ -3,7 +3,7 @@
 <mapper namespace="com.smartfitness.demo.mapper.CalenderMapper">
 
 	<insert id="calenderAdd" parameterType="com.smartfitness.demo.model.Calender">
-		insert into Calender values(null,#{startTime},#{endTime},#{programName},#{mem_id},#{trainer_name})
+		insert into Calender values(null,#{start_time},#{end_time},#{program_name},#{mem_id},#{trainer_name})
 	</insert>
 	
 	<update id="calenderC" parameterType="com.smartfitness.demo.model.Calender">

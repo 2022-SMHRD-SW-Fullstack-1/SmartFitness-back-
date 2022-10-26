@@ -50,21 +50,21 @@ public class ProgramsRestController {
 	}
 
 	// 운동 프로그램 예약 가능 시간 확인
-	@GetMapping("/timetable/{prSeq}")
-	public String selectTimetableAvailable2(@PathVariable("prSeq") int prSeq) {
-		System.out.println(prSeq);
-		TimetableAvailable2 timetable = timetableService.selectTimetable(prSeq);
+	@GetMapping("/timetable/{pr_seq}")
+	public String selectTimetableAvailable2(@PathVariable("pr_seq") int pr_seq) {
+		System.out.println(pr_seq);
+		TimetableAvailable2 timetable = timetableService.selectTimetable(pr_seq);
 		String result = gson.toJson(timetable);
 		return result;	
 	}
 
 	// 운동 프로그램 예약
 	@PostMapping("/timetable/{prSeq}/reserv")
-	public String reservPrograms(@PathVariable("prSeq") int prSeq, 
+	public String reservPrograms(@PathVariable("pr_seq") int pr_seq, 
 			@RequestBody String reserv) {
-		System.out.println(prSeq);
+		System.out.println(pr_seq);
 		System.out.println(reserv);
-		int cnt = timetableService.reservTimetable(prSeq, reserv);
+		int cnt = timetableService.reservTimetable(pr_seq, reserv);
 
 		if (cnt > 0) {
 			return "success";
@@ -75,9 +75,9 @@ public class ProgramsRestController {
 	
 
 	@PostMapping("/mypage/pg/cancel/{pgrseq}")
-	public String cancelPrograms(@PathVariable("pgrseq") int pgrSeq) 
+	public String cancelPrograms(@PathVariable("pgrseq") int pgr_seq) 
 			{
-		int cnt = timetableService.cancelTimetable(pgrSeq);
+		int cnt = timetableService.cancelTimetable(pgr_seq);
 		
 		if(cnt > 0) {
 			return "success";

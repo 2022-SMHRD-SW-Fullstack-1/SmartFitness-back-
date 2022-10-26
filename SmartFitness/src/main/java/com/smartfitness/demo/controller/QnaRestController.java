@@ -57,8 +57,8 @@ public class QnaRestController {
 	}
 	
 	// qna글에 답변하기
-	@PostMapping("/{qnaSeq}/answer")
-	public String qnaAnswer(@PathVariable("qnaSeq") int qnaSeq,
+	@PostMapping("/{qna_seq}/answer")
+	public String qnaAnswer(@PathVariable("qna_seq") int qna_seq,
 			@RequestBody Answer answer) {
 		int cnt = qnaService.qnaAnswer(answer);
 		if(cnt>0) {
