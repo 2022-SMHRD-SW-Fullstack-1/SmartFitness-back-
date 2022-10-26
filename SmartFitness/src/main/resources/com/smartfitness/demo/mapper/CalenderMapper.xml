@@ -9,7 +9,7 @@
 	<update id="calenderC" parameterType="com.smartfitness.demo.model.Calender">
 		update members 
 		pt_cnt=pt_cnt-1
-		where mem_id = #{calenderC.mem_id}
+		where mem_id = #{mem_id}
 	</update>
 	
 </mapper>
