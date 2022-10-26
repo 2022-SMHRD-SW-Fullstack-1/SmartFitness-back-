@@ -102,7 +102,6 @@ public class ProgramsRestController {
 	}
 	
 	//PT 결제하기
-	@PostMapping("/")
 	
 }
 
