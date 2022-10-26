@@ -102,6 +102,7 @@ public class ProgramsRestController {
 	}
 	
 	//PT 결제하기
+
 	@PostMapping("/PT/enroll")
 	public String enrollPT(@RequestBody HashMap<String,Object> map) {
 		programsService.enrollPT(map);
@@ -117,6 +118,7 @@ public class ProgramsRestController {
 		
 		
 	}
+
 	
 }
 
