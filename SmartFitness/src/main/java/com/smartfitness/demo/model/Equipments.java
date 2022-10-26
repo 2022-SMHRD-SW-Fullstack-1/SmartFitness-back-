@@ -16,15 +16,15 @@ public class Equipments {
 //	     PRIMARY KEY (em_seq)
 //	);
 	// 운동 기구 번호 
-    private Integer emSeq;
+    private Integer em_seq;
 
     // 운동 기구 이름 
-    private String emName;
+    private String em_name;
 
     // 운동 기구 영상 
-    private String emVideo;
+    private String em_video;
 
     // 신체 자극 부위 
-    private String emPart;
+    private String em_part;
 
 }

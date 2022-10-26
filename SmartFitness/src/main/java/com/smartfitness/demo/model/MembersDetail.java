@@ -13,39 +13,38 @@ import lombok.NonNull;
 public class MembersDetail implements UserDetails{
 	
 	@NonNull
-    private String memId;
+    private String mem_id;
 	@NonNull
-    private String memPw;
+    private String mem_pw;
 	@NonNull
-    private String memGrade;
+    private String mem_grade;
 	@NonNull
-    private Date memJoindate;
+    private Date mem_joindate;
 	@NonNull
-    private String memName;
+    private String mem_name;
 	@NonNull
-    private String memAddr;
+    private String mem_addr;
 	@NonNull
-    private String memBirthdate;
+    private String mem_birthdate;
 	@NonNull
-    private String memPhone;
+    private String mem_phone;
 	@NonNull
-	private String memType;
+	private String mem_type;
 	@NonNull
-	private Integer ctrId;
+	private Integer ctr_id;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		return null;
 	}
 	
 	@Override
-	public String getPassword() {
-		return memPw;
+	public String getUsername() {
+		return mem_id;
 	}
 	@Override
-	public String getUsername() {
-		return memId;
+	public String getPassword() {
+		return mem_pw;
 	}
-	
 	@Override
 	public boolean isAccountNonExpired() {
 		return false;

@@ -4,13 +4,13 @@
 	namespace="com.smartfitness.demo.mapper.TimetableAvailableMapper2">
 	
 	<select id="selectTimetable" resultType="com.smartfitness.demo.model.TimetableAvailable2">
-		select * from programtimetable_available where pr_seq=#{prSeq} and ra_switch="0";
+		select * from programtimetable_available where pr_seq=#{pr_seq} and ra_switch="O";
 	</select>
 	<update id="reservTimetable">
 		update timetable_available2
 		set ra_#{reserv} = "N"
 		where ra_#{reserv} = "Y"
-		and pg_seq=#{pgSeq}
+		and pg_seq=#{pg_seq}
 		and pg_max>pg_curr_cnt
 		
 		update programs
@@ -21,6 +21,6 @@
 		update timetable_available2
 		set ra_#{cancel} = "Y", pg_curr_cnt
 		where ra_#{cancel} = "N"
-		and ra_seq=#{pgrSeq}
+		and ra_seq=#{pgr_seq}
 	</update>
 </mapper>
