@@ -45,8 +45,6 @@ public class Members {
 
     // 소속 센터 순번 
 	@NonNull
-	private Integer ctr_id;
-	
-	private Integer pt_cnt;
+	private Integer ctr_seq;
 
 }
