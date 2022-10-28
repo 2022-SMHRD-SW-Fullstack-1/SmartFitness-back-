@@ -7,16 +7,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.smartfitness.demo.model.Answer;
 import com.smartfitness.demo.model.Qna;
+import com.smartfitness.demo.model.QnaAnswer;
+import com.smartfitness.demo.model.QnaQuestion;
 
 @Mapper
 public interface QnaMapper {
 
-	List<Qna> selcetQnaPaging(HashMap<String, Object> map);
+	List<QnaQuestion> selcetQnaPaging(HashMap<String, Object> map);
 
 	int countQna();
 
-	int qnaWrite(Qna qna);
+	int qnaWrite(QnaQuestion question);
 
-	int qnaAnswer(Answer answer);
+	int qnaAnswer(QnaAnswer answer);
 
 }

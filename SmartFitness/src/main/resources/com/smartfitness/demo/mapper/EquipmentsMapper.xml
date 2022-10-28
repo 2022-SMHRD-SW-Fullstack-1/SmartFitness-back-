@@ -5,4 +5,8 @@
 	<insert id="equipmentsAdd" parameterType="com.smartfitness.demo.model.Equipments">
 		insert into equipments values(null,#{em_name},#{em_video},#{em_part})
 	</insert>
+	
+	<insert id="reservEq" parameterType="java.util.HashMap">
+		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
+	</insert>
 </mapper>

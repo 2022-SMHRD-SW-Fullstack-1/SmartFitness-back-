@@ -15,8 +15,8 @@ public class CustomUserDetailService implements UserDetailsService{
 	private MembersMapper membersMapper;
 	
 	@Override
-	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException{
-		UserDetails userDetails = membersMapper.findByUserId(userId);
+	public UserDetails loadUserByUsername(String mem_id) throws UsernameNotFoundException{
+		UserDetails userDetails = membersMapper.findByUserId(mem_id);
 		
 		if(userDetails == null) {
 			throw new UsernameNotFoundException("유효하지 않은 로그인 정보입니다.");

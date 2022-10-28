@@ -61,9 +61,11 @@ public class MembersRestController {
 		
 		Members user=gson.fromJson(jsonStr, Members.class);
 		System.out.println(user.toString());
+		System.out.println(user.getMem_id());
+		System.out.println(user.getMem_pw());
 		
 		MembersDetail members = membersMapper.findByUserId(user.getMem_id());
-		
+		System.out.println(members);
 		if(members ==null) {
 			throw new UsernameNotFoundException("유효하지 않은 로그인 정보입니다.");
 		}
@@ -73,8 +75,9 @@ public class MembersRestController {
 		}
 		
 		String token= jwtTokenProvider.createToken(members.getMem_id(), members.getMem_name());
-		String user_name=members.getMem_name();
 		String user_id=members.getMem_id();
+		String user_name=members.getMem_name();
+		System.out.println(user_name);
 		Auth auth=new Auth(token, user_id, user_name);
 		String result = gson.toJson(auth);
 		System.out.println(result);

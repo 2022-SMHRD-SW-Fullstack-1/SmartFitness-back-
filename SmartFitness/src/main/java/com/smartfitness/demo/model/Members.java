@@ -27,7 +27,6 @@ public class Members {
     private Date mem_joindate;
 
     // 회원 이름
-	@NonNull
     private String mem_name;
 
     // 회원 주소
@@ -37,14 +36,13 @@ public class Members {
     private String mem_birthdate;
 
     // 회원 전화번호
-	@NonNull
     private String mem_phone;
 
     // 회원 유형 일반회원:'M', 관리자:'A'
 	private String mem_type;
 
     // 소속 센터 순번 
-	@NonNull
 	private Integer ctr_seq;
+	
 
 }

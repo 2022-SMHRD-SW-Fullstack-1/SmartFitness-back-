@@ -36,9 +36,9 @@ public class ProgramsRestController {
 
 	// 프로그램 정보 추가
 	@PostMapping("/add")
-	public String programsAdd(@RequestBody Programs programs) {
+	public String addPg(@RequestBody Programs programs) {
 		System.out.println(programs.toString());
-		int cnt = programsService.programsAdd(programs);
+		int cnt = programsService.addPg(programs);
 		if(cnt > 0 ) {
 			return "success";
 		}
@@ -53,7 +53,7 @@ public class ProgramsRestController {
 	
 	//프로그램 예약하기
 	@PostMapping("/reserv")
-	public String reservPrograms(@RequestBody Calender calender)
+	public String reservPg(@RequestBody Calender calender)
 	{	
 		calenderService.enrollPT(calender);
 		int cnt = calenderService.calenderAdd(calender);
@@ -68,7 +68,7 @@ public class ProgramsRestController {
 	
 	//프로그램 취소하기
 	@GetMapping("/cancel/{cal_seq}")
-	public String cancelPrograms(@PathVariable("cal_seq") int num) {
+	public String cancelPg(@PathVariable("cal_seq") int num) {
 		calenderService.reset(num);
 		int cnt = calenderService.cancelPrograms(num);
 		

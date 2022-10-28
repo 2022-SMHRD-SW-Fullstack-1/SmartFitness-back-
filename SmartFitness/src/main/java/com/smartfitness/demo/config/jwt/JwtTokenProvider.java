@@ -44,7 +44,7 @@ public class JwtTokenProvider {
 				.setClaims(claims) //정보 저장
 				.setIssuedAt(now) // 토큰 발행 시간 정보
 				.setExpiration(new Date(now.getTime()+tokenValidTime)) // set Expire Time
-				.signWith(SignatureAlgorithm.ES256, secretKey) // 사용할 암호화 알고리즘과
+				.signWith(SignatureAlgorithm.HS256, secretKey) // 사용할 암호화 알고리즘과
 															   // signature에 들어갈 secret 값 세팅
 				.compact(); // 명령문을 닫아주는 명령어
 	}
