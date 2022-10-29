@@ -8,8 +8,8 @@
 	</select>
 	<update id="reservTimetable" parameterType="com.smartfitness.demo.model.TimetableAvailable">
 		update timetable_available
-		set #{time} = "N"
-		where #{time} = "Y"
+		set ra_#{time} = "N"
+		where ra_#{time} = "Y"
 		and em_seq=#{em_seq}
 	</update>
 </mapper>

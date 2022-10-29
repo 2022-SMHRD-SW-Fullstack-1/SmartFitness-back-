@@ -15,8 +15,8 @@ public class ProgramsService {
 	@Autowired
 	ProgramsMapper programsMapper;
 	
-	public int programsAdd(Programs programs) {
-		return programsMapper.programsAdd(programs);
+	public int AddPg(Programs programs) {
+		return programsMapper.AddPg(programs);
 	}
 
 	

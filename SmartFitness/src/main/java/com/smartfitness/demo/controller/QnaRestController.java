@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.smartfitness.demo.common.Criteria;
-import com.smartfitness.demo.model.Answer;
-import com.smartfitness.demo.model.Qna;
-import com.smartfitness.demo.model.TimetableAvailable;
+import com.smartfitness.demo.model.QnaAnswer;
+import com.smartfitness.demo.model.QnaQuestion;
 import com.smartfitness.demo.service.QnaService;
 import com.smartfitness.demo.common.Page;
 
@@ -32,7 +31,7 @@ public class QnaRestController {
 	@GetMapping("/all")
 	public String qnaAll(Criteria cri) {
 		//고른 페이지에서 보여줘야 하는 메세지 리스트
-		List<Qna> qnaList = qnaService.selectQnaPaging(cri);
+		List<QnaQuestion> qnaList = qnaService.selectQnaPaging(cri);
 		
 		int total = qnaService.countQna();
 		//paging page 개수 -> page
@@ -46,8 +45,8 @@ public class QnaRestController {
 	
 	// qna게시판에 글 쓰기
 	@PostMapping("/write")
-	public String qnaWrite(Qna qna) {
-		int cnt = qnaService.qnaWrite(qna);
+	public String qnaWrite(QnaQuestion question) {
+		int cnt = qnaService.qnaWrite(question);
 		if(cnt>0) {
 			return "succes";
 		}else {
@@ -59,7 +58,7 @@ public class QnaRestController {
 	// qna글에 답변하기
 	@PostMapping("/{qna_seq}/answer")
 	public String qnaAnswer(@PathVariable("qna_seq") int qna_seq,
-			@RequestBody Answer answer) {
+			@RequestBody QnaAnswer answer) {
 		int cnt = qnaService.qnaAnswer(answer);
 		if(cnt>0) {
 			return "succes";

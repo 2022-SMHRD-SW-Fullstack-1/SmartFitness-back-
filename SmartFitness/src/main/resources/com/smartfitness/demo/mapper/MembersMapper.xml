@@ -13,6 +13,6 @@
 	<select id="findByUserId" resultType="com.smartfitness.demo.model.MembersDetail">
 		select mem_id,mem_pw
 		from members
-		where mem_id = #{userId} 
+		where mem_id = #{mem_id} 
 	</select>
 </mapper>

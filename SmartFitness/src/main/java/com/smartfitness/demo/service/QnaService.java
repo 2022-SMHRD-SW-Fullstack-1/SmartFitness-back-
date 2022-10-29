@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.smartfitness.demo.model.Answer;
-import com.smartfitness.demo.model.Qna;
+import com.smartfitness.demo.model.QnaAnswer;
+import com.smartfitness.demo.model.QnaQuestion;
 import com.smartfitness.demo.common.Criteria;
 import com.smartfitness.demo.mapper.QnaMapper;
 
@@ -17,10 +17,10 @@ public class QnaService {
 	@Autowired
 	QnaMapper qnaMapper;
 	
-	public List<Qna> selectQnaPaging(Criteria cri) {
+	public List<QnaQuestion> selectQnaPaging(Criteria cri) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("cri", cri);
-		List<Qna> qnaList = qnaMapper.selcetQnaPaging(map);
+		List<QnaQuestion> qnaList = qnaMapper.selcetQnaPaging(map);
 		return qnaList;
 	}
 	
@@ -28,11 +28,11 @@ public class QnaService {
 		return qnaMapper.countQna();
 	}
 
-	public int qnaWrite(Qna qna) {
-		return qnaMapper.qnaWrite(qna);
+	public int qnaWrite(QnaQuestion question) {
+		return qnaMapper.qnaWrite(question);
 	}
 
-	public int qnaAnswer(Answer answer) {
+	public int qnaAnswer(QnaAnswer answer) {
 		return qnaMapper.qnaAnswer(answer);
 	}
 

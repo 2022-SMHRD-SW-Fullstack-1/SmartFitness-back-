@@ -1,6 +1,7 @@
 package com.smartfitness.demo.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.smartfitness.demo.mapper.EquipmentsMapper;
+import com.smartfitness.demo.mapper.MembersMapper;
+import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
-import com.smartfitness.demo.model.TimetableAvailable;
+import com.smartfitness.demo.model.Members;
+import com.smartfitness.demo.model.MembersDetail;
 import com.smartfitness.demo.service.EquipmentsService;
-import com.smartfitness.demo.service.TimetableAvailableService;
 
 @RequestMapping("/equipments")
 @RestController
@@ -31,13 +34,13 @@ public class EquipmentsRestController {
 	EquipmentsService equipmentsService;
 
 	@Autowired
-	TimetableAvailableService timetableService;
-
+	MembersMapper membersMapper;
+	
 	// 운동 기구 정보 추가
 	@PostMapping("/add")
-	public String equipmentsAdd(@RequestBody Equipments equipments) {
+	public String addEm(@RequestBody Equipments equipments) {
 		System.out.println(equipments.toString());
-		int cnt = equipmentsService.equipmentsAdd(equipments);
+		int cnt = equipmentsService.AddEm(equipments);
 		if (cnt > 0) {
 			return "success";
 		}
@@ -48,25 +51,45 @@ public class EquipmentsRestController {
 
 	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/timetable/{emSeq}")
-	public String selectTimetableAvailable(@PathVariable("emSeq") int emSeq) {
-		System.out.println(emSeq);
-		TimetableAvailable timetable = timetableService.selectTimetable(emSeq);
-		String result = gson.toJson(timetable);
+	public String selectCurrEm( @PathVariable("em_seq") int em_seq) {
+		System.out.println(em_seq);
+		CurrentEquipments curr_em = equipmentsService.selectCurrEm(em_seq);
+		String result = gson.toJson(curr_em);
 		return result;
 	}
 
 	// 운동 기구 예약
 	@PostMapping("/reserv/{em_seq}/{time}")
-	public String reservEquipments(@PathVariable("em_seq") int em_seq,
-			@PathVariable("time") String time) {
+	public Map rsvEm(@RequestBody Map<String,String> param, @PathVariable("em_seq") int em_seq,
+			@PathVariable("time") int time) throws Exception {
+		
+		//json받아서 mem_id 추출
+		String jsonStr=gson.toJson(param);
+		Members user=gson.fromJson(jsonStr, Members.class);
+		System.out.println(user.toString());
+//		MembersDetail mem_id = membersMapper.findByUserId(user.getMem_id());
+		String mem_id=user.getMem_id();
+		System.out.println(mem_id);
 		System.out.println(em_seq);
 		System.out.println(time);
-		int cnt = timetableService.reservTimetable(em_seq, time);
-		if (cnt > 0) {
-			return "success";
+		Map<String,String> result = new HashMap<>();
+		int cntT = equipmentsService.updateEm(em_seq, time);
+		if (cntT > 0) {
+			result.put("CurrEm", "O");//가능한가?
 		} else {
-			return "fail";
+			result.put("CurrEm", "X");
 		}
+		HashMap<String,Object> rsvM = new HashMap<String,Object>();
+		rsvM.put("mem_id", mem_id);
+		rsvM.put("em_seq", em_seq);
+		rsvM.put("time", String.valueOf(time));
+		int cntR = equipmentsService.reservEm(rsvM);
+		if (cntR>0) {
+			result.put("result","O");
+		} else {
+			result.put("result","X");
+		}
+		return result;
 	}
 	
 	// 운동 기구 예약 취소
