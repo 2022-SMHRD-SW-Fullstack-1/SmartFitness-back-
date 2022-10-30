@@ -2,35 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smartfitness.demo.mapper.CalenderMapper">
 
-	<insert id="calenderAdd" parameterType="com.smartfitness.demo.model.Calender">
-		insert into Calender values(null,#{start_time},#{end_time},#{program_name},#{mem_id},#{trainer_name})
-	</insert>
-	
+
+	<!-- PT 횟수 차감 -->
 	<update id="calenderC" parameterType="com.smartfitness.demo.model.Calender">
 		update members 
 		set pt_cnt=pt_cnt-1
 		where mem_id = #{mem_id}
 	</update>
 	
+	<!-- 프로그램 추가 -->
+	<insert id="calenderAdd" parameterType="com.smartfitness.demo.model.Calender">
+		insert into Calender 
+		values(null,#{time},#{pg_seq},#{mem_id},#{trainer_seq},#{PT_cnt})
+	</insert>
+	
+	<!-- 프로그램 결제 할 때 -->
+	
+	<!-- PT 결제 할 떄 횟수 -->
 	<update id="enrollPT" >
 		update members
-		set pt_cnt = #{PT_cnt}
+		set PT_cnt = #{PT_cnt}
 		where mem_id = #{mem_id}
 	</update>
 	
+	<!-- 프로그램 취소 -->
 	<delete id="cancelPrograms">
 		delete From Calender
 		where cal_seq=#{num}
 	</delete>
 	
+	<!-- PT 취소시 PT 0회로 -->
 	<update id="resetCnt">
 		update members
 		set pt_cnt=0
 		where mem_id=(
 			select mem_id
 			from Calender
-			where cal_seq=#{num}
-			
+			where cal_seq=#{num}			
 		)
 	</update>
 	

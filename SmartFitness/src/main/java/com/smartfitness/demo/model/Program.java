@@ -7,7 +7,7 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 //운동 프로그램 정보 
-public class Programs {
+public class Program {
 	
 	
 	
@@ -31,9 +31,6 @@ public class Programs {
  
  private String pg_name;
 
- // 운동 프로그램 정원 
- private Integer pg_max;
-
  // 운동 프로그램 설명 
  private String pg_info;
 
@@ -43,6 +40,5 @@ public class Programs {
  // 운동 프로그램 사진2 
  private String pg_img2;
  
- // 현재 정원
- private Integer pg_cur_cnt;
+
 }
