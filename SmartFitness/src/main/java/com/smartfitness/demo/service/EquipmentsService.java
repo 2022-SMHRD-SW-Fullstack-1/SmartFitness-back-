@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.smartfitness.demo.mapper.EquipmentsMapper;
 import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
-import com.smartfitness.demo.model.MembersDetail;
 
 @Service
 public class EquipmentsService {
@@ -16,20 +15,20 @@ public class EquipmentsService {
 	@Autowired
 	EquipmentsMapper equipmentsMapper;
 	
-	public int AddEm(Equipments equipments) {
-		return equipmentsMapper.AddEm(equipments);
-	}
-
-	public int reservMembers(HashMap<String, Object> rsvM) {
-		return equipmentsMapper.reservEq(rsvM);
+	public int addEm(Equipments equipments) {
+		return equipmentsMapper.addEm(equipments);
 	}
 
 	public CurrentEquipments selectCurrEm(int em_seq) {
 		return equipmentsMapper.selectCurrEm(em_seq);
 	}
 
-	public int rsvEm(int em_seq, int time) {
-		return equipmentsMapper.rsvEm(em_seq,time);
+	public int updateEm(int em_seq, int time) {
+		return equipmentsMapper.updateEm(em_seq,time);
+	}
+
+	public int reservEm(HashMap<String, Object> rsvM) {
+		return equipmentsMapper.reservEm(rsvM);
 	}
 
 }

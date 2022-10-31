@@ -2,11 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smartfitness.demo.mapper.EquipmentsMapper">
 
-	<insert id="equipmentsAdd" parameterType="com.smartfitness.demo.model.Equipments">
-		insert into equipments values(null,#{em_name},#{em_video},#{em_part})
+	<select id="selectCurrEm" parameterType="int" resultType="com.smartfitness.demo.model.CurrentEquipments">
+		select * from current_equipments where em_seq=#{em_seq} and ce_switch="O";
+	</select>
+
+	<insert id="addEm" parameterType="com.smartfitness.demo.model.Equipments">
+		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part})
 	</insert>
 	
-	<insert id="reservEq" parameterType="java.util.HashMap">
+	<insert id="updateEm" parameterType="com.smartfitness.demo.model.ReservEquipments">
+		update current_equipments
+		set ce_#{time} = "N"
+		where ce_#{time} = "Y"
+		and em_seq=#{em_seq}
+	</insert>
+	<insert id="reservEm" parameterType="java.util.HashMap">
 		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
 	</insert>
+	
 </mapper>

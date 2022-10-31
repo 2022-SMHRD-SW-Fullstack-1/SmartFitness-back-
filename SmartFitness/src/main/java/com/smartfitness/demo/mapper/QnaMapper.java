@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.smartfitness.demo.model.Answer;
-import com.smartfitness.demo.model.Qna;
 import com.smartfitness.demo.model.QnaAnswer;
 import com.smartfitness.demo.model.QnaQuestion;
 

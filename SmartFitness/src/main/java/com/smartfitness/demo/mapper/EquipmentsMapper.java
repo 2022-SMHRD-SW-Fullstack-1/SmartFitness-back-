@@ -7,17 +7,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
-import com.smartfitness.demo.model.MembersDetail;
 
 @Mapper
 public interface EquipmentsMapper {
 
 	CurrentEquipments selectCurrEm(int em_seq);
 
-	int reservEq(HashMap<String, Object> rsvM);
+	int reservEm(HashMap<String, Object> reservEm);
 
-	int AddEm(Equipments equipments);
+	int addEm(Equipments equipments);
 
-	int rsvEm(int em_seq, int time);
+	int updateEm(int em_seq, int time);
 
 }
