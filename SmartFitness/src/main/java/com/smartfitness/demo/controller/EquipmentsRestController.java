@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -18,7 +17,6 @@ import com.smartfitness.demo.mapper.MembersMapper;
 import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
 import com.smartfitness.demo.model.Members;
-import com.smartfitness.demo.model.MembersDetail;
 import com.smartfitness.demo.service.EquipmentsService;
 
 @RequestMapping("/equipments")
@@ -40,7 +38,7 @@ public class EquipmentsRestController {
 	@PostMapping("/add")
 	public String addEm(@RequestBody Equipments equipments) {
 		System.out.println(equipments.toString());
-		int cnt = equipmentsService.AddEm(equipments);
+		int cnt = equipmentsService.addEm(equipments);
 		if (cnt > 0) {
 			return "success";
 		}
@@ -50,7 +48,7 @@ public class EquipmentsRestController {
 	}
 
 	// 운동 기구 예약 가능 시간 확인
-	@GetMapping("/timetable/{emSeq}")
+	@GetMapping("/timetable/{em_seq}")	
 	public String selectCurrEm( @PathVariable("em_seq") int em_seq) {
 		System.out.println(em_seq);
 		CurrentEquipments curr_em = equipmentsService.selectCurrEm(em_seq);
