@@ -8,7 +8,7 @@ import com.smartfitness.demo.model.MembersDetail;
 @Mapper
 public interface MembersMapper {
 
-	MembersDetail findByUserId(String userId);
+	MembersDetail findByUserId(String mem_id);
 
 	int join(Members members);
 	

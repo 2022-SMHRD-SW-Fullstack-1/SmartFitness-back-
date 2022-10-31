@@ -1,78 +1,76 @@
 package com.smartfitness.demo.model;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TimetableAvailable {
+public class CurrentEquipments {
 	// 예약 가능 순번 
-    private Integer ra_seq;
+    private Integer ce_seq;
 
     // 예약시간(09:00-09:30) 
-    private String ra09000930;
+    private String ce09000930;
 
     // 예약시간(09:30-10:00) 
-    private String ra09301000;
+    private String ce09301000;
 
     // 예약시간(10:00-10:30) 
-    private String ra10001030;
+    private String ce10001030;
 
     // 예약시간(10:30-11:00) 
-    private String ra10301100;
+    private String ce10301100;
 
     // 예약시간(11:00-11:30) 
-    private String ra11001130;
+    private String ce11001130;
 
     // 예약시간(11:30-12:00) 
-    private String ra11301200;
+    private String ce11301200;
     
     // 예약시간(14:00-14:30) 
-    private String ra14001430;
+    private String ce14001430;
     
     // 예약시간(14:30-15:00) 
-    private String ra14301500;
+    private String ce14301500;
     
     // 예약시간(15:00-15:30) 
-    private String ra15001530;
+    private String ce15001530;
     
     // 예약시간(15:30-16:00) 
-    private String ra15301600;
+    private String ce15301600;
 
     // 예약시간(16:00-16:30) 
-    private String ra16001630;
+    private String ce16001630;
     
     // 예약시간(16:30-17:00) 
-    private String ra16301700;
+    private String ce16301700;
     
     // 예약시간(17:00-17:30) 
-    private String ra17001730;
+    private String ce17001730;
 
     // 예약시간(17:30-18:00) 
-    private String ra17301800;
+    private String ce17301800;
 
     // 예약시간(18:00-18:30) 
-    private String ra18001830;
+    private String ce18001830;
 
     // 예약시간(18:30-19:00) 
-    private String ra18301900;
+    private String ce18301900;
 
     // 예약시간(19:00-19:30) 
-    private String ra19001930;
+    private String ce19001930;
 
     // 예약시간(19:30-20:00) 
-    private String ra19302000;
+    private String ce19302000;
 
     // 예약시간(20:00-20:30) 
-    private String ra20002030;
+    private String ce20002030;
 
     // 예약시간(20:30-21:00) 
-    private String ra20302100;
+    private String ce20302100;
 
     // 예약 가능 
-    private String ra_switch;
+    private String ce_switch;
 
     // 운동 기구 순번 
     private Integer em_seq;

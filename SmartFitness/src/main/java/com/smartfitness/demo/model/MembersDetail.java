@@ -16,22 +16,22 @@ public class MembersDetail implements UserDetails{
     private String mem_id;
 	@NonNull
     private String mem_pw;
-	@NonNull
+
     private String mem_grade;
-	@NonNull
+
     private Date mem_joindate;
-	@NonNull
+
     private String mem_name;
-	@NonNull
+
     private String mem_addr;
-	@NonNull
+
     private String mem_birthdate;
-	@NonNull
+
     private String mem_phone;
-	@NonNull
+
 	private String mem_type;
-	@NonNull
-	private Integer ctr_id;
+
+	private Integer ctr_seq;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		return null;
