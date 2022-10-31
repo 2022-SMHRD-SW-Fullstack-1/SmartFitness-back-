@@ -5,10 +5,28 @@
 		insert into sf_programs values(null,#{pg_name},#{pg_info},#{pg_img1},#{pg_img2})
 	</insert>
 	
-	<select id="selectCurrPg"  resultType="java.util.HashMap">
+	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
 		select * from current_programs
-		where curr_pg_s_dt like "2022-#{month}%"
+		where month(curr_pg_s_dt)=#{month}		
 	</select>
+	
+	<!-- 예약 내역에 기록 -->
+	<insert id="reservPg">
+		insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq},#{reserv_pg_dt})
+	</insert>
+	
+	<!-- 예약을 했으니 현재 프로그램 테이블에 인원 + -->
+	<update id="reservPg2">
+		update current_programs
+		set curr_num_peo = curr_num_peo +1
+		where curr_pg_seq=#{curr_pg_seq}
+	</update>
+	
+	<delete id="cancelPg">
+		delete
+		from reserv_programs
+		where reserv_pg_seq = #{num}
+	</delete>
 	
 	
 </mapper>

@@ -1,5 +1,6 @@
 package com.smartfitness.demo.controller;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,14 +34,67 @@ public class ProgramsRestController {
 	
 	//프로그램 예약 가능 시간 확인
 	@GetMapping("/timetable/{month}")
-	public HashMap<String,Object> selectCurrPg(@PathVariable("month") int month ) {
+	public List<HashMap> selectCurrPg(@PathVariable("month") int month ) {
 		System.out.println(month);
 		
 		String result = gson.toJson(programsService.selectCurrPg(month));
 		System.out.println(result);
 		return programsService.selectCurrPg(month);
 	}
+	
+	//프로그램 예약하기
+	@PostMapping("/reserv")
+	public String reservPg(@RequestBody HashMap<String,Object> map){
+		System.out.println(map.toString());
+		int cnt = programsService.reservPg(map);
+		if(cnt > 0 ) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
+	}
+	
+	//예약 취소하기
+	@GetMapping("/cancel/{num}")
+	public String cancelPg(@PathVariable("num") int num) {
+		
+		int cnt = programsService.cancelPg(num);
+		if(cnt > 0 ) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
