@@ -36,9 +36,9 @@ public class JwtTokenProvider {
 	}
 	
 	//JWT토큰 생성
-	public String createToken(String mem_id, String userNm) {
+	public String createToken(String mem_id) {
 		Claims claims = Jwts.claims().setSubject(mem_id); // JWT payload에 저장되는 정보단위
-		claims.put("USER_NAME", userNm); // 정보는 key, value쌍으로 저장된다.
+		claims.put("USER_NAME", null); // 정보는 key, value쌍으로 저장된다.
 		Date now = new Date();
 		return Jwts.builder()
 				.setClaims(claims) //정보 저장
@@ -47,6 +47,25 @@ public class JwtTokenProvider {
 				.signWith(SignatureAlgorithm.HS256, secretKey) // 사용할 암호화 알고리즘과
 															   // signature에 들어갈 secret 값 세팅
 				.compact(); // 명령문을 닫아주는 명령어
+	}
+	
+	/**1.
+	 * refresh토큰 생성, 유효기간 더 길게
+	 * **/
+	public String createRefreshToken() {
+		Claims claims = Jwts.claims().setSubject("refreshToken"); // JWT payload에 저장되는 정보단위
+		claims.put("USER_NAME", null); // 정보는 key, value쌍으로 저장된다.
+		Date now = new Date();
+		return Jwts.builder()
+				.setClaims(claims) //정보 저장
+				.setIssuedAt(now) // 토큰 발행 시간 정보
+				.setExpiration(new Date(now.getTime()+tokenValidTime*5)) // set Expire Time
+				.signWith(SignatureAlgorithm.HS256, secretKey) // 사용할 암호화 알고리즘과
+															   // signature에 들어갈 secret 값 세팅
+				.compact(); // 명령문을 닫아주는 명령어
+
+		
+		
 	}
 	
 	// JWT 토큰에서 인증 정보 조회

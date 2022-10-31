@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.smartfitness.demo.model.Members;
 import com.smartfitness.demo.model.MembersDetail;
 
+import lombok.NonNull;
+
 @Mapper
 public interface MembersMapper {
 
@@ -13,5 +15,6 @@ public interface MembersMapper {
 	int join(Members members);
 	
 	public Members login(Members members);
+
 
 }

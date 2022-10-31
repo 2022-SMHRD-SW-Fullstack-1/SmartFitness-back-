@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.smartfitness.demo.mapper.MembersMapper;
 import com.smartfitness.demo.model.Members;
 
+import lombok.NonNull;
+
 @Service
 public class MembersService {
 	
@@ -19,4 +21,5 @@ public class MembersService {
 	public Members login(Members members) {
 		return membersMapper.login(members);
 	}
+
 }

@@ -14,7 +14,7 @@ public class MembersDetail implements UserDetails{
 	
 	@NonNull
     private String mem_id;
-	@NonNull
+
     private String mem_pw;
 
     private String mem_grade;
@@ -32,6 +32,9 @@ public class MembersDetail implements UserDetails{
 	private String mem_type;
 
 	private Integer ctr_seq;
+	
+	private String authToken;
+	private String refreshToken;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		return null;
@@ -45,6 +48,7 @@ public class MembersDetail implements UserDetails{
 	public String getPassword() {
 		return mem_pw;
 	}
+	
 	@Override
 	public boolean isAccountNonExpired() {
 		return false;

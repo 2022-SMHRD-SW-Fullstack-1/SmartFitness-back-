@@ -2,14 +2,18 @@ package com.smartfitness.demo.model;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
+@Builder
 public class Members {
 
 	// 회원 아이디
@@ -17,7 +21,7 @@ public class Members {
     private String mem_id;
 
     // 회원 비밀번호
-	@NonNull
+
     private String mem_pw;
 
     // 회원 등급
@@ -44,5 +48,7 @@ public class Members {
     // 소속 센터 순번 
 	private Integer ctr_seq;
 	
+	private String authToken;
+	private String refreshToken;
 
 }
