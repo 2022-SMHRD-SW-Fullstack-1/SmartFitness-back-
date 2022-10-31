@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Auth {
 	private String token;
-	private String user_id;
-	private String user_name;
+	private String mem_id;
+	private String mem_name;
 }

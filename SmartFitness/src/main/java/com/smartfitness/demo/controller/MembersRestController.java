@@ -58,7 +58,7 @@ public class MembersRestController {
 	@PostMapping("/login")
 	public String login(@RequestBody Map<String, String> param) throws Exception{
 		String jsonStr=gson.toJson(param);
-		
+		System.out.println(jsonStr);
 		Members user=gson.fromJson(jsonStr, Members.class);
 		System.out.println(user.toString());
 		System.out.println(user.getMem_id());
@@ -75,10 +75,10 @@ public class MembersRestController {
 		}
 		
 		String token= jwtTokenProvider.createToken(members.getMem_id(), members.getMem_name());
-		String user_id=members.getMem_id();
+		String mem_id=members.getMem_id();
 		String user_name=members.getMem_name();
 		System.out.println(user_name);
-		Auth auth=new Auth(token, user_id, user_name);
+		Auth auth=new Auth(token, mem_id, user_name);
 		String result = gson.toJson(auth);
 		System.out.println(result);
 		return result;

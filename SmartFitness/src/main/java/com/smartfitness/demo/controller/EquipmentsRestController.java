@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +38,7 @@ public class EquipmentsRestController {
 	
 	// 운동 기구 정보 추가
 	@PostMapping("/add")
-	public String addEm(@RequestBody Equipments equipments) {
+	public String addEm(@RequestBody Equipments equipments, @RequestHeader Map<String,String> token) {
 		System.out.println(equipments.toString());
 		int cnt = equipmentsService.addEm(equipments);
 		if (cnt > 0) {
@@ -55,6 +57,7 @@ public class EquipmentsRestController {
 		String result = gson.toJson(curr_em);
 		return result;
 	}
+	
 
 	// 운동 기구 예약
 	@PostMapping("/reserv/{em_seq}/{time}")
