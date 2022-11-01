@@ -14,20 +14,31 @@ import com.smartfitness.demo.model.Trainer;
 public class ProgramsService {
 	@Autowired
 	ProgramsMapper programsMapper;
-	
-	public int addPg(Programs programs) {
-		return programsMapper.addPg(programs);
+	//프로그램 추가
+	public void addPg(Programs programs) {
+		programsMapper.addPg(programs);
 	}
+	//프로그램 개강
+	public void openPg(CurrentPrograms curr) {
+		programsMapper.openPg(curr);
+	}
+	//프로그램 시간표 확인
 	public List<HashMap> selectCurrPg(int month) {
 		return programsMapper.selectCurrPg(month);
 	}
-	public int reservPg(HashMap<String, Object> map) {
-		//current_programs에 인원 +
+	
+	//프로그램 예약하기
+	public void reservPg(HashMap<String, Object> map) {
+		//current_programs에 인원 +	
 		programsMapper.reservPg2(map);
-		return programsMapper.reservPg(map);
+		//예약 내역 삽입
+		programsMapper.reservPg(map);
+		//current_programs에 상태 변화
+		programsMapper.reservPg3(map);
 	}
-	public int cancelPg(int num) {
-		return programsMapper.cancelPg(num);
+	public void cancelPg(int num) {
+		programsMapper.cancelPg2(num);
+		programsMapper.cancelPg(num);
 	}
 	
 	//트레이너 정보 확인
@@ -37,16 +48,12 @@ public class ProgramsService {
 	public List<HashMap> confirmAllT(int ex) {
 		return programsMapper.confirmAllT(ex);
 	}
+	//트레이너 추가
 	public int addTrainer(Trainer trainer) {
 		return programsMapper.addTrainer(trainer);
 	}
-	public int openPg(CurrentPrograms curr) {
-		return programsMapper.openPg(curr);
-	}
+	
 	public int rate(HashMap<String, Object> map) {
 		return programsMapper.rate(map);
 	}
-	
-	
-	
 }

@@ -23,25 +23,24 @@ public class ProgramsRestController {
 	
 	// 프로그램 추가
 	@PostMapping("/add")
-	public String addPg(@RequestBody Programs programs) {
-		System.out.println(programs.toString());
-		int cnt = programsService.addPg(programs);
-		if(cnt > 0 ) {
+	public String addPg(@RequestBody Programs programs)throws Exception {
+		try{
+			programsService.addPg(programs);
 			return "success";
-		}
-		else {
+		}catch(Exception e) {
+			e.printStackTrace();
 			return "fail";
 		}
 	}
 	
 	//프로그램 개강
 	@PostMapping("/open")
-	public String openPg(@RequestBody CurrentPrograms curr) {
-		int cnt = programsService.openPg(curr);
-		if(cnt > 0 ) {
+	public String openPg(@RequestBody CurrentPrograms curr)throws Exception {
+		try{
+			programsService.openPg(curr);
 			return "success";
-		}
-		else {
+		}catch(Exception e) {
+			e.printStackTrace();
 			return "fail";
 		}
 	}
@@ -49,49 +48,62 @@ public class ProgramsRestController {
 	//프로그램 예약 가능 시간 확인
 	@GetMapping("/timetable/{month}")
 	public String selectCurrPg(@PathVariable("month") int month ) {
-		System.out.println(month);
 		
 		String result = gson.toJson(programsService.selectCurrPg(month));
 		return result;
 	}
 	
 	//프로그램 예약하기
-	@PostMapping("/reserv")
-	public String reservPg(@RequestBody HashMap<String,Object> map){
-		System.out.println(map.toString());
-		int cnt = programsService.reservPg(map);
-		if(cnt > 0 ) {
+	@PostMapping("timetable/{month}/reserv")
+	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
+		try {
+			programsService.reservPg(map);
 			return "success";
-		}
-		else {
+		}catch(Exception e) {
+			e.printStackTrace();
 			return "fail";
 		}
 	}
 	
 	//예약 취소하기
 	@GetMapping("/cancel/{num}")
-	public String cancelPg(@PathVariable("num") int num) {
-		
-		int cnt = programsService.cancelPg(num);
-		if(cnt > 0 ) {
+	public String cancelPg(@PathVariable("num") int num)throws Exception {
+		try {
+			programsService.cancelPg(num);
 			return "success";
-		}
-		else {
+		}catch(Exception e) {
+			e.printStackTrace();
 			return "fail";
 		}
 	}
 	
+	//여기부터는 PT =================================================
 	
-	//여기부터는 트레이너 
+	//PT 타임테이블 보내주기
+	
+	//PT 예약
+	@PostMapping("/PT/reserv/{num}")
+	public String reservPg(@PathVariable("num") int num, @RequestBody HashMap<String,Object> map)throws Exception {
+		try {
+			
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
+	
+	//여기부터는 트레이너 ==============================================
 	
 	//트레이너 추가
 	@PostMapping("/trainer/add")
-	public String addTrainer(@RequestBody Trainer trainer) {
-		int cnt = programsService.addTrainer(trainer);
-		if(cnt > 0 ) {
+	public String addTrainer(@RequestBody Trainer trainer)throws Exception {
+		
+		try {
+			programsService.addTrainer(trainer);
 			return "success";
-		}
-		else {
+		}catch(Exception e) {
+			e.printStackTrace();
 			return "fail";
 		}
 	}
@@ -112,7 +124,7 @@ public class ProgramsRestController {
 		
 	//트레이너 평점 주기
 		@PostMapping("/trainer/rate")
-		public String rate(@RequestBody HashMap<String,Object> map){
+		public String rate(@RequestBody HashMap<String,Object> map)throws Exception{
 			int cnt = programsService.rate(map);
 			if(cnt > 0 ) {
 				return "success";
