@@ -56,4 +56,31 @@ public class ProgramsService {
 	public int rate(HashMap<String, Object> map) {
 		return programsMapper.rate(map);
 	}
+	public void reservPt(HashMap<String, Object> map) {
+		programsMapper.reservPt(map);
+		
+	}
+	//PT 시간표 확인
+	public List<HashMap> selectCurrPt(int num,int month) {
+		return programsMapper.selectCurrPt(num,month);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

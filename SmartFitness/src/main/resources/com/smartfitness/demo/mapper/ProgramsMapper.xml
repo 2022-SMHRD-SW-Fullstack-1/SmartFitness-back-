@@ -74,4 +74,16 @@
 		insert into rating_trainer values(null,#{trainer_seq},#{rating},now(),#{mem_id})
 	</insert>
 	
+	<!-- PT 예약 -->
+	<insert id="reservPt">
+		insert into reserv_pt values(null,#{trainer_seq},#{mem_id},now(),now())
+	</insert>
+	
+	
+	<!-- PT 시간표(예약되어있는 내역들 확인 -->
+	<select id="selectCurrPt"  resultType="java.util.HashMap">
+		select * from reserv_pt
+		where month(curr_pt_s_dt)=#{month}
+		and trainer_seq=#{num}
+	</select>
 </mapper>
