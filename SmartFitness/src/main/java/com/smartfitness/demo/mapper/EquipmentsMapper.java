@@ -19,4 +19,6 @@ public interface EquipmentsMapper {
 
 	int updateEm(int em_seq, int time);
 
+	int cancelEm(Integer reserv_em_seq);
+
 }

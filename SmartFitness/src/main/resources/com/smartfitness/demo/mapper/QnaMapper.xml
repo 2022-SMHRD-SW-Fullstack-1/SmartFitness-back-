@@ -5,21 +5,35 @@
 	<select id="selcetQnaPaging" resultType="com.smartfitness.demo.model.QnaQuestion">
 		select * from (
 		select @rownum := @rownum+1 as rownum, q.*
-			from (select @rownum := 0) R, qna q
+			from (select @rownum := 0) R, qna_question q
 			where @rownum &lt; #{cri.pageNum}*#{cri.amount}
+			and mem_id=#{mem_id}
 		) a
 		where rownum > (#{cri.pageNum}-1) * #{cri.amount};
 	</select>
 
 	<select id="countQna" resultType="int">
-		select count(*) from qna;
+		select count(*) from qna_question where mem_id=#{mem_id};
+	</select>
+	
+	<select id="selectQ" resultType="com.smartfitness.demo.model.QnaQuestion">
+		select * from qna_question where qna_seq=#{qna_seq}
+	</select>
+	<select id="selectA" resultType="com.smartfitness.demo.model.QnaAnswer">
+		select * from qna_answer where qna_seq=#{qna_seq}
 	</select>
 	
 	<insert id="qnaWrite" parameterType="com.smartfitness.demo.model.QnaQuestion">
-		insert into qna values(null, qna_title=#{qna_title},qna_contents=#{qna_contents},qna_date=#{qna_date},qna_file=#{qna_file},mem_id=#{mem_id})
+		insert into qna_question values(null, #{qna_title},#{qna_contents},now(),#{qna_file},#{mem_id})
 	</insert>
 	
+	<update id="qnaQueUpdate" parameterType="com.smartfitness.demo.model.QnaQuestion">
+		update qna_question 
+		set qna_title=#{qna_title},qna_contents=#{qna_contents},qna_date=now(),qna_file=#{qna_file}
+		where qna_seq=#{qna_seq}
+	</update>
+	
 	<insert id="qnaAnswer" parameterType="com.smartfitness.demo.model.QnaAnswer">
-		insert into answer values(null, qna_seq=#{qna_seq},ans_contents=#{ans_contents},ans_file=#{ans_file},ans_date=now(),admin_id=#{admin_id})
+		insert into qna_answer values(null, #{qna_seq}, #{ans_contents},#{ans_file}, now(),#{admin_id})
 	</insert>
 </mapper>

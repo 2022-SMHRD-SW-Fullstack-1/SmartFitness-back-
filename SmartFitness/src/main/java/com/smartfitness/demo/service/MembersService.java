@@ -12,11 +12,15 @@ public class MembersService {
 	@Autowired
 	MembersMapper membersMapper;
 	
-	public int join(Members members) {
-		return membersMapper.join(members);
+	public void join(Members members) {
+		membersMapper.join(members);
 	}
 	
 	public Members login(Members members) {
 		return membersMapper.login(members);
+	}
+
+	public void update(Members members) {
+		membersMapper.update(members);
 	}
 }

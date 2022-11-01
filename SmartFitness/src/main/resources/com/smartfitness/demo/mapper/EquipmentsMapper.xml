@@ -19,5 +19,8 @@
 	<insert id="reservEm" parameterType="java.util.HashMap">
 		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
 	</insert>
+	<delete id="cancelEm" parameterType="com.smartfitness.demo.model.ReservEquipments">
+		delete from reserv_equipments where reserv_seq=#{reserv_seq}
+	</delete>
 	
 </mapper>

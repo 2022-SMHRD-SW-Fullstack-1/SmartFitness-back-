@@ -32,6 +32,7 @@ public class MembersDetail implements UserDetails{
 	private String mem_type;
 
 	private Integer ctr_seq;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		return null;
