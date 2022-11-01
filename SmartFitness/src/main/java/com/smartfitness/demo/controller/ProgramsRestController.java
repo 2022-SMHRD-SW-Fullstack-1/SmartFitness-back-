@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
+import com.smartfitness.demo.model.CurrentPrograms;
 import com.smartfitness.demo.model.Programs;
+import com.smartfitness.demo.model.Trainer;
 import com.smartfitness.demo.service.ProgramsService;
 @RestController
 @RequestMapping("/programs")
@@ -32,14 +34,25 @@ public class ProgramsRestController {
 		}
 	}
 	
+	//프로그램 개강
+	@PostMapping("/open")
+	public String openPg(@RequestBody CurrentPrograms curr) {
+		int cnt = programsService.openPg(curr);
+		if(cnt > 0 ) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
+	}
+	
 	//프로그램 예약 가능 시간 확인
 	@GetMapping("/timetable/{month}")
-	public List<HashMap> selectCurrPg(@PathVariable("month") int month ) {
+	public String selectCurrPg(@PathVariable("month") int month ) {
 		System.out.println(month);
 		
 		String result = gson.toJson(programsService.selectCurrPg(month));
-		System.out.println(result);
-		return programsService.selectCurrPg(month);
+		return result;
 	}
 	
 	//프로그램 예약하기
@@ -67,34 +80,45 @@ public class ProgramsRestController {
 			return "fail";
 		}
 	}
+	
+	
+	//여기부터는 트레이너 
+	
+	//트레이너 추가
+	@PostMapping("/trainer/add")
+	public String addTrainer(@RequestBody Trainer trainer) {
+		int cnt = programsService.addTrainer(trainer);
+		if(cnt > 0 ) {
+			return "success";
+		}
+		else {
+			return "fail";
+		}
+	}
+	
+	//트레이너 정보 확인(1명)
+	@GetMapping("/trainer/{num}")
+	public String confirmT(@PathVariable("num")int num) {
+		String result = gson.toJson(programsService.confirmT(num));
+		return result;	
+	}
+	
+	//트레이너 정보 확인(ALL) 운동별로(PT,GX, 필라테스)
+		@GetMapping("/trainer/rank/{ex}")
+		public String confirmAllT(@PathVariable("ex")int ex) {
+			String result = gson.toJson(programsService.confirmAllT(ex));
+			return result;	
+		}
+		
+	//트레이너 평점 주기
+		@PostMapping("/trainer/rate")
+		public String rate(@RequestBody HashMap<String,Object> map){
+			int cnt = programsService.rate(map);
+			if(cnt > 0 ) {
+				return "success";
+			}
+			else {
+				return "fail";
+		}	
+	}		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

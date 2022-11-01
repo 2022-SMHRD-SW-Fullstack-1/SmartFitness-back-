@@ -24,6 +24,12 @@ public class Trainer {
 
 	// 강사 멘트
 	private String trainer_ment;
+	
+	// 강의 종목
+	private Integer pg_seq;
+	
+	//소속 체육관
+	private Integer ctr_seq;
 
 	}
 

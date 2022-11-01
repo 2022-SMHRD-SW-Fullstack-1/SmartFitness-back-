@@ -1,6 +1,9 @@
 package com.smartfitness.demo.model;
 
-import java.sql.Date;
+
+
+
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

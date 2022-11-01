@@ -5,10 +5,16 @@
 		insert into sf_programs values(null,#{pg_name},#{pg_info},#{pg_img1},#{pg_img2})
 	</insert>
 	
+	<!-- 수업 시간표 -->
 	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
 		select * from current_programs
 		where month(curr_pg_s_dt)=#{month}		
 	</select>
+	
+	<!-- 수업 오픈하기 -->
+	<insert id="openPg" >
+		insert into current_programs values(null,#{pg_seq},#{trainer_seq},now(),now(),#{pg_max_peo},#{curr_num_peo},#{pg_status})
+	</insert>
 	
 	<!-- 예약 내역에 기록 -->
 	<insert id="reservPg">
@@ -22,11 +28,36 @@
 		where curr_pg_seq=#{curr_pg_seq}
 	</update>
 	
+	<!-- 예약 취소하기 -->
 	<delete id="cancelPg">
 		delete
 		from reserv_programs
 		where reserv_pg_seq = #{num}
 	</delete>
 	
+	<select id="confirmT" resultType="java.util.HashMap">
+		select t.trainer_seq , t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating)
+		from sf_trainer t join rating_trainer r
+		ON t.trainer_seq=r.trainer_seq
+		AND t.trainer_seq=#{num}
+	</select>
+	
+	<select id="confirmAllT" resultType="java.util.HashMap">
+		select t.trainer_seq, t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating) AS rate
+		from sf_trainer t join rating_trainer r
+		ON t.trainer_seq=r.trainer_seq and pg_seq=#{num}
+		GROUP BY t.trainer_seq
+		ORDER BY AVG(r.rating) desc
+	</select>
+	
+	<!-- 트레이너 추가 -->
+	<insert id="addTrainer">
+		insert into sf_trainer values(null,#{trainer_name},#{trainer_price},#{trainer_info},#{trainer_pic},#{trainer_ment},#{pg_seq},#{ctr_seq})
+	</insert>
+	
+	<!-- 트레이너 평점 주기 -->
+	<insert id = "rate">
+		insert into rating_trainer values(null,#{trainer_seq},#{rating},now(),#{mem_id})
+	</insert>
 	
 </mapper>
