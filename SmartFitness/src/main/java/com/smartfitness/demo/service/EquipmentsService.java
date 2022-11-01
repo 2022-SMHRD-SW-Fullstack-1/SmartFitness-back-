@@ -16,24 +16,33 @@ public class EquipmentsService {
 	@Autowired
 	EquipmentsMapper equipmentsMapper;
 	
-	public int addEm(Equipments equipments) {
-		return equipmentsMapper.addEm(equipments);
+	
+	//운동 기구 추가
+	public void addEm(Map<String, Object> newEquipments) {
+		equipmentsMapper.addEm(newEquipments);
 	}
-
+	
+	//운동 기구 수정
+	public void updateEm(Map<String, Object> equipments) {
+		equipmentsMapper.updateEm(equipments);
+	}
+	
+	//운동 기구 예약 가능한지 확인
 	public CurrentEquipments selectCurrEm(int em_seq) {
 		return equipmentsMapper.selectCurrEm(em_seq);
 	}
-
-	public int updateEm(int em_seq, int time) {
-		return equipmentsMapper.updateEm(em_seq,time);
+	
+	//운동 기구 예약
+	public void reservEm(Map<String, Object> reserv) {
+		equipmentsMapper.reservEmStatus(reserv);
+		equipmentsMapper.reservEm(reserv);
 	}
 
-	public int reservEm(HashMap<String, Object> rsvM) {
-		return equipmentsMapper.reservEm(rsvM);
+	//운동 기구 예약 취소
+	public void cancelEm(Map<String, Object> param) {
+		equipmentsMapper.cancelEmStatus(param);
+		equipmentsMapper.cancelEmReserv(param);
 	}
 
-	public int cancelEm(Integer reserv_em_seq) {
-		return equipmentsMapper.cancelEm(reserv_em_seq);
-	}
 
 }

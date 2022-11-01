@@ -2,15 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smartfitness.demo.mapper.EquipmentsMapper">
 
-	<select id="selectCurrEm" parameterType="int" resultType="com.smartfitness.demo.model.CurrentEquipments">
-		select * from current_equipments where em_seq=#{em_seq} and ce_switch="O";
-	</select>
-
+	<!-- 기구 추가 -->
 	<insert id="addEm" parameterType="com.smartfitness.demo.model.Equipments">
 		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part})
 	</insert>
+
+	<!-- 기구 수정 -->
+	<update id="updateEm" parameterType="java.util.HashMap">
+		update sf_equipments
+		set em_name=#{em_name},em_video=#{em_video},em_part=#{em_part}
+		where em_seq=#{em_seq}
+	</update>
+
+	<!-- 선택한 기구의 예약 가능 여부 확인 -->	
+	<select id="selectCurrEm" parameterType="int" resultType="com.smartfitness.demo.model.CurrentEquipments">
+		select * from current_equipments where em_seq=#{em_seq} and ce_switch="O";
+	</select>
 	
-	<insert id="updateEm" parameterType="com.smartfitness.demo.model.ReservEquipments">
+	
+	<!-- 예약 -->
+	<insert id="reservEmStatus" parameterType="java.util.HashMap">
 		update current_equipments
 		set ce_#{time} = "N"
 		where ce_#{time} = "Y"
@@ -19,8 +30,16 @@
 	<insert id="reservEm" parameterType="java.util.HashMap">
 		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
 	</insert>
-	<delete id="cancelEm" parameterType="com.smartfitness.demo.model.ReservEquipments">
-		delete from reserv_equipments where reserv_seq=#{reserv_seq}
+	
+	<!-- 예약 취소 -->
+	<delete id="cancelEmReserv" parameterType="java.util.HashMap">
+		delete from reserv_equipments where reserv_em_time=#{time}
 	</delete>
+	<update id="cancelEmStatus" parameterType="java.util.HashMap">
+		update current_equipments
+		set ce_#{time} = "Y"
+		where ce_#{time} = "N"
+		and em_seq=#{em_seq}
+	</update>
 	
 </mapper>

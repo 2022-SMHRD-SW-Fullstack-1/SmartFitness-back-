@@ -96,5 +96,4 @@ public class QnaRestController {
 		
 		}		
 	}
-	// qna게시판에 내가 쓴 글 확인(로그인 하고 나서 할 예정)
 }
