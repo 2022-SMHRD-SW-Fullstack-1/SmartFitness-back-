@@ -7,12 +7,18 @@
 	</insert>
 	
 	<select id="login" parameterType="com.smartfitness.demo.model.Members" resultType="com.smartfitness.demo.model.Members">
-	select * from sf_members where mem_id=#{mem_id} and mem_pw=#{mem_pw}
+		select * from sf_members where mem_id=#{mem_id} and mem_pw=#{mem_pw}
 	</select>
 	
 	<select id="findByUserId" resultType="com.smartfitness.demo.model.MembersDetail">
 		select mem_id,mem_pw
 		from sf_members
-		where mem_id = #{mem_id} 
+		where mem_id =#{mem_id} 
 	</select>
+	
+	<update id="update" parameterType="com.smartfitness.demo.model.Members">
+		update sf_members
+		set mem_pw=#{mem_pw},mem_name=#{mem_name},mem_addr=#{mem_addr},mem_birthdate=#{mem_birthdate},mem_phone=#{mem_phone}
+		where mem_id=#{mem_id}
+	</update>
 </mapper>

@@ -32,4 +32,8 @@ public class EquipmentsService {
 		return equipmentsMapper.reservEm(rsvM);
 	}
 
+	public int cancelEm(Integer reserv_em_seq) {
+		return equipmentsMapper.cancelEm(reserv_em_seq);
+	}
+
 }

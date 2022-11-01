@@ -84,6 +84,33 @@ public class MembersRestController {
 		return result;
 	}
 	
+	// 회원 정보 수정
+	// pw, name, addrr, birthdate, phone
+	// set mem_pw=#{mem_pw},mem_name=#{mem_name},mem_addr=#{mem_addr},mem_birthdate=#{mem_birthdate},mem_phone=#{mem_phone}
+	@PostMapping("/update")
+	public String update(@RequestBody Map<String,String> param) throws Exception{
+		String jsonStr=gson.toJson(param);
+		System.out.println(jsonStr);
+		try {
+		Members members=gson.fromJson(jsonStr, Members.class);
+		System.out.println(members.toString());
+		System.out.println(members.getMem_id());
+		System.out.println(members.getMem_pw());
+		System.out.println(members);
+		members.setMem_type("M");
+		String rawPassword=members.getMem_pw();
+		String encPassword=passwordEncoder.encode(rawPassword);
+		members.setMem_pw(encPassword);
+		System.out.println(members);
+		
+		membersService.update(members);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
+	
 	//토큰이 가지고 있는 값에 따라 권한 확인할 수 있음
 	@GetMapping("/user/test")
 	public String ResponseTest() {

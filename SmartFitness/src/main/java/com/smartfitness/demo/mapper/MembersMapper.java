@@ -10,8 +10,10 @@ public interface MembersMapper {
 
 	MembersDetail findByUserId(String mem_id);
 
-	int join(Members members);
+	void join(Members members);
 	
 	public Members login(Members members);
+
+	void update(Members members);
 
 }

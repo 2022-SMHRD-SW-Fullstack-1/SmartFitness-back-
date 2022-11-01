@@ -19,6 +19,7 @@ import com.smartfitness.demo.mapper.MembersMapper;
 import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
 import com.smartfitness.demo.model.Members;
+import com.smartfitness.demo.model.ReservEquipments;
 import com.smartfitness.demo.service.EquipmentsService;
 
 @RequestMapping("/equipments")
@@ -93,8 +94,22 @@ public class EquipmentsRestController {
 		return result;
 	}
 	
-	// 운동 기구 예약 취소
-
+	// 운동 기구 예약 취소 => 운동기구 상태, 맴버 예약 둘 다 취소 //보완 필요
+	@PostMapping("/cancel")
+	public Map cancelEm(@RequestBody Map<String,String> param) {
+		String jsonStr = gson.toJson(param);
+		ReservEquipments equipments = gson.fromJson(jsonStr, ReservEquipments.class); 
+		System.out.println(equipments.toString());
+		Integer reserv_em_seq=equipments.getReserv_em_seq();
+		Map<String,String> result = new HashMap<>();
+		int cnt = equipmentsService.cancelEm(reserv_em_seq);
+		if (cnt>0) {
+			result.put("result","O");
+		} else {
+			result.put("result","X");
+		}
+		return result;
+	}
 }
 
 
