@@ -66,11 +66,14 @@ public class MembersRestController {
 		
 		MembersDetail members = membersMapper.findByUserId(user.getMem_id());
 		System.out.println(members);
+		String error = null;
 		if(members ==null) {
+			error="유효하지 않은 로그인 정보입니다.";
 			throw new UsernameNotFoundException("유효하지 않은 로그인 정보입니다.");
 		}
 		
 		if(!passwordEncoder.matches(user.getMem_pw(), members.getMem_pw())) {
+			error="잘못된 비밀번호입니다.";
 			throw new IllegalAccessException("잘못된 비밀번호입니다.");
 		}
 		
@@ -78,7 +81,7 @@ public class MembersRestController {
 		String mem_id=members.getMem_id();
 		String user_name=members.getMem_name();
 		System.out.println(user_name);
-		Auth auth=new Auth(token, mem_id, user_name);
+		Auth auth=new Auth(token, mem_id, user_name, error);
 		String result = gson.toJson(auth);
 		System.out.println(result);
 		return result;

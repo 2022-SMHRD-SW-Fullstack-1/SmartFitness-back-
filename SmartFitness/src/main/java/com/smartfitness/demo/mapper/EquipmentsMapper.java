@@ -11,14 +11,22 @@ import com.smartfitness.demo.model.Equipments;
 @Mapper
 public interface EquipmentsMapper {
 
+
+	//운동 기구 추가
+	void addEm(Map<String, Object> newEquipments);
+	
+	//운동 기구 확인
 	CurrentEquipments selectCurrEm(int em_seq);
+	
+	//운동 기구 예약
+	void reservEmStatus(Map<String, Object> reserv);
+	void reservEm(Map<String, Object> reserv);
 
-	int reservEm(HashMap<String, Object> reservEm);
 
-	int addEm(Equipments equipments);
+	void cancelEmStatus(Map<String, Object> param);
+	void cancelEmReserv(Map<String, Object> param);
 
-	int updateEm(int em_seq, int time);
+	void updateEm(Map<String, Object> equipments);
 
-	int cancelEm(Integer reserv_em_seq);
 
 }
