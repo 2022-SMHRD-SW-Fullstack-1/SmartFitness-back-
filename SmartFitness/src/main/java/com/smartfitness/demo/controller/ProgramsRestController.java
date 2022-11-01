@@ -79,13 +79,19 @@ public class ProgramsRestController {
 	
 	//여기부터는 PT =================================================
 	
-	//PT 타임테이블 보내주기
+	//PT 타임테이블 보내주기(여기서 num은 트레이너 번호)
+	@GetMapping("/PT/timetable/{num}/{month}")
+	public String selectCurrPt(@PathVariable("num")int num ,@PathVariable("month") int month){
+		String result = gson.toJson(programsService.selectCurrPt(num,month));
+		return result;
+	}
+	
 	
 	//PT 예약
-	@PostMapping("/PT/reserv/{num}")
-	public String reservPg(@PathVariable("num") int num, @RequestBody HashMap<String,Object> map)throws Exception {
+	@PostMapping("/PT/reserv")
+	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
 		try {
-			
+			programsService.reservPt(map);
 			return "success";
 		}catch(Exception e) {
 			e.printStackTrace();

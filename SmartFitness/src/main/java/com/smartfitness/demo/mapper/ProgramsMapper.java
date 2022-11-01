@@ -34,5 +34,9 @@ public interface ProgramsMapper {
 
 	public int rate(HashMap<String, Object> map);
 
+	public void reservPt(HashMap<String, Object> map);
+
+	public List<HashMap> selectCurrPt(int num,int month);
+
 
 }
