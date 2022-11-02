@@ -21,6 +21,19 @@ public class ProgramsRestController {
 	@Autowired
 	ProgramsService programsService;
 	
+	
+	// 프로그램 등록하기
+	@PostMapping("/enroll")
+	public String enroll(@RequestBody HashMap<String,Object>map)throws Exception{
+		try {
+			programsService.enroll(map);
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
+	
 	// 프로그램 추가
 	@PostMapping("/add")
 	public String addPg(@RequestBody Programs programs)throws Exception {
@@ -46,10 +59,10 @@ public class ProgramsRestController {
 	}
 	
 	//프로그램 예약 가능 시간 확인
-	@GetMapping("/timetable/{month}")
-	public String selectCurrPg(@PathVariable("month") int month ) {
-		
-		String result = gson.toJson(programsService.selectCurrPg(month));
+	@GetMapping("/timetable/{mem_id}/{month}")
+	public String selectCurrPg(@PathVariable("month") int month, @PathVariable("mem_id")String mem_id) {
+		//타임테이블을 클릭했을 때 회원의 예약 내역 리스트와 체육관의 수업리스트 내역을 같이 보내줘야해
+		String result = gson.toJson(programsService.selectCurrPg(month,mem_id));
 		return result;
 	}
 	

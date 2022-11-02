@@ -5,11 +5,19 @@
 		insert into sf_programs values(null,#{pg_name},#{pg_info},#{pg_img1},#{pg_img2})
 	</insert>
 	
+	<!-- 결제 -->
+	<insert id="enroll">
+		insert into membership_list values(null,#{mem_id},#{pg_seq},#{cnt},now(),#{payment})
+	</insert>
+	
 	<!-- 수업 시간표 -->
 	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
 		select * from current_programs
-		where month(curr_pg_s_dt)=#{month}		
+		where month(curr_pg_s_dt)=#{month}
 	</select>
+	
+	<!-- 회원의 예약내역 가져오기 -->
+	
 	
 	<!-- 수업 오픈하기 -->
 	<insert id="openPg" >
@@ -18,7 +26,7 @@
 	
 	<!-- 예약 내역에 기록 -->
 	<insert id="reservPg">
-		insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq},#{reserv_pg_dt})
+		insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq})
 	</insert>
 	
 	<!-- 예약을 했으니 현재 프로그램 테이블에 인원 + -->
