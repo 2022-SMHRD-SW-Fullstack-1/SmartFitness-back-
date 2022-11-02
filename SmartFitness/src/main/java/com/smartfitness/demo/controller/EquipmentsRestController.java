@@ -66,13 +66,17 @@ public class EquipmentsRestController {
 
 	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/timetable/{em_seq}")	
-	public String selectCurrEm( @PathVariable("em_seq") int em_seq) {
-		
+	public String selectCurrEm( @PathVariable("em_seq") int em_seq) throws Exception{
 		System.out.println(em_seq);
+		try {
 		CurrentEquipments curr_em = equipmentsService.selectCurrEm(em_seq);
 		// {예약시간1:Y,예약시간2:N} 으로 반환
 		String result = gson.toJson(curr_em);
 		return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 	
 
@@ -94,7 +98,7 @@ public class EquipmentsRestController {
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
-			 return "fail";
+			return "fail";
 		}
 	}
 	
@@ -108,7 +112,7 @@ public class EquipmentsRestController {
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
-			 return "fail";
+			return "fail";
 		}
 	}
 }
