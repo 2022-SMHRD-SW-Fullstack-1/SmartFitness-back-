@@ -14,6 +14,12 @@ import com.smartfitness.demo.model.Trainer;
 public class ProgramsService {
 	@Autowired
 	ProgramsMapper programsMapper;
+	
+	// 고객이 프로그램 결제하기
+	public void enroll(HashMap<String, Object> map) {
+		programsMapper.enroll(map);
+	}
+	
 	//프로그램 추가
 	public void addPg(Programs programs) {
 		programsMapper.addPg(programs);
@@ -23,28 +29,35 @@ public class ProgramsService {
 		programsMapper.openPg(curr);
 	}
 	//프로그램 시간표 확인
-	public List<HashMap> selectCurrPg(int month) {
-		return programsMapper.selectCurrPg(month);
+	public List<HashMap> selectCurrPg(int month,String mem_id) {
+		return programsMapper.selectCurrPg(month,mem_id);
 	}
 	
 	//프로그램 예약하기
 	public void reservPg(HashMap<String, Object> map) {
-		//current_programs에 인원 +	
-		programsMapper.reservPg2(map);
 		//예약 내역 삽입
 		programsMapper.reservPg(map);
+		
+		//current_programs에 인원 +
+		programsMapper.reservPg2(map);
+		
 		//current_programs에 상태 변화
 		programsMapper.reservPg3(map);
 	}
 	public void cancelPg(int num) {
-		programsMapper.cancelPg2(num);
+		//예약 내역 취소
 		programsMapper.cancelPg(num);
+		
+		//current_programs에 인원 -
+		programsMapper.cancelPg2(num);
 	}
 	
-	//트레이너 정보 확인
+	//트레이너 정보 확인(1명)
 	public HashMap<String,Object> confirmT(int num) {
 		return programsMapper.confirmT(num);
 	}
+	
+	//트레이너 정보 확인(All)
 	public List<HashMap> confirmAllT(int ex) {
 		return programsMapper.confirmAllT(ex);
 	}
@@ -53,9 +66,12 @@ public class ProgramsService {
 		return programsMapper.addTrainer(trainer);
 	}
 	
+	//트레이너 평점 매기기
 	public int rate(HashMap<String, Object> map) {
 		return programsMapper.rate(map);
 	}
+	
+	// PT 예약하기
 	public void reservPt(HashMap<String, Object> map) {
 		programsMapper.reservPt(map);
 		
@@ -64,6 +80,10 @@ public class ProgramsService {
 	public List<HashMap> selectCurrPt(int num,int month) {
 		return programsMapper.selectCurrPt(num,month);
 	}
+
+	
+	
+	
 }
 
 
