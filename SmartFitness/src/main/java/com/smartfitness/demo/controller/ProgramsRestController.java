@@ -45,10 +45,11 @@ public class ProgramsRestController {
 			return "fail";
 		}
 	}
-	
+
 	//프로그램 개강
 	@PostMapping("/open")
 	public String openPg(@RequestBody CurrentPrograms curr)throws Exception {
+
 		try{
 			programsService.openPg(curr);
 			return "success";
@@ -58,17 +59,20 @@ public class ProgramsRestController {
 		}
 	}
 	
-	//프로그램 예약 가능 시간 확인
-	@GetMapping("/timetable/{mem_id}/{month}")
-	public String selectCurrPg(@PathVariable("month") int month, @PathVariable("mem_id")String mem_id) {
-		//타임테이블을 클릭했을 때 회원의 예약 내역 리스트와 체육관의 수업리스트 내역을 같이 보내줘야해
-		String result = gson.toJson(programsService.selectCurrPg(month,mem_id));
+	//프로그램 타임테이블
+	@GetMapping("/timetable/{month}")
+	public String selectCurrPg(@PathVariable("month") int month) {
+		String result = gson.toJson(programsService.selectCurrPg(month));
 		return result;
 	}
 	
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")
 	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
+		
+//		int pg_seq= curr.getCurr_pg_seq();
+//		programsService.selectPgName(pg_seq);
+		
 		try {
 			programsService.reservPg(map);
 			return "success";
@@ -78,6 +82,13 @@ public class ProgramsRestController {
 		}
 	}
 	
+//	//본인의 예약 현황 확인하기
+//	@GetMapping("/confirmMy/{mem_id}")
+//	public String confirmMy(@PathVariable("mem_id") String mem_id) {
+//		String result = gson.toJson(programsService.confirmMy(mem_id));
+//	}
+//	
+//	
 	//예약 취소하기
 	@GetMapping("/cancel/{num}")
 	public String cancelPg(@PathVariable("num") int num)throws Exception {

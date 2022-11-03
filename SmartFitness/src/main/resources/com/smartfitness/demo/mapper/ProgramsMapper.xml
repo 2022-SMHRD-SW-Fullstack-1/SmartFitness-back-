@@ -12,12 +12,24 @@
 	
 	<!-- 수업 시간표 -->
 	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
-		select * from current_programs
-		where month(curr_pg_s_dt)=#{month}
+		select cp.curr_pg_s_dt, sp.pg_name
+		from current_programs cp join sf_programs sp
+		ON cp.pg_seq = sp.pg_seq
+		AND month(curr_pg_s_dt)=#{month}
 	</select>
 	
-	<!-- 회원의 예약내역 가져오기 -->
 	
+	<!-- 회원의 예약내역 가져오기 들어온 멤버아이디 행의 curr_pg_seq가 참조하는 current_programs
+	내가 트레이너 번호를 넘겨주면 프론트가 그 번호에 맞는 트레이너 이름을 어떻게 아는거지?-->
+	<select id="confirmMy">
+		select pg_seq, trainer_seq, curr_pg_s_dt, curr_pg_d_dt
+		from current_programs 
+		where cp.curr_pg_seq = 
+		(select curr_pg_seq
+		 from sf_members
+		 where mem_id=#{mem_id}
+		)
+	</select>
 	
 	<!-- 수업 오픈하기 -->
 	<insert id="openPg" >
