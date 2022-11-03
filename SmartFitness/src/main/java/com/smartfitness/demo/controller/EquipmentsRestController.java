@@ -22,7 +22,7 @@ import com.smartfitness.demo.model.Members;
 import com.smartfitness.demo.model.ReservEquipments;
 import com.smartfitness.demo.service.EquipmentsService;
 
-@RequestMapping("/equipments")
+@RequestMapping("/equipments/*")
 @RestController
 public class EquipmentsRestController {
 

@@ -21,12 +21,12 @@
 	
 	
 	<!-- 예약 -->
-	<insert id="reservEmStatus" parameterType="java.util.HashMap">
+	<update id="reservEmStatus" parameterType="java.util.HashMap">
 		update current_equipments
 		set ce_#{time} = "N"
 		where ce_#{time} = "Y"
 		and em_seq=#{em_seq}
-	</insert>
+	</update>
 	<insert id="reservEm" parameterType="java.util.HashMap">
 		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
 	</insert>

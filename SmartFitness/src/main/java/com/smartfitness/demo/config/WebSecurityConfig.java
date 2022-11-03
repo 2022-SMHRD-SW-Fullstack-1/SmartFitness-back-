@@ -2,7 +2,9 @@ package com.smartfitness.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,11 +17,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.smartfitness.demo.config.jwt.JwtAuthenticationFilter;
 import com.smartfitness.demo.config.jwt.JwtTokenProvider;
+import com.smartfitness.demo.model.MembersDetail;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private final JwtTokenProvider jwtTokenProvider;
@@ -59,12 +63,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin().disable()
 				.httpBasic().disable()
 				.authorizeHttpRequests() //요청에 대한 사용권한 체크
-				.antMatchers("/admin/**").hasRole("A")
-				.antMatchers("/mypage/**").hasRole("M")
+				.antMatchers("/admin/**").hasRole("ROLE_A") //A만 접근 가능
+				.antMatchers("/mypage/**").hasAnyRole("ROLE_M","ROLE_A") // M, A중 하나만 있으면 접근가능
+//				.antMatchers("/add/**").hasRole("A") or authority
 				.anyRequest().permitAll() //그외 나머지 요청은 누구나 접근 가능
 				.and()
 				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 				// JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다.
+		http
+				.logout()
+				.logoutUrl("/logout")
+				.invalidateHttpSession(true)
+				.deleteCookies("X-Auth-Token","X-Auth-Token");
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+		auth
+			.inMemoryAuthentication()
+			.withUser("ADMIN")
+			.password(passwordEncoder().encode("ADMIN"))
+			.roles("A")
+			.accountExpired(true)
+			.and()
+			.withUser("MEMBER")
+			.password(passwordEncoder().encode("MEMBER"))
+			.roles("M");
 	}
 
 }
