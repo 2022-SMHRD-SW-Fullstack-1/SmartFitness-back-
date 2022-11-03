@@ -15,7 +15,10 @@ public interface ProgramsMapper {
 	
 	public int addPg(Programs programs);
 	
-	public List<HashMap> selectCurrPg(int month,String mem_id);
+	public List<HashMap> selectCurrPg(int month);
+	
+	//나의 예약 내역 확인하기
+	public List<HashMap> confirmMy(String mem_id);
 	
 	public int reservPg(HashMap<String,Object> map);
 	public int reservPg2(HashMap<String,Object> map);
@@ -38,6 +41,8 @@ public interface ProgramsMapper {
 	public void reservPt(HashMap<String, Object> map);
 
 	public List<HashMap> selectCurrPt(int num,int month);
+
+	
 
 	
 

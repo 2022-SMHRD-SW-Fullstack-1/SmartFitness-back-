@@ -1,4 +1,13 @@
 package com.smartfitness.demo.service;
+import java.util.ArrayList;
+import java.util.ArrayList;
+//hashmap를 담기 위해서 선언
+import java.util.HashMap;
+//실질적인 값들을 넣어줄 hashmap
+import java.util.LinkedHashMap;
+//추가적으로 hashmap과 linkedhashmap 비교를 해보겠습니다.
+import java.util.Map.Entry;
+//hashmap의 key 값을 가져와서 출력합니다.
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +38,16 @@ public class ProgramsService {
 		programsMapper.openPg(curr);
 	}
 	//프로그램 시간표 확인
-	public List<HashMap> selectCurrPg(int month,String mem_id) {
-		return programsMapper.selectCurrPg(month,mem_id);
+	public List<HashMap> selectCurrPg(int month) {
+		List<HashMap> map = programsMapper.selectCurrPg(month);
+//		map.put("")
+		
+		return map;
+	}
+	
+	//나의 프로그램 예약 내역 확인
+	public List<HashMap> confirmMy(String mem_id) {
+		return programsMapper.confirmMy(mem_id);
 	}
 	
 	//프로그램 예약하기
@@ -80,6 +97,8 @@ public class ProgramsService {
 	public List<HashMap> selectCurrPt(int num,int month) {
 		return programsMapper.selectCurrPt(num,month);
 	}
+
+
 
 	
 	
