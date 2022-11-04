@@ -29,7 +29,26 @@ public class QnaRestController {
 	@Autowired
 	QnaService qnaService;
 	
-	// qna게시판에 특정 멤버가 쓰인 글, 전체 확인
+	// qna의 질문 모두 확인
+	@GetMapping("/admin")
+	public String qnaAdmin(@RequestBody Map<String, Object> param, Criteria cri) {
+		//관리자 id를 잡아오기
+		String admin_id = (String)param.get("admin_id");
+		System.out.println(admin_id);
+		System.out.println(cri);
+		List<QnaQuestion> qnaList = qnaService.selectQnaPagingA(cri);
+		
+		int total = qnaService.countQnaA();
+		//paging page 개수 -> page
+		Page page =new Page(cri,total);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("qnaList", qnaList);
+		map.put("pagination", page);
+		String result = gson.toJson(map);
+		return result;
+	}
+	
+	// qna에 mem_id가 쓴 글, 전체 확인
 	@GetMapping("/all")
 	public String qnaAll(@RequestBody Map<String, Object> param, Criteria cri) {
 		String mem_id = (String)param.get("mem_id");
@@ -46,7 +65,7 @@ public class QnaRestController {
 		return result;
 	}
 	
-	// qna게시판에 쓴 글, 글의 답변 확인하기
+	// qna에 쓴 글, 글의 답변 확인하기
 	@GetMapping("/{qna_seq}")
 	public String qnaSelect(@PathVariable("qna_seq") int qna_seq) {
 		HashMap<String, Object> qna = new HashMap<String, Object>(); 
@@ -56,7 +75,7 @@ public class QnaRestController {
 		return result;
 	}
 	
-	// qna게시판에 글 쓰기
+	// qna에 글 쓰기
 	@PostMapping("/que")
 	public String qnaWrite(@RequestBody QnaQuestion question) throws Exception{
 		System.out.println(question);

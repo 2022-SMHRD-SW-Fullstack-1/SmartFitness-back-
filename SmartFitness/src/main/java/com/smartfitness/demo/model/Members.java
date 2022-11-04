@@ -1,6 +1,9 @@
 package com.smartfitness.demo.model;
 
 import java.util.Date;
+import java.util.List;
+
+import com.smartfitness.demo.config.auth.Auth;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +15,10 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Members {
 
+	private boolean enabled;
+	private Date updateDate;
+	private List<Auth> authList;
+	
 	// 회원 아이디
 	@NonNull
     private String mem_id;
@@ -19,6 +26,9 @@ public class Members {
     // 회원 비밀번호
 	@NonNull
     private String mem_pw;
+	
+	//회원 이메일
+	private String mem_email;
 
     // 회원 등급
     private String mem_grade;
@@ -39,7 +49,7 @@ public class Members {
     private String mem_phone;
 
     // 회원 유형 일반회원:'M', 관리자:'A'
-	private String mem_type;
+	private String mem_auth;
 
     // 소속 센터 순번 
 	private Integer ctr_seq;

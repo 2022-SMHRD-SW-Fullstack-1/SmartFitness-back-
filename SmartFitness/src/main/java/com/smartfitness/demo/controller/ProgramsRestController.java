@@ -89,6 +89,21 @@ public class ProgramsRestController {
 	public String sendC(@PathVariable("curr_pg_seq") int num) {
 		String result = gson.toJson(programsService.sendC(num));
 		return result;
+
+	//프로그램 예약하기
+	@PostMapping("timetable/{month}/reserv")
+	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
+		System.out.println(map.toString());
+//		int pg_seq= curr.getCurr_pg_seq();
+//		programsService.selectPgName(pg_seq);
+		
+		try {
+			programsService.reservPg(map);
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 	
 //	//프로그램 예약하기

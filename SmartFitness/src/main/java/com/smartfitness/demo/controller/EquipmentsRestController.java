@@ -1,6 +1,7 @@
 package com.smartfitness.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,11 @@ import com.smartfitness.demo.mapper.MembersMapper;
 import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
 import com.smartfitness.demo.model.Members;
+import com.smartfitness.demo.model.QnaQuestion;
 import com.smartfitness.demo.model.ReservEquipments;
 import com.smartfitness.demo.service.EquipmentsService;
 
-@RequestMapping("/equipments")
+@RequestMapping("/equipments/*")
 @RestController
 public class EquipmentsRestController {
 
@@ -49,6 +51,30 @@ public class EquipmentsRestController {
 			 return "fail";
 		}
 	}
+	
+	// 전체 기구 확인
+	@GetMapping("/all")
+	public String selectAll() throws Exception{
+		
+		try {
+			List<Equipments> emList = equipmentsService.selectAll();
+			
+			// 프리웨이트 기구 확인
+			List<Equipments> emFList = equipmentsService.selectF();
+			// 머신 기구 확인
+			List<Equipments> emMList = equipmentsService.selectM();
+			// 카디오 기구 확인
+			List<Equipments> emCList = equipmentsService.selectC();
+			
+			String result = gson.toJson("기구전체"+emList+"프리웨이트전체"+emFList+"머신전체"+emMList+"카디오전체"+emCList);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
+
+	
 	
 	// 운동 기구 정보 수정
 	@PostMapping("/update")

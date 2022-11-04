@@ -4,13 +4,29 @@
 
 	<!-- 기구 추가 -->
 	<insert id="addEm" parameterType="com.smartfitness.demo.model.Equipments">
-		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part})
+		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part},#{em_type})
 	</insert>
+
+	<!-- 기구 전체 확인 -->
+	<select id="selectAll" resultType="com.smartfitness.demo.model.Equipments">
+		select * from sf_equipments
+	</select>
+	
+	<!-- 기구 타입 별 조회 -->
+	<select id="selectF" resultType="com.smartfitness.demo.model.Equipments">
+		select * from sf_equipments where em_type like '%f%'
+	</select>
+	<select id="selectM" resultType="com.smartfitness.demo.model.Equipments">
+		select * from sf_equipments where em_type like '%m%'
+	</select>
+	<select id="selectC" resultType="com.smartfitness.demo.model.Equipments">
+		select * from sf_equipments where em_type like '%c%'
+	</select>
 
 	<!-- 기구 수정 -->
 	<update id="updateEm" parameterType="java.util.HashMap">
 		update sf_equipments
-		set em_name=#{em_name},em_video=#{em_video},em_part=#{em_part}
+		set em_name=#{em_name},em_video=#{em_video},em_part=#{em_part},em_type=#{em_type}
 		where em_seq=#{em_seq}
 	</update>
 
@@ -21,12 +37,12 @@
 	
 	
 	<!-- 예약 -->
-	<insert id="reservEmStatus" parameterType="java.util.HashMap">
+	<update id="reservEmStatus" parameterType="java.util.HashMap">
 		update current_equipments
 		set ce_#{time} = "N"
 		where ce_#{time} = "Y"
 		and em_seq=#{em_seq}
-	</insert>
+	</update>
 	<insert id="reservEm" parameterType="java.util.HashMap">
 		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
 	</insert>

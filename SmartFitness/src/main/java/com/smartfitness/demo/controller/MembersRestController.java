@@ -61,8 +61,8 @@ public class MembersRestController {
 		System.out.println(jsonStr);
 		Members user=gson.fromJson(jsonStr, Members.class);
 		System.out.println(user.toString());
-		System.out.println(user.getMem_id());
-		System.out.println(user.getMem_pw());
+		System.out.println("사용자가 입력한 id : "+user.getMem_id());
+		System.out.println("사용자가 입력한 pw : "+user.getMem_pw());
 		
 		MembersDetail members = membersMapper.findByUserId(user.getMem_id());
 		System.out.println(members);
@@ -70,17 +70,21 @@ public class MembersRestController {
 			throw new UsernameNotFoundException("유효하지 않은 로그인 정보입니다.");
 		}
 		
-		if(!passwordEncoder.matches(user.getMem_pw(), members.getMem_pw())) {
+		if(!passwordEncoder.matches(user.getMem_pw(), members.getPassword())) {
 			throw new IllegalAccessException("잘못된 비밀번호입니다.");
 		}
 		
 		String token= jwtTokenProvider.createToken(members.getMem_id(), members.getMem_name());
 		String mem_id=members.getMem_id();
-		String mem_type=members.getMem_type();
-		System.out.println(mem_type);
-		Auth auth=new Auth(token, mem_id, mem_type);
+
+		String mem_auth=members.getMem_auth();
+		String mem_email=members.getMem_email();
+		System.out.println("사용자 권한 : "+mem_auth);
+		System.out.println("권한 종류 : "+members.getAuthorities());
+		Auth auth=new Auth(token, mem_id, mem_auth, mem_email);
+
 		String result = gson.toJson(auth);
-		System.out.println(result);
+		System.out.println("반환 정보 : "+result);
 		return result;
 	}
 	
