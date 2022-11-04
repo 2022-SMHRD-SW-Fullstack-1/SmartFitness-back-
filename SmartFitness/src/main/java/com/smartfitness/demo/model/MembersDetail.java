@@ -1,16 +1,30 @@
 package com.smartfitness.demo.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Data;
-import lombok.NonNull;
+import com.smartfitness.demo.config.auth.Auth;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class MembersDetail implements UserDetails{
+	
+	private boolean enabled;
+	private Date regDate;
+	private Date updateDate;
+	private List<Auth> authList;
 	
 	@NonNull
     private String mem_id;
@@ -22,6 +36,8 @@ public class MembersDetail implements UserDetails{
     private Date mem_joindate;
 
     private String mem_name;
+    
+    private String mem_email;
 
     private String mem_addr;
 
@@ -33,10 +49,12 @@ public class MembersDetail implements UserDetails{
 
 	private Integer ctr_seq;
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities(){
-		return null;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority(this.mem_auth));
+        return authorities;
+    }
 	
 	@Override
 	public String getUsername() {

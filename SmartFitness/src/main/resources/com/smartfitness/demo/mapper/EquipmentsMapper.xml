@@ -7,6 +7,11 @@
 		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part})
 	</insert>
 
+	<!-- 기구 전체 확인 -->
+	<select id="selectAll" parameterType="com.smartfitness.demo.model.Equipments">
+		select * from sf_equipments
+	</select>
+
 	<!-- 기구 수정 -->
 	<update id="updateEm" parameterType="java.util.HashMap">
 		update sf_equipments
@@ -21,12 +26,12 @@
 	
 	
 	<!-- 예약 -->
-	<insert id="reservEmStatus" parameterType="java.util.HashMap">
+	<update id="reservEmStatus" parameterType="java.util.HashMap">
 		update current_equipments
 		set ce_#{time} = "N"
 		where ce_#{time} = "Y"
 		and em_seq=#{em_seq}
-	</insert>
+	</update>
 	<insert id="reservEm" parameterType="java.util.HashMap">
 		insert into reserv_equipments values(null,#{mem_id},#{em_seq},now(),#{time})
 	</insert>

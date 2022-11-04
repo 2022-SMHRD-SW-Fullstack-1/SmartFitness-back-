@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smartfitness.demo.mapper.QnaMapper">
 
+	<!-- admin이 받을 전체 질문 정보, 페이징 -->
+	<select id="selcetQnaPagingA" parameterType="com.smartfitness.demo.common.Criteria" resultType="com.smartfitness.demo.model.QnaQuestion">
+		select * from (
+		select @rownum := @rownum+1 as rownum, q.*
+			from (select @rownum := 0) R, qna_question q
+			where @rownum &lt; #{pageNum}*#{amount}
+		) a
+		where rownum > (#{pageNum}-1) * #{amount}
+	</select>
+	
+	<!-- admin이 확인할 전체 질문 수 -->
+	<select id="countQnaA" resultType="int">
+		select count(*) from qna_question
+	</select>
+
+	<!-- mem_id의 질문 정보, 페이징 -->
 	<select id="selcetQnaPaging" resultType="com.smartfitness.demo.model.QnaQuestion">
 		select * from (
 		select @rownum := @rownum+1 as rownum, q.*
@@ -9,30 +25,39 @@
 			where @rownum &lt; #{cri.pageNum}*#{cri.amount}
 			and mem_id=#{mem_id}
 		) a
-		where rownum > (#{cri.pageNum}-1) * #{cri.amount};
+		where rownum > (#{cri.pageNum}-1) * #{cri.amount}
 	</select>
 
+	<!-- mem_id의 질문 수 -->
 	<select id="countQna" resultType="int">
-		select count(*) from qna_question where mem_id=#{mem_id};
+		select count(*) from qna_question where mem_id=#{mem_id}
 	</select>
 	
+	<!-- 질문 전체 정보 -->
+	
+	<!-- qna_seq정보를 가진 질문 하나 -->
 	<select id="selectQ" resultType="com.smartfitness.demo.model.QnaQuestion">
 		select * from qna_question where qna_seq=#{qna_seq}
 	</select>
+	
+	<!-- qna_seq정보를 가진 질문의 답변 -->
 	<select id="selectA" resultType="com.smartfitness.demo.model.QnaAnswer">
 		select * from qna_answer where qna_seq=#{qna_seq}
 	</select>
 	
+	<!-- 질문 작성 -->
 	<insert id="qnaWrite" parameterType="com.smartfitness.demo.model.QnaQuestion">
 		insert into qna_question values(null, #{qna_title},#{qna_contents},now(),#{qna_file},#{mem_id})
 	</insert>
 	
+	<!-- 질문 수정 -->
 	<update id="qnaQueUpdate" parameterType="com.smartfitness.demo.model.QnaQuestion">
 		update qna_question 
 		set qna_title=#{qna_title},qna_contents=#{qna_contents},qna_date=now(),qna_file=#{qna_file}
 		where qna_seq=#{qna_seq}
 	</update>
 	
+	<!-- 질문 답변 -->
 	<insert id="qnaAnswer" parameterType="com.smartfitness.demo.model.QnaAnswer">
 		insert into qna_answer values(null, #{qna_seq}, #{ans_contents},#{ans_file}, now(),#{admin_id})
 	</insert>
