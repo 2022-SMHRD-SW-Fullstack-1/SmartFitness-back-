@@ -63,13 +63,33 @@ public class ProgramsRestController {
 	@GetMapping("/timetable/{month}")
 	public String selectCurrPg(@PathVariable("month") int month) {
 		String result = gson.toJson(programsService.selectCurrPg(month));
+		System.out.println(result);
 		return result;
 	}
 	
+	//프로그램 타임테이블 소환 할 때 내가 예약한 클래스 넘버 보내주기
+	@GetMapping("/timetable/my/{mem_id}")
+	public String sendMy(@PathVariable("mem_id") String mem_id) {
+		String result = gson.toJson(programsService.sendMy(mem_id));
+//		System.out.println(result);
+//		Map<String,int[]> map = new HashMap();
+//		map.put("예약한 클래스 목록", result);
+		return result;
+	}
 	
+	//나의 예약 내역 넘겨주기
+	@GetMapping("/timetable/{month}/{mem_id}")
+	public String reservMy(@PathVariable("mem_id") String mem_id) {
+	String result = gson.toJson(programsService.reservMy(mem_id));
+	return result;
+	}
 	
-	
-	
+	//타임테이블에서 클래스 선택했을 떄(클래스 번호 보내줄 때) 상단에 띄어줄 클래스 정보(클래스 정보 보내주기) 1, 마이페이지에서 예약 내역 확인할때 2, 타임테이블에서 클릭해서 프로그램 정보 확인할 때
+	@GetMapping("/timetable/pg/{curr_pg_seq}")
+	public String sendC(@PathVariable("curr_pg_seq") int num) {
+		String result = gson.toJson(programsService.sendC(num));
+		return result;
+
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")
 	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
@@ -86,13 +106,29 @@ public class ProgramsRestController {
 		}
 	}
 	
-//	//본인의 예약 현황 확인하기
-//	@GetMapping("/confirmMy/{mem_id}")
-//	public String confirmMy(@PathVariable("mem_id") String mem_id) {
-//		String result = gson.toJson(programsService.confirmMy(mem_id));
+//	//프로그램 예약하기
+//	@PostMapping("timetable/{month}/reserv")
+//	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
+//		
+//
+//		try {
+//			//1. 정보가져온다
+//			mapDB = programsService.sendMy
+//			//2. 비교한다
+//			if(map!=mapDB) {
+//				map=null;
+//			}		
+//			//3. 예약한다
+//			programsService.reservPg(map);
+//			return "success";
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return "fail";
+//		}
 //	}
 //	
-//	
+
 	//예약 취소하기
 	@GetMapping("/cancel/{num}")
 	public String cancelPg(@PathVariable("num") int num)throws Exception {

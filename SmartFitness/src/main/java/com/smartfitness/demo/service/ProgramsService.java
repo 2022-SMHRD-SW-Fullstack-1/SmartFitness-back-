@@ -24,6 +24,11 @@ public class ProgramsService {
 	@Autowired
 	ProgramsMapper programsMapper;
 	
+	//클래스 정보 보내주기
+	public HashMap sendC(int num){
+		return programsMapper.sendC(num);
+	}
+	
 	// 고객이 프로그램 결제하기
 	public void enroll(HashMap<String, Object> map) {
 		programsMapper.enroll(map);
@@ -46,8 +51,8 @@ public class ProgramsService {
 	}
 	
 	//나의 프로그램 예약 내역 확인
-	public List<HashMap> confirmMy(String mem_id) {
-		return programsMapper.confirmMy(mem_id);
+	public List<HashMap> reservMy(String mem_id) {
+		return programsMapper.reservMy(mem_id);
 	}
 	
 	//프로그램 예약하기
@@ -96,6 +101,10 @@ public class ProgramsService {
 	//PT 시간표 확인
 	public List<HashMap> selectCurrPt(int num,int month) {
 		return programsMapper.selectCurrPt(num,month);
+	}
+
+	public List<HashMap> sendMy(String mem_id) {
+		return programsMapper.sendMy(mem_id);
 	}
 
 
