@@ -33,5 +33,9 @@ public interface EquipmentsMapper {
 	//운동 기구 전체 확인 
 	List<Equipments> selectAll();
 
+	List<Equipments> selectF();
+	List<Equipments> selectM();
+	List<Equipments> selectC();
+
 
 }

@@ -45,8 +45,20 @@ public class EquipmentsService {
 		equipmentsMapper.cancelEmReserv(param);
 	}
 
+	//운동기구 전체 호출
 	public List<Equipments> selectAll() {
 		return equipmentsMapper.selectAll();
+	}
+
+	//운동기구 분류에 따른 호출
+	public List<Equipments> selectF() {
+		return equipmentsMapper.selectF();
+	}
+	public List<Equipments> selectM() {
+		return equipmentsMapper.selectM();
+	}
+	public List<Equipments> selectC() {
+		return equipmentsMapper.selectC();
 	}
 
 
