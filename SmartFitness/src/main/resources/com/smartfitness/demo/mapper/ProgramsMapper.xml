@@ -13,10 +13,11 @@
 	<!-- 수업 시간표 -->
 	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
 		select cp.curr_pg_seq as class_num, sp.pg_name as pg_name,DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d') as start_date
-		,DATE_FORMAT(cp.curr_pg_s_dt,'%H%i%s') as start_time,dayofweek(cp.curr_pg_s_dt) as weekday
+		,DATE_FORMAT(cp.curr_pg_s_dt,'%H%i%s') as start_time,dayofweek(cp.curr_pg_s_dt) as weekday,cp.pg_status
 		from current_programs cp join sf_programs sp
 		ON cp.pg_seq = sp.pg_seq
 		AND month(curr_pg_s_dt)=#{month}
+		order by DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d')
 	</select>
 	
 	

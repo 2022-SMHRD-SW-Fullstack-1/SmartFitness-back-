@@ -29,7 +29,7 @@ public class MembersDetail implements UserDetails{
 
     private String mem_phone;
 
-	private String mem_type;
+	private String mem_auth;
 
 	private Integer ctr_seq;
 	

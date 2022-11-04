@@ -73,7 +73,7 @@ public class ProgramsRestController {
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")
 	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
-		
+		System.out.println(map.toString());
 //		int pg_seq= curr.getCurr_pg_seq();
 //		programsService.selectPgName(pg_seq);
 		

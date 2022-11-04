@@ -39,7 +39,7 @@ public class Members {
     private String mem_phone;
 
     // 회원 유형 일반회원:'M', 관리자:'A'
-	private String mem_type;
+	private String mem_auth;
 
     // 소속 센터 순번 
 	private Integer ctr_seq;
