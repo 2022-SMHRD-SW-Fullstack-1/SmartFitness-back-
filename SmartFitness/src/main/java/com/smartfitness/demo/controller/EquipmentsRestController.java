@@ -53,20 +53,28 @@ public class EquipmentsRestController {
 	}
 	
 	// 전체 기구 확인
-	
 	@GetMapping("/all")
 	public String selectAll() throws Exception{
 		
 		try {
 			List<Equipments> emList = equipmentsService.selectAll();
 			
-			String result = gson.toJson(emList);
+			// 프리웨이트 기구 확인
+			List<Equipments> emFList = equipmentsService.selectF();
+			// 머신 기구 확인
+			List<Equipments> emMList = equipmentsService.selectM();
+			// 카디오 기구 확인
+			List<Equipments> emCList = equipmentsService.selectC();
+			
+			String result = gson.toJson("기구전체"+emList+"프리웨이트전체"+emFList+"머신전체"+emMList+"카디오전체"+emCList);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "fail";
 		}
 	}
+
+	
 	
 	// 운동 기구 정보 수정
 	@PostMapping("/update")
