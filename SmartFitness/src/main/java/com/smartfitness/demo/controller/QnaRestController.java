@@ -112,7 +112,6 @@ public class QnaRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "fail";	
-		
 		}		
 	}
 }

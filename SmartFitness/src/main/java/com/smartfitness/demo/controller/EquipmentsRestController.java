@@ -57,6 +57,7 @@ public class EquipmentsRestController {
 	public String selectAll() throws Exception{
 		
 		try {
+			// 전체 기구 확인
 			List<Equipments> emList = equipmentsService.selectAll();
 			
 			// 프리웨이트 기구 확인
