@@ -7,6 +7,11 @@
 		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part})
 	</insert>
 
+	<!-- 기구 전체 확인 -->
+	<select id="selectAll" parameterType="com.smartfitness.demo.model.Equipments">
+		select * from sf_equipments
+	</select>
+
 	<!-- 기구 수정 -->
 	<update id="updateEm" parameterType="java.util.HashMap">
 		update sf_equipments

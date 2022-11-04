@@ -24,6 +24,7 @@ public class CustomUserDetailService implements UserDetailsService{
 	/**
 	 * 로그인하면 유효한지 확인,
 	 * DB에 저장된 mem_auth에 따라 ROLE부여
+	 * 
 	 * **/
 	@Override
 	public UserDetails loadUserByUsername(String mem_id) throws UsernameNotFoundException{
@@ -37,14 +38,23 @@ public class CustomUserDetailService implements UserDetailsService{
 				return new User(
 					userDetails.getUsername(),
 					userDetails.getPassword(),
+					true, // 가용한 계정인가?
+					true, // 만료된 계정인가?
+					true, // 패스워드가 만료되었나?
+					true, // 잠겨있는 계정인가?
 					authorities
 					);
 			}else {
 				authorities.add(new SimpleGrantedAuthority("ROLE_A"));
 				return new User(
-					userDetails.getUsername(),
-					userDetails.getPassword(),
-					authorities);
+						userDetails.getUsername(),
+						userDetails.getPassword(),
+						true, // 가용한 계정인가?
+						true, // 만료된 계정인가?
+						true, // 패스워드가 만료되었나?
+						true, // 잠겨있는 계정인가?
+						authorities);
+					
 			}
 			
 		}

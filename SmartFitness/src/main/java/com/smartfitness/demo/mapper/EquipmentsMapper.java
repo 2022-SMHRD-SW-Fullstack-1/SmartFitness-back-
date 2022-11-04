@@ -1,6 +1,7 @@
 package com.smartfitness.demo.mapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -28,6 +29,9 @@ public interface EquipmentsMapper {
 	//운동 기구 예약 취소
 	void cancelEmStatus(Map<String, Object> param);
 	void cancelEmReserv(Map<String, Object> param);
+
+	//운동 기구 전체 확인 
+	List<Equipments> selectAll();
 
 
 }
