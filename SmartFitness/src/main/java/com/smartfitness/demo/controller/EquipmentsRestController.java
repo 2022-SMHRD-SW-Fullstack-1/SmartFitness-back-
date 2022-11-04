@@ -57,16 +57,19 @@ public class EquipmentsRestController {
 	public String selectAll() throws Exception{
 		
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
 			List<Equipments> emList = equipmentsService.selectAll();
-			
+			map.put("all", emList);
 			// 프리웨이트 기구 확인
 			List<Equipments> emFList = equipmentsService.selectF();
+			map.put("F", emFList);
 			// 머신 기구 확인
 			List<Equipments> emMList = equipmentsService.selectM();
+			map.put("M", emMList);
 			// 카디오 기구 확인
 			List<Equipments> emCList = equipmentsService.selectC();
-			
-			String result = gson.toJson("기구전체"+emList+"프리웨이트전체"+emFList+"머신전체"+emMList+"카디오전체"+emCList);
+			map.put("C", emCList);
+			String result = gson.toJson(map);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
