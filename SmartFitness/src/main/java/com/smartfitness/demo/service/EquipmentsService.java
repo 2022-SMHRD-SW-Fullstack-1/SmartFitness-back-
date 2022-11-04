@@ -1,6 +1,7 @@
 package com.smartfitness.demo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class EquipmentsService {
 	public void cancelEm(Map<String, Object> param) {
 		equipmentsMapper.cancelEmStatus(param);
 		equipmentsMapper.cancelEmReserv(param);
+	}
+
+	public List<Equipments> selectAll() {
+		return equipmentsMapper.selectAll();
 	}
 
 

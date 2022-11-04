@@ -1,6 +1,7 @@
 package com.smartfitness.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.smartfitness.demo.mapper.MembersMapper;
 import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
 import com.smartfitness.demo.model.Members;
+import com.smartfitness.demo.model.QnaQuestion;
 import com.smartfitness.demo.model.ReservEquipments;
 import com.smartfitness.demo.service.EquipmentsService;
 
@@ -47,6 +49,22 @@ public class EquipmentsRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			 return "fail";
+		}
+	}
+	
+	// 전체 기구 확인
+	
+	@GetMapping("/all")
+	public String selectAll() throws Exception{
+		
+		try {
+			List<Equipments> emList = equipmentsService.selectAll();
+			
+			String result = gson.toJson(emList);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
 		}
 	}
 	
