@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smartfitness.demo.mapper.ProgramsMapper">
+
 	<insert id="addPg" parameterType="com.smartfitness.demo.model.Programs">
 		insert into sf_programs values(null,#{pg_name},#{pg_info},#{pg_img1},#{pg_img2})
 	</insert>
@@ -13,33 +14,63 @@
 	<!-- 수업 시간표 -->
 	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
 		select cp.curr_pg_seq as class_num, sp.pg_name as pg_name,DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d') as start_date
-		,DATE_FORMAT(cp.curr_pg_s_dt,'%H%i%s') as start_time,dayofweek(cp.curr_pg_s_dt) as weekday
+		,DATE_FORMAT(cp.curr_pg_s_dt,'%H%i%s') as start_time,dayofweek(cp.curr_pg_s_dt) as weekday,cp.pg_status
 		from current_programs cp join sf_programs sp
 		ON cp.pg_seq = sp.pg_seq
 		AND month(curr_pg_s_dt)=#{month}
+		order by DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d')
+	</select>
+	
+	<select id="sendMy" resultType="java.util.HashMap">
+		select reserv_pg_seq
+		from reserv_programs
+		where mem_id=#{mem_id}
+	</select>
+	
+	
+	
+	<!-- 프로그램 정보 보내주기(프로그램 번호가 들어왔을 때) current_programs, rating_trainer, sf_trainer -->
+	<select id="sendC" resultType="java.util.HashMap">
+		select st.trainer_name,DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d %H%i%s') as start,DATE_FORMAT(cp.curr_pg_d_dt,'%y%m%d %H%i%s') as end,cp.pg_max_peo as 정원 , cp.pg_status as 현재인원
+		from current_programs cp 
+		join sf_trainer st
+		on cp.trainer_seq=st.trainer_seq
+		and cp.curr_pg_seq = #{curr_pg_seq}
 	</select>
 	
 	
 	<!-- 회원의 예약내역 가져오기 들어온 멤버아이디 행의 curr_pg_seq가 참조하는 current_programs
 	내가 트레이너 번호를 넘겨주면 프론트가 그 번호에 맞는 트레이너 이름을 어떻게 아는거지?-->
-	<select id="confirmMy">
+	<select id="reservMy" resultType="java.util.HashMap">
+		select curr_pg_seq
+		from reserv_programs
+		where mem_id=#{mem_id}
+	</select>
+	
+	<!--  
+	<select id="reservMy">
 		select pg_seq, trainer_seq, curr_pg_s_dt, curr_pg_d_dt
-		from current_programs 
+		from current_programs cp join  
 		where cp.curr_pg_seq = 
 		(select curr_pg_seq
 		 from sf_members
 		 where mem_id=#{mem_id}
 		)
 	</select>
+	-->
 	
 	<!-- 수업 오픈하기 -->
 	<insert id="openPg" >
 		insert into current_programs values(null,#{pg_seq},#{trainer_seq},now(),now(),#{pg_max_peo},#{curr_num_peo},#{pg_status})
 	</insert>
 	
+
+	
 	<!-- 예약 내역에 기록 -->
 	<insert id="reservPg">
-		insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq})
+	<set>
+		<if	test ='mem_id.equals("") and curr_pg_seq='>insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq}) </if>
+	</set>
 	</insert>
 	
 	<!-- 예약을 했으니 현재 프로그램 테이블에 인원 + -->
