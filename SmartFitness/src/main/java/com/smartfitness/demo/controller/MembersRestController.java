@@ -76,11 +76,13 @@ public class MembersRestController {
 		
 		String token= jwtTokenProvider.createToken(members.getMem_id(), members.getMem_name());
 		String mem_id=members.getMem_id();
+
 		String mem_auth=members.getMem_auth();
 		String mem_email=members.getMem_email();
 		System.out.println("사용자 권한 : "+mem_auth);
 		System.out.println("권한 종류 : "+members.getAuthorities());
 		Auth auth=new Auth(token, mem_id, mem_auth, mem_email);
+
 		String result = gson.toJson(auth);
 		System.out.println("반환 정보 : "+result);
 		return result;
