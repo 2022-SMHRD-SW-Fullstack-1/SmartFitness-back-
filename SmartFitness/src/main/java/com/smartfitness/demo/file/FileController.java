@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping("file")
+
 @RestController
 public class FileController {
 	
 	private static String UPLOAD_FOLDER = "C://Temp/upload";
 	
-	@PostMapping("/up")
+	@RequestMapping("/upload")
 	public ModelAndView showUpload() {
 		return new ModelAndView("upload");
 	}
 	
-	@PostMapping("/up")
+	@PostMapping("/upload")
 	public ModelAndView fileUpload(@RequestParam("file") MultipartFile file) {
 		if (file.isEmpty()) {
 			return new ModelAndView("status", "message", "Please select a file and try again");
