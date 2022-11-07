@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smartfitness.demo.mapper.EquipmentsMapper;
-import com.smartfitness.demo.model.CurrentEquipments;
 import com.smartfitness.demo.model.Equipments;
 
 @Service
@@ -29,7 +28,7 @@ public class EquipmentsService {
 	}
 	
 	//운동 기구 예약 가능한지 확인
-	public CurrentEquipments selectCurrEm(int em_seq) {
+	public Map<String, Object> selectCurrEm(int em_seq) {
 		return equipmentsMapper.selectCurrEm(em_seq);
 	}
 	

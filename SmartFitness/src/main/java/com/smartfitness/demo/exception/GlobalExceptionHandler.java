@@ -1,23 +1,29 @@
 package com.smartfitness.demo.exception;
 
-import java.util.Map;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//spring 전역의 예외를 처리할 수 있는 어노테이션
-@RestControllerAdvice
+import lombok.extern.slf4j.Slf4j;
+/**
+ * exception발생 시 전역으로 처리할 exception handler
+ * **/
+@Slf4j
+@RestControllerAdvice // 모든 restcontrolelr에서 발생하는 exception을 처리한다.
 public class GlobalExceptionHandler {
-	
-	// CustomException 클래스를 등록해줌으로써 해당 예외가 발생할 때, 어떻게 처리하는지 지정
-	@ExceptionHandler(CustomException.class)
-	public ResponseEntity<CustomExceptionResponse> handler(CustomException e) {
-		CustomExceptionResponse res = CustomExceptionResponse.builder()
-				.detail(e.getDetail())
-				.errorCode(e.getErrorCode())
-				.build();
-		return new ResponseEntity<>(res, e.getStatusCode());
-	}
 
+	@ExceptionHandler(CustomException.class)//@ExceptionHandler(xxException.class) : 발생한 xxException에 대해서 처리하는 메소드를 작성한다.  
+	public ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
+        log.error("handleCustomException",e);
+        ErrorResponse response = new ErrorResponse(e.getErrorCode());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(Exception e){
+        log.error("handleException",e);
+        ErrorResponse response = new ErrorResponse(ErrorCode.INTER_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

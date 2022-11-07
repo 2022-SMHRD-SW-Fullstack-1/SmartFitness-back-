@@ -18,24 +18,14 @@ public class QnaService {
 	QnaMapper qnaMapper;
 	
 	//질문 전체 가져오기
-	public List<QnaQuestion> selectQnaPagingA(Criteria cri) {
-		return qnaMapper.selcetQnaPagingA(cri);
-	}
-	//질문 전체 페이징할 수 있는 숫자 정보 가져오기
-	public int countQnaA() {
-		return qnaMapper.countQnaA();
+	public List<QnaQuestion> selectQnaPagingA() {
+		return qnaMapper.selcetQnaPagingA();
 	}
 	
 	//mem_id의 질문 전체 가져오기
-	public List<QnaQuestion> selectQnaPaging(Criteria cri, String mem_id) {
-		return qnaMapper.selcetQnaPaging(cri, mem_id);
+	public List<QnaQuestion> selectQnaPaging(String mem_id) {
+		return qnaMapper.selcetQnaPaging(mem_id);
 	}
-	//mem_id의 질문 전체 페이징할 수 있는 숫자 정보 가져오기
-	public int countQna(String mem_id) {
-		return qnaMapper.countQna(mem_id);
-	}
-	
-
 	//질문 작성하기
 	public int qnaWrite(QnaQuestion question) {
 		return qnaMapper.qnaWrite(question);
