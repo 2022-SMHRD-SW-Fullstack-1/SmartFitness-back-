@@ -15,9 +15,9 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class Members {
 
-	private boolean enabled;
-	private Date updateDate;
-	private List<Auth> authList;
+//	private boolean enabled;
+//	private Date updateDate;
+//	private List<Auth> authList;
 	
 	// 회원 아이디
 	@NonNull
