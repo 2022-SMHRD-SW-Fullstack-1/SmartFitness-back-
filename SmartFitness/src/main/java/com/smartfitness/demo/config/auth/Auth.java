@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Auth {
 	private String token;
 	private String mem_id;
-	private String mem_type;
+	private String mem_auth;
 }

@@ -76,9 +76,9 @@ public class MembersRestController {
 		
 		String token= jwtTokenProvider.createToken(members.getMem_id(), members.getMem_name());
 		String mem_id=members.getMem_id();
-		String mem_type=members.getMem_type();
-		System.out.println(mem_type);
-		Auth auth=new Auth(token, mem_id, mem_type);
+		String mem_auth=members.getMem_auth();
+		System.out.println(mem_auth);
+		Auth auth=new Auth(token, mem_id, mem_auth);
 		String result = gson.toJson(auth);
 		System.out.println(result);
 		return result;
