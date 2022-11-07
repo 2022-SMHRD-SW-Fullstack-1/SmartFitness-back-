@@ -42,4 +42,18 @@
 		and em_seq=#{em_seq}
 	</update>
 	
+	<!-- 멤버의 예약내역 확인 -->
+	<select id="rsvAll" resultType="java.util.HashMap">
+		select *
+		from reserv_equipments
+		where mem_id = #{mem_id}
+	</select>
+	
+	<!-- 기구 번호로 이름 찾기 -->
+	<select id="selectEmName" resultType="String">
+		select em_name
+		from sf_equipments
+		where em_seq=#{em_seq}
+	</select>
+	
 </mapper>

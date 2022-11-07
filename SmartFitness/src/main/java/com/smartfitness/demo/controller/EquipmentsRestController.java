@@ -102,6 +102,16 @@ public class EquipmentsRestController {
 		}
 	}
 	
+	// mem_id의 운동 기구 예약 현황
+	
+	@PostMapping("/reserv/all")
+	public String rsvAll(@RequestBody Map<String, Object> param) {
+		String mem_id = (String)param.get("mem_id");
+		System.out.println("멤버 아이디 : "+mem_id);
+		String result = gson.toJson(equipmentsService.rsvAll(mem_id));
+		return result;
+	}
+	
 	// 운동 기구 예약 취소 => 운동기구 상태, 맴버 예약 둘 다 취소
 	@PostMapping("/cancel")
 	public String cancelEm(@RequestBody Map<String,Object> param)  throws Exception{

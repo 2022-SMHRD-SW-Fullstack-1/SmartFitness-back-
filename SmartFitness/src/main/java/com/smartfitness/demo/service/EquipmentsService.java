@@ -1,6 +1,7 @@
 package com.smartfitness.demo.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,16 @@ public class EquipmentsService {
 	public void cancelEm(Map<String, Object> param) {
 		equipmentsMapper.cancelEmStatus(param);
 		equipmentsMapper.cancelEmReserv(param);
+	}
+
+	//운동 기구 예약 내역 확인
+	public List<Map> rsvAll(String mem_id) {
+		List<Map> emList = equipmentsMapper.rsvAll(mem_id);
+		for(int i=0; i<emList.size();i++) {
+			int em_seq = (int)emList.get(i).get("em_seq");
+			emList.get(i).put("em_name", equipmentsMapper.selectEmName(em_seq));
+		}
+		return emList;
 	}
 
 

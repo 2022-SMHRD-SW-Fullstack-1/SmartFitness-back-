@@ -1,6 +1,7 @@
 package com.smartfitness.demo.mapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -27,6 +28,10 @@ public interface EquipmentsMapper {
 	void cancelEmReserv(Map<String, Object> param);
 
 	void updateEm(Map<String, Object> equipments);
+
+	List<Map> rsvAll(String mem_id);
+
+	String selectEmName(int em_seq);
 
 
 }
