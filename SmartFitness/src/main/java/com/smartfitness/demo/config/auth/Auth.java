@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Auth {
-	private String token;
+	private String accessToken;
+	private String refreshToken;
 	private String mem_id;
 	private String mem_auth;
-	private String mem_email;
 //	private String ctr_seq;
 }

@@ -56,6 +56,7 @@ public class EquipmentsRestController {
 	public String selectAll() throws Exception{
 		
 		try {
+			// 전체 기구 확인
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<Equipments> emList = equipmentsService.selectAll();
 			map.put("all", emList);
@@ -94,7 +95,7 @@ public class EquipmentsRestController {
 
 	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/timetable/{em_seq}")	
-	public String selectCurrEm( @PathVariable("em_seq") int em_seq) throws Exception{
+	public String selectCurrEm(@PathVariable("em_seq") int em_seq) throws Exception{
 		System.out.println(em_seq);
 		Map<String, Object> curr_em = new HashMap<String, Object>();
 		try {
