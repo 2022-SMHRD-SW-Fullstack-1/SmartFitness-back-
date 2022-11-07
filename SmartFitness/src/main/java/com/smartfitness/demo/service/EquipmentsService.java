@@ -59,6 +59,16 @@ public class EquipmentsService {
 	public List<Equipments> selectC() {
 		return equipmentsMapper.selectC();
 	}
+	
+	//운동 기구 예약 내역 확인
+	public List<Map> rsvAll(String mem_id) {
+		List<Map> emList = equipmentsMapper.rsvAll(mem_id);
+		for(int i=0; i<emList.size();i++) {
+			int em_seq = (int)emList.get(i).get("em_seq");
+			emList.get(i).put("em_name", equipmentsMapper.selectEmName(em_seq));
+		}
+		return emList;
+	}
 
 
 }
