@@ -11,10 +11,14 @@ import com.smartfitness.demo.model.Trainer;
 @Mapper
 public interface ProgramsMapper {
 	
+	public void enroll(HashMap<String, Object> map);
 	
 	public int addPg(Programs programs);
 	
 	public List<HashMap> selectCurrPg(int month);
+	
+	//나의 예약 내역 확인하기
+	public List<HashMap> reservMy(String mem_id);
 	
 	public int reservPg(HashMap<String,Object> map);
 	public int reservPg2(HashMap<String,Object> map);
@@ -37,6 +41,14 @@ public interface ProgramsMapper {
 	public void reservPt(HashMap<String, Object> map);
 
 	public List<HashMap> selectCurrPt(int num,int month);
+
+	public HashMap sendC(int num);
+
+	public List<HashMap> sendMy(String mem_id);
+
+	
+
+	
 
 
 }

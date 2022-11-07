@@ -1,19 +1,16 @@
 package com.smartfitness.demo.exception;
 
-import org.springframework.http.HttpStatus;
-
 import lombok.Getter;
 
+/**
+ * 사용자 정의 exception class
+**/
 @Getter
 public class CustomException extends RuntimeException{
-	//최상위 exception class
-	private final HttpStatus statusCode;
-	private final Integer errorCode;
-	private final String detail;
-	 
-	public CustomException(HttpStatus statusCode, Integer errorCode, String detail) {
-		this.statusCode = statusCode;
+	private ErrorCode errorCode;
+	
+	public CustomException(String messeage, ErrorCode errorCode) {
+		super(messeage);
 		this.errorCode = errorCode;
-		this.detail = detail;
 	}
 }

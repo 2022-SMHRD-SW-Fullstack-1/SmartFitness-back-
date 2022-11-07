@@ -20,4 +20,6 @@ public class Equipments {
     // 신체 자극 부위 
     private String em_part;
 
+    //운동 기구 분류
+    private String em_type;
 }
