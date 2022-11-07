@@ -24,3 +24,4 @@ public class MembersService {
 		membersMapper.update(members);
 	}
 }
+
