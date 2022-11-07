@@ -2,38 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smartfitness.demo.mapper.QnaMapper">
 
-	<!-- admin이 받을 전체 질문 정보, 페이징 -->
+	<!-- admin이 받은 질문 전부 -->
 	<select id="selcetQnaPagingA" parameterType="com.smartfitness.demo.common.Criteria" resultType="com.smartfitness.demo.model.QnaQuestion">
-		select * from (
-		select @rownum := @rownum+1 as rownum, q.*
-			from (select @rownum := 0) R, qna_question q
-			where @rownum &lt; #{pageNum}*#{amount}
-		) a
-		where rownum > (#{pageNum}-1) * #{amount}
-	</select>
-	
-	<!-- admin이 확인할 전체 질문 수 -->
-	<select id="countQnaA" resultType="int">
-		select count(*) from qna_question
+		select * from qna_question
 	</select>
 
-	<!-- mem_id의 질문 정보, 페이징 -->
+	<!-- mem_id가 한 질문 전부 -->
 	<select id="selcetQnaPaging" resultType="com.smartfitness.demo.model.QnaQuestion">
-		select * from (
-		select @rownum := @rownum+1 as rownum, q.*
-			from (select @rownum := 0) R, qna_question q
-			where @rownum &lt; #{cri.pageNum}*#{cri.amount}
-			and mem_id=#{mem_id}
-		) a
-		where rownum > (#{cri.pageNum}-1) * #{cri.amount}
+		select * from qna_question
+		where mem_id=#{mem_id}
 	</select>
-
-	<!-- mem_id의 질문 수 -->
-	<select id="countQna" resultType="int">
-		select count(*) from qna_question where mem_id=#{mem_id}
-	</select>
-	
-	<!-- 질문 전체 정보 -->
 	
 	<!-- qna_seq정보를 가진 질문 하나 -->
 	<select id="selectQ" resultType="com.smartfitness.demo.model.QnaQuestion">

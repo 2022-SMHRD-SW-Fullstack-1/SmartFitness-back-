@@ -27,8 +27,8 @@ public interface EquipmentsMapper {
 	void reservEm(Map<String, Object> reserv);
 
 	//운동 기구 예약 취소
-	void cancelEmStatus(Map<String, Object> param);
-	void cancelEmReserv(Map<String, Object> param);
+	int cancelEmStatus(Map<String, Object> param);
+	int cancelEmReserv(Map<String, Object> param);
 
 	//운동 기구 전체 확인 
 	List<Equipments> selectAll();

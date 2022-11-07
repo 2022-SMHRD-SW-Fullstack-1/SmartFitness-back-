@@ -13,12 +13,10 @@ import com.smartfitness.demo.model.QnaQuestion;
 public interface QnaMapper {
 
 	//admin이 확인할 질문 전체 정보
-	List<QnaQuestion> selcetQnaPagingA(Criteria cri);
-	//admin이 확인할 질문 전체 페이징 정보
-	int countQnaA();
+	List<QnaQuestion> selcetQnaPagingA();
 	
 	//mem_id의 질문 목록
-	List<QnaQuestion> selcetQnaPaging(Criteria cri, String mem_id);
+	List<QnaQuestion> selcetQnaPaging(String mem_id);
 	//mem_id의 질문 페이징 정보
 	int countQna(String mem_id);
 

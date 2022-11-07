@@ -93,7 +93,7 @@ public class EquipmentsRestController {
 
 	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/timetable/{em_seq}")	
-	public String selectCurrEm( @PathVariable("em_seq") int em_seq) throws Exception{
+	public String selectCurrEm(@PathVariable("em_seq") int em_seq) throws Exception{
 		System.out.println(em_seq);
 		try {
 		CurrentEquipments curr_em = equipmentsService.selectCurrEm(em_seq);
