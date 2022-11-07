@@ -44,7 +44,6 @@ public class EquipmentsService {
 		equipmentsMapper.cancelEmReserv(param);
 	}
 
-<<<<<<< HEAD
 	//운동기구 전체 호출
 	public List<Equipments> selectAll() {
 		return equipmentsMapper.selectAll();
@@ -59,7 +58,8 @@ public class EquipmentsService {
 	}
 	public List<Equipments> selectC() {
 		return equipmentsMapper.selectC();
-=======
+	}
+	
 	//운동 기구 예약 내역 확인
 	public List<Map> rsvAll(String mem_id) {
 		List<Map> emList = equipmentsMapper.rsvAll(mem_id);
@@ -68,7 +68,6 @@ public class EquipmentsService {
 			emList.get(i).put("em_name", equipmentsMapper.selectEmName(em_seq));
 		}
 		return emList;
->>>>>>> refs/heads/feature-Exception
 	}
 
 

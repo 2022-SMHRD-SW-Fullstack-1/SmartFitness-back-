@@ -11,9 +11,7 @@ public class Auth {
 	private String token;
 	private String mem_id;
 	private String mem_auth;
-<<<<<<< HEAD
 	private String mem_email;
 //	private String ctr_seq;
-=======
->>>>>>> refs/heads/feature-Exception
+
 }
