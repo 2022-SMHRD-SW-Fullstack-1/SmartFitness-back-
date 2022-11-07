@@ -89,6 +89,7 @@ public class ProgramsRestController {
 	public String sendC(@PathVariable("curr_pg_seq") int num) {
 		String result = gson.toJson(programsService.sendC(num));
 		return result;
+	}
 
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")

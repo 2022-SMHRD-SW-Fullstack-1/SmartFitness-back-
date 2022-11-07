@@ -31,7 +31,7 @@
 	</update>
 
 	<!-- 선택한 기구의 예약 가능 여부 확인 -->	
-	<select id="selectCurrEm" parameterType="int" resultType="com.smartfitness.demo.model.CurrentEquipments">
+	<select id="selectCurrEm" parameterType="int" resultType="java.util.HashMap">
 		select * from current_equipments where em_seq=#{em_seq} and ce_switch="O";
 	</select>
 	
