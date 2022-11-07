@@ -76,7 +76,9 @@ public class MembersRestController {
 		//5분의 유효기간을 가진 토큰을 만든다
 		String accessToken= jwtTokenProvider.createToken(members.getMem_id(), "Access-Token");
 		String mem_id=members.getMem_id();
-
+		String mem_auth=members.getMem_auth();
+		System.out.println(mem_auth);
+		Auth auth=new Auth(token, mem_id, mem_auth);
 		String mem_auth=members.getMem_auth();
 		String mem_email=members.getMem_email();
 		System.out.println("사용자 권한 : "+mem_auth);
