@@ -42,9 +42,16 @@
 	<!-- 회원의 예약내역 가져오기 들어온 멤버아이디 행의 curr_pg_seq가 참조하는 current_programs
 	내가 트레이너 번호를 넘겨주면 프론트가 그 번호에 맞는 트레이너 이름을 어떻게 아는거지?-->
 	<select id="reservMy" resultType="java.util.HashMap">
-		select curr_pg_seq
-		from reserv_programs
-		where mem_id=#{mem_id}
+		select cp.pg_seq, DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d %H%i%s') as start, DATE_FORMAT(cp.curr_pg_d_dt,'%y%m%d %H%i%s') as end
+		from reserv_programs rp join current_programs cp
+		on rp.curr_pg_seq = cp.curr_pg_seq
+		and rp.mem_id=#{mem_id}
+	</select>
+	
+	<select id="reservMy2" resultType="String">
+		select pg_name
+		from sf_programs
+		where pg_seq=#{pg_seq}
 	</select>
 	
 	<!--  
@@ -66,11 +73,9 @@
 	
 
 	
-	<!-- 예약 내역에 기록 -->
+	<!-- 프로그램 예약하기 -->
 	<insert id="reservPg">
-	<set>
-		<if	test ='mem_id.equals("") and curr_pg_seq='>insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq}) </if>
-	</set>
+		insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq})
 	</insert>
 	
 	<!-- 예약을 했으니 현재 프로그램 테이블에 인원 + -->
@@ -91,15 +96,18 @@
 	<delete id="cancelPg">
 		delete
 		from reserv_programs
-		where reserv_pg_seq = #{num}
+		where curr_pg_seq = #{num}
+		and mem_id=#{mem_id}
 	</delete>
 	
-	<!-- 취소를 했으니 현재 프로그램 테이블에 인원 - -->
+	<!-- 취소를 했으니 현재 프로그램 테이블에 인원 -, 예약 가능 상태로 변경 -->
 	<update id="cancelPg2">
 		update current_programs
-		set curr_num_peo = curr_num_peo -1
+		set curr_num_peo= curr_num_peo-1,pg_status=1
 		where curr_pg_seq=#{num}
 	</update>
+	
+
 	
 	<select id="confirmT" resultType="java.util.HashMap">
 		select t.trainer_seq , t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating)

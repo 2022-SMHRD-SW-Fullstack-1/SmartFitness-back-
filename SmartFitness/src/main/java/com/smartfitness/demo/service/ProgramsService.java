@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.JsonElement;
 import com.smartfitness.demo.mapper.ProgramsMapper;
 import com.smartfitness.demo.model.CurrentPrograms;
+import com.smartfitness.demo.model.Equipments;
 import com.smartfitness.demo.model.Programs;
 import com.smartfitness.demo.model.Trainer;
 @Service
@@ -51,12 +52,23 @@ public class ProgramsService {
 	}
 	
 	//나의 프로그램 예약 내역 확인
-	public List<HashMap> reservMy(String mem_id) {
-		return programsMapper.reservMy(mem_id);
+	public List<Map> reservMy(String mem_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map> pgList = programsMapper.reservMy(mem_id);
+		
+		for(int i=0; i<pgList.size();i++) {
+			int seq = (int)pgList.get(i).get("pg_seq");
+			//시퀀스 번호 통해서 프로그램 이름 따오기
+			String pg_name = programsMapper.reservMy2(seq);
+			pgList.get(i).put("pg_name", pg_name);
+		}
+		return pgList;
 	}
 	
 	//프로그램 예약하기
 	public void reservPg(HashMap<String, Object> map) {
+		
+		
 		//예약 내역 삽입
 		programsMapper.reservPg(map);
 		
@@ -66,12 +78,19 @@ public class ProgramsService {
 		//current_programs에 상태 변화
 		programsMapper.reservPg3(map);
 	}
-	public void cancelPg(int num) {
+	
+	
+	
+	
+	public void cancelPg(int num,String mem_id) {
 		//예약 내역 취소
-		programsMapper.cancelPg(num);
+		programsMapper.cancelPg(num,mem_id);
 		
 		//current_programs에 인원 -
 		programsMapper.cancelPg2(num);
+		
+//		//current_programs에 상태 변화
+//		programsMapper.cancelPg3(num);
 	}
 	
 	//트레이너 정보 확인(1명)
@@ -106,6 +125,8 @@ public class ProgramsService {
 	public List<HashMap> sendMy(String mem_id) {
 		return programsMapper.sendMy(mem_id);
 	}
+
+	
 
 
 
