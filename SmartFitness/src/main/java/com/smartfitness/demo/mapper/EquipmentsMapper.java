@@ -36,5 +36,9 @@ public interface EquipmentsMapper {
 	List<Equipments> selectM();
 	List<Equipments> selectC();
 
+	List<Map> rsvAll(String mem_id);
+
+	String selectEmName(int em_seq);
+
 
 }

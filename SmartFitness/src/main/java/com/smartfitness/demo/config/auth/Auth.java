@@ -13,4 +13,5 @@ public class Auth {
 	private String mem_id;
 	private String mem_auth;
 //	private String ctr_seq;
+
 }
