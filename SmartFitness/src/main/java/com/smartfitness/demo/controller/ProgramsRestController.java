@@ -125,6 +125,10 @@ public class ProgramsRestController {
 	
 	//여기부터는 PT =================================================
 	
+	//PT 예약하기
+
+	
+	
 	//PT 타임테이블 보내주기(여기서 num은 트레이너 번호)
 	@GetMapping("/PT/timetable/{num}/{month}")
 	public String selectCurrPt(@PathVariable("num")int num ,@PathVariable("month") int month){
@@ -136,6 +140,7 @@ public class ProgramsRestController {
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
+		System.out.println(map);
 		try {
 			programsService.reservPt(map);
 			return "success";
