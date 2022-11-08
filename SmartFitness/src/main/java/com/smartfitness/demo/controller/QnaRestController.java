@@ -52,9 +52,9 @@ public class QnaRestController {
 	}
 
 	// qna에 mem_id가 쓴 글, 전체 확인
-	@GetMapping("/all")
-	public String qnaAll(@RequestBody Map<String, Object> param) {
-		String mem_id = (String) param.get("mem_id");
+	@GetMapping("/all/{mem_id}")
+	public String qnaAll(@PathVariable String mem_id) {
+		System.out.println(mem_id);
 		// 고른 페이지에서 보여줘야 하는 메세지 리스트
 		List<QnaQuestion> qnaList = qnaService.selectQnaPaging(mem_id);
 
