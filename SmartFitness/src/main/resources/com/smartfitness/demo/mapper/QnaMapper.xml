@@ -3,12 +3,12 @@
 <mapper namespace="com.smartfitness.demo.mapper.QnaMapper">
 
 	<!-- admin이 받은 질문 전부 -->
-	<select id="selcetQnaPagingA" parameterType="com.smartfitness.demo.common.Criteria" resultType="com.smartfitness.demo.model.QnaQuestion">
+	<select id="selectQnaAll" parameterType="com.smartfitness.demo.common.Criteria" resultType="com.smartfitness.demo.model.QnaQuestion">
 		select * from qna_question
 	</select>
 
 	<!-- mem_id가 한 질문 전부 -->
-	<select id="selcetQnaPaging" resultType="com.smartfitness.demo.model.QnaQuestion">
+	<select id="selcetQnaMem" resultType="com.smartfitness.demo.model.QnaQuestion">
 		select * from qna_question
 		where mem_id=#{mem_id}
 	</select>
@@ -39,4 +39,11 @@
 	<insert id="qnaAnswer" parameterType="com.smartfitness.demo.model.QnaAnswer">
 		insert into qna_answer values(null, #{qna_seq}, #{ans_contents},#{ans_file}, now(),#{admin_id})
 	</insert>
+	
+	<!-- 답변 수정 -->
+	<update id="qnaAnsUpdate">
+		update qna_answer
+		set ans_contents=#{ans_contents}, ans_file=#{ans_file}, ans_date=now()
+		where ans_seq=#{ans_seq}
+	</update>
 </mapper>

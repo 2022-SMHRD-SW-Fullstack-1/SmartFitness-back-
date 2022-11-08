@@ -27,22 +27,20 @@ import com.smartfitness.demo.common.Page;
 
 @RequestMapping("/qna")
 @RestController
-public class QnaRestController {
+public class QnaRestController{
 
 	Gson gson = new Gson();
-	private static String UPLOAD_FOLDER = "C://Temp/upload";
 
 	@Autowired
 	QnaService qnaService;
 
 	// qna의 질문 모두 확인
 	@GetMapping("/admin")
-	public String qnaAdmin(@RequestBody Map<String, Object> param) {
+	public String qnaAdmin(@RequestBody Map<String, Object> param) throws Exception {
 		// 관리자 id를 잡아오기
 		String admin_id = (String) param.get("admin_id");
 		System.out.println(admin_id);
-		List<QnaQuestion> qnaList = qnaService.selectQnaPagingA();
-
+		List<QnaQuestion> qnaList = qnaService.selectQnaAll();
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("qnaList", qnaList);
@@ -53,71 +51,55 @@ public class QnaRestController {
 
 	// qna에 mem_id가 쓴 글, 전체 확인
 	@GetMapping("/all")
-	public String qnaAll(@RequestBody Map<String, Object> param) {
+	public String qnaAll(@RequestBody Map<String, Object> param) throws Exception {
+		System.out.println(param);
 		String mem_id = (String) param.get("mem_id");
+		System.out.println(mem_id);
 		// 고른 페이지에서 보여줘야 하는 메세지 리스트
-		List<QnaQuestion> qnaList = qnaService.selectQnaPaging(mem_id);
+		List<QnaQuestion> qnaList = qnaService.selectQnaMem(mem_id);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("qnaList", qnaList);
 		String result = gson.toJson(map);
+		System.out.println(result);
 		return result;
 	}
 
 	// qna에 쓴 글, 글의 답변 확인하기
 	@GetMapping("/{qna_seq}")
-	public String qnaSelect(@PathVariable("qna_seq") int qna_seq) {
+	public String qnaSelect(@PathVariable("qna_seq") int qna_seq) throws Exception {
 		HashMap<String, Object> qna = new HashMap<String, Object>();
-		qna.put("qnaQuestion", qnaService.selectQ(qna_seq));
-		qna.put("qnaAnswer", qnaService.selectA(qna_seq));
+		qna.put("qna",qnaService.selectQNA(qna_seq));
 		String result = gson.toJson(qna);
 		return result;
 	}
 
 	// qna에 글 쓰기
 	@PostMapping("/que")
-	public String qnaWrite(@RequestBody QnaQuestion question, @RequestParam("file") MultipartFile file)
-			throws Exception {
+	public void qnaWrite(@RequestBody QnaQuestion question) throws Exception {
 		System.out.println(question);
-		try {
-			qnaService.qnaWrite(question);
-			if (file.isEmpty()) {
-			} else {
-				byte[] bytes = file.getBytes();
-				Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
-				Files.write(path, bytes);
-			}
-
-			return "success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
+		qnaService.qnaWrite(question);
 	}
 
 	// qna_question 수정하기
 	@PostMapping("/{qna_seq}/update")
-	public String qnaQueUpdate(@RequestBody QnaQuestion question) throws Exception {
+	public void qnaQueUpdate(@RequestBody QnaQuestion question) throws Exception {
 		System.out.println(question);
-		try {
-			qnaService.qnaQueUpdate(question);
-			return "success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
+		qnaService.qnaQueUpdate(question);
+
 	}
 
 	// qna글에 답변하기
 	@PostMapping("/{qna_seq}/ans")
-	public String qnaAnswer(@PathVariable("qna_seq") int qna_seq, @RequestBody QnaAnswer answer) throws Exception {
+	public void qnaAnswer(@PathVariable("qna_seq") int qna_seq, @RequestBody QnaAnswer answer) throws Exception {
 		System.out.println(answer);
-		try {
-			qnaService.qnaAnswer(answer, qna_seq);
-			return "success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
+		qnaService.qnaAnswer(answer, qna_seq);
+	}
+	
+	// qna답변 수정하기
+	@PostMapping("/{qna_seq}/ans/update")
+	public void qnaAnsUpdate(@PathVariable("ans_seq") int ans_seq, @RequestBody QnaAnswer answer) throws Exception {
+		System.out.println(answer);
+		qnaService.qnaAnsUpdate(answer, ans_seq);
 	}
 }
