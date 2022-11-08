@@ -18,6 +18,7 @@
 		from current_programs cp join sf_programs sp
 		ON cp.pg_seq = sp.pg_seq
 		AND month(curr_pg_s_dt)=#{month}
+		And day(curr_pg_s_dt)=#{day}
 		order by DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d')
 	</select>
 	
@@ -68,7 +69,7 @@
 	
 	<!-- 수업 오픈하기 -->
 	<insert id="openPg" >
-		insert into current_programs values(null,#{pg_seq},#{trainer_seq},now(),now(),#{pg_max_peo},#{curr_num_peo},#{pg_status})
+		insert into current_programs values(null,#{pg_seq},#{trainer_seq},#{curr_pg_s_dt},#{curr_pg_d_dt},#{pg_max_peo},#{curr_num_peo},#{pg_status})
 	</insert>
 	
 
@@ -136,7 +137,7 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{trainer_seq},#{mem_id},now(),now())
+		insert into reserv_pt values(null,#{mem_id},DATE_FORMAT(#{curr_pt_s_dt},'%y%m%d%h%ii%s'),DATE_FORMAT(#{curr_pt_d_dt},'%y%m%d%h%ii%s'),#{trainer})
 	</insert>
 	
 	

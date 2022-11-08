@@ -44,11 +44,11 @@ public class ProgramsService {
 		programsMapper.openPg(curr);
 	}
 	//프로그램 시간표 확인
-	public List<HashMap> selectCurrPg(int month) {
-		List<HashMap> map = programsMapper.selectCurrPg(month);
+	public List<HashMap> selectCurrPg(HashMap<String, Object> map) {
+		List<HashMap> res = programsMapper.selectCurrPg(map);
 //		map.put("")
 		
-		return map;
+		return res;
 	}
 	
 	//나의 프로그램 예약 내역 확인
