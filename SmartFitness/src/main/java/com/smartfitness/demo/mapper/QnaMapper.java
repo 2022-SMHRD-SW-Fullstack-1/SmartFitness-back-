@@ -13,10 +13,10 @@ import com.smartfitness.demo.model.QnaQuestion;
 public interface QnaMapper {
 
 	//admin이 확인할 질문 전체 정보
-	List<QnaQuestion> selcetQnaPagingA();
+	List<QnaQuestion> selectQnaAll();
 	
 	//mem_id의 질문 목록
-	List<QnaQuestion> selcetQnaPaging(String mem_id);
+	List<QnaQuestion> selcetQnaMem(String mem_id);
 	//mem_id의 질문 페이징 정보
 	int countQna(String mem_id);
 
@@ -29,10 +29,14 @@ public interface QnaMapper {
 	//질문(질문번호 qna_seq) 정보가져오기
 	QnaQuestion selectQ(int qna_seq);
 	//질문 수정하기
-	void qnaQueUpdate(QnaQuestion question);
+	int qnaQueUpdate(QnaQuestion question);
 
 	//답변(답변번호 qna_seq) 정보가져오기
 	QnaAnswer selectA(int qna_seq);
+
+	//답변 수정하기
+	int qnaAnsUpdate(QnaAnswer answer, int ans_seq);
+
 
 
 

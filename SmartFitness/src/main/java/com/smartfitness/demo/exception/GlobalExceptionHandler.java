@@ -1,29 +1,45 @@
 package com.smartfitness.demo.exception;
 
+import java.net.BindException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 /**
  * exception발생 시 전역으로 처리할 exception handler
  * **/
-@Slf4j
 @RestControllerAdvice // 모든 restcontrolelr에서 발생하는 exception을 처리한다.
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends Exception{
 
-	@ExceptionHandler(CustomException.class)//@ExceptionHandler(xxException.class) : 발생한 xxException에 대해서 처리하는 메소드를 작성한다.  
-	public ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
-        log.error("handleCustomException",e);
-        ErrorResponse response = new ErrorResponse(e.getErrorCode());
-        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getErrorCode().getStatus()));
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception e){
-        log.error("handleException",e);
-        ErrorResponse response = new ErrorResponse(ErrorCode.INTER_SERVER_ERROR);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+	@ExceptionHandler(value= {ConstraintViolationException.class, DataIntegrityViolationException.class})
+	protected ResponseEntity<ErrorResponse> handleDuplicationException(){
+		return ErrorResponse.toResponseEntity(ErrorCode.INTER_SERVER_ERROR);
+	}	
+	
+	@ExceptionHandler(value= {CustomException.class})
+	protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
+		return ErrorResponse.toResponseEntity(e.getErrorCode());
+	}
+	
+	@ExceptionHandler(NoHandlerFoundException.class)
+	protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e,
+			HttpServletRequest request) {
+		return ErrorResponse.toResponseEntity(ErrorCode.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	protected ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request) {
+		return ErrorResponse.toResponseEntity(ErrorCode.BAD_REQUEST);
+	}
+    
 }

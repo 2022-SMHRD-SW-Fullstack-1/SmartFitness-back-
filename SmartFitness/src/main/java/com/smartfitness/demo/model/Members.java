@@ -53,7 +53,5 @@ public class Members {
 
     // 소속 센터 순번 
 	private Integer ctr_seq;
-	
-
 }
 

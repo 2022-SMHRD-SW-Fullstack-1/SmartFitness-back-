@@ -13,10 +13,10 @@ public interface EquipmentsMapper {
 
 
 	//운동 기구 추가
-	void addEm(Map<String, Object> newEquipments);
+	int addEm(Map<String, Object> newEquipments);
 
 	//운동 기구 수정
-	void updateEm(Map<String, Object> equipments);
+	int updateEm(Map<String, Object> equipments);
 	
 	//운동 기구 확인
 	Map<String, Object> selectCurrEm(int em_seq);
@@ -36,7 +36,7 @@ public interface EquipmentsMapper {
 	List<Equipments> selectM();
 	List<Equipments> selectC();
 
-	List<Map> rsvAll(String mem_id);
+	List<Map<String,Object>> rsvAll(String mem_id);
 
 	String selectEmName(int em_seq);
 
