@@ -1,4 +1,7 @@
 package com.smartfitness.demo.controller;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,17 +128,26 @@ public class ProgramsRestController {
 	
 	//여기부터는 PT =================================================
 	//PT 타임테이블 보내주기(여기서 num은 트레이너 번호)
-	@GetMapping("/PT/timetable/{num}/{month}")
-	public String selectCurrPt(@PathVariable("num")int num ,@PathVariable("month") int month){
-		String result = gson.toJson(programsService.selectCurrPt(num,month));
+	@GetMapping("/PT/timetable/{month}")
+	public String selectCurrPt(@PathVariable("month") int month){
+		String result = gson.toJson(programsService.selectCurrPt(month));
 		return result;
 	}
 	
-	
+	//2022-11-06T02:00:00+09:00
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
-		System.out.println(map);
+		
+		String curr_pt_s_dt = (String)map.get("curr_pt_s_dt");
+		curr_pt_s_dt=curr_pt_s_dt.replace("T"," ");
+		curr_pt_s_dt=curr_pt_s_dt.replace("+09:00","");
+		map.put("curr_pt_s_dt", curr_pt_s_dt);
+		
+		String curr_pt_d_dt = (String)map.get("curr_pt_d_dt");
+		curr_pt_d_dt=curr_pt_s_dt.replace("T"," ");
+		curr_pt_d_dt=curr_pt_s_dt.replace("+09:00","");
+		map.put("curr_pt_d_dt", curr_pt_d_dt);
 		try {
 			programsService.reservPt(map);
 			return "success";

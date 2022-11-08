@@ -118,8 +118,8 @@ public class ProgramsService {
 		
 	}
 	//PT 시간표 확인
-	public List<HashMap> selectCurrPt(int num,int month) {
-		return programsMapper.selectCurrPt(num,month);
+	public List<HashMap> selectCurrPt(int month) {
+		return programsMapper.selectCurrPt(month);
 	}
 
 	public List<HashMap> sendMy(String mem_id) {
