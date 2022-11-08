@@ -44,7 +44,7 @@ public interface ProgramsMapper {
 
 	public void reservPt(HashMap<String, Object> map);
 
-	public List<HashMap> selectCurrPt(int num,int month);
+	public List<HashMap> selectCurrPt(int month);
 
 	public HashMap sendC(int num);
 

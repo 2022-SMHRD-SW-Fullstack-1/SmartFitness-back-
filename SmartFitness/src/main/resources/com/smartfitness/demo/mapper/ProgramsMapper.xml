@@ -137,14 +137,14 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},DATE_FORMAT(#{curr_pt_s_dt},'%y%m%d%h%ii%s'),DATE_FORMAT(#{curr_pt_d_dt},'%y%m%d%h%ii%s'),#{trainer})
+		insert into reserv_pt values(null,#{mem_id},#{curr_pt_s_dt},#{curr_pt_d_dt},#{trainer})
 	</insert>
 	
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">
-		select * from reserv_pt
+		select curr_pt_s_dt, curr_pt_d_dt
+		from reserv_pt
 		where month(curr_pt_s_dt)=#{month}
-		and trainer_seq=#{num}
 	</select>
 </mapper>
