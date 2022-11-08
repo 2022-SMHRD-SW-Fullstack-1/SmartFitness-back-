@@ -51,7 +51,7 @@ public class ProgramsRestController {
 	//프로그램 개강
 	@PostMapping("/open")
 	public String openPg(@RequestBody CurrentPrograms curr)throws Exception {
-
+		System.out.println(curr);
 		try{
 			programsService.openPg(curr);
 			return "success";
@@ -62,9 +62,9 @@ public class ProgramsRestController {
 	}
 	
 	//프로그램 타임테이블
-	@GetMapping("/timetable/{month}")
-	public String selectCurrPg(@PathVariable("month") int month) {
-		String result = gson.toJson(programsService.selectCurrPg(month));
+	@PostMapping("/timetable/{month}/{day}")
+	public String selectCurrPg(@RequestBody HashMap<String,Object> map) {
+		String result = gson.toJson(programsService.selectCurrPg(map));
 		System.out.println(result);
 		return result;
 	}
@@ -124,11 +124,6 @@ public class ProgramsRestController {
 	
 	
 	//여기부터는 PT =================================================
-	
-	//PT 예약하기
-
-	
-	
 	//PT 타임테이블 보내주기(여기서 num은 트레이너 번호)
 	@GetMapping("/PT/timetable/{num}/{month}")
 	public String selectCurrPt(@PathVariable("num")int num ,@PathVariable("month") int month){
