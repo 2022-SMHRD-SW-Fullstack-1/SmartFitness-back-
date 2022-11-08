@@ -63,8 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin().disable()
 				.httpBasic().disable()
 				.authorizeHttpRequests() //요청에 대한 사용권한 체크
-				.antMatchers("/admin/**").hasRole("ROLE_A") //A만 접근 가능
-				.antMatchers("/mypage/**").hasAnyRole("ROLE_M","ROLE_A") // M, A중 하나만 있으면 접근가능
+//				.antMatchers("/admin/**").hasRole("ROLE_A") //A만 접근 가능
+//				.antMatchers("/mypage/**").hasAnyRole("ROLE_M","ROLE_A") // M, A중 하나만 있으면 접근가능
 //				.antMatchers("/add/**").hasRole("A") or authority
 				.anyRequest().permitAll() //그외 나머지 요청은 누구나 접근 가능
 				.and()

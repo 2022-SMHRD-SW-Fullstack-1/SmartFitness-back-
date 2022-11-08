@@ -51,7 +51,7 @@ public class MembersRestController {
 		membersService.join(members);
 	}
 
-	// 로그인 결과값 생각중
+	// 로그인
 	@PostMapping("/login")
 	public String login(@RequestBody Map<String, String> param) throws Exception {
 		String jsonStr = gson.toJson(param);
