@@ -5,7 +5,7 @@
 	<select id="getAmountToBePaid">
 		select amount
 		from payed_list
-		where imp_uid=#{imp_uid}
+		where merchant_uid=#{merchant_uid}
 	</select>
 
 	<insert id="insertPaymentInfo" parameterType="java.util.HashMap">

@@ -75,8 +75,8 @@ public class PaymentsService {
 	 * imp_uid를 받아서 amount가져오기
 	 * **/
 	public int getAmountToBePaid(PaymentsModel paymentsModel) {
-		String imp_uid = paymentsModel.getImp_uid();
-		int amount= paymentsMapper.getAmountToBePaid(imp_uid);
+		String merchant_uid = paymentsModel.getMerchant_uid();
+		int amount= paymentsMapper.getAmountToBePaid(merchant_uid);
 		return amount;
 	}
 
