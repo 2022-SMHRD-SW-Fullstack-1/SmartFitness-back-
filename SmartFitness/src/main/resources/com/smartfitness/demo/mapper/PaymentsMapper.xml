@@ -10,7 +10,7 @@
 
 	<insert id="insertPaymentInfo" parameterType="java.util.HashMap">
 	 	insert into payed_list
-	 	values(#{imp_uid},#{merchant_uid}, null, null, #{amount}, null, #{status})
+	 	values(#{imp_uid},#{merchant_uid}, #{buyer_email}, now(), #{amount}, null, "paid")
 	</insert>
 	
 	<update id="updatePaymentInfo">
