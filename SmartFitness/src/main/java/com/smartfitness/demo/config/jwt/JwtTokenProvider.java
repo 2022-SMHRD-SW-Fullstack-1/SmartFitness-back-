@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
+import com.smartfitness.demo.model.Members;
+import com.smartfitness.demo.model.MembersDetail;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,10 +39,13 @@ public class JwtTokenProvider {
 	}
 	
 	//JWT토큰 생성
-	public String createToken(String mem_id, String tokenName) {
+	public String createToken(MembersDetail Mem, String tokenName) {
 		Date now = new Date();
-		Claims claims = Jwts.claims().setSubject(mem_id); // JWT payload에 저장되는 정보단위
+		Claims claims = Jwts.claims().setSubject(Mem.getMem_id()); // JWT payload에 저장되는 정보단위
 		claims.put("token", tokenName); // 정보는 key, value쌍으로 저장된다.
+		claims.put("mem_email", Mem.getMem_email());
+		claims.put("mem_name", Mem.getMem_name());
+		claims.put("mem_phone", Mem.getMem_phone());
 		return Jwts.builder()
 				.setClaims(claims) //정보 저장
 				.setIssuedAt(now) // 토큰 발행 시간 정보
