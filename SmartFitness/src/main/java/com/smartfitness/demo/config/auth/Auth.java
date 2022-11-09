@@ -12,7 +12,9 @@ public class Auth {
 //	private String refreshToken;
 	private String mem_id;
 	private String mem_auth;
-//	private String mem_email;
+	private String mem_email;
+	private String mem_name;
+	private String mem_phone;
 //	private String ctr_seq;
 
 }

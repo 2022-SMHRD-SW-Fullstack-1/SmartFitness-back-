@@ -43,9 +43,9 @@ public class JwtTokenProvider {
 		Date now = new Date();
 		Claims claims = Jwts.claims().setSubject(Mem.getMem_id()); // JWT payload에 저장되는 정보단위
 		claims.put("token", tokenName); // 정보는 key, value쌍으로 저장된다.
-		claims.put("mem_email", Mem.getMem_email());
-		claims.put("mem_name", Mem.getMem_name());
-		claims.put("mem_phone", Mem.getMem_phone());
+//		claims.put("mem_email", Mem.getMem_email());
+//		claims.put("mem_name", Mem.getMem_name());
+//		claims.put("mem_phone", Mem.getMem_phone());
 		return Jwts.builder()
 				.setClaims(claims) //정보 저장
 				.setIssuedAt(now) // 토큰 발행 시간 정보
