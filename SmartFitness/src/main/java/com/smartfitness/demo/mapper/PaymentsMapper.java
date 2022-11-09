@@ -23,6 +23,6 @@ public interface PaymentsMapper {
 	/**
 	 * imp_uid를 토대로 DB에서 amount 추출
 	 * **/
-	String getAmountToBePaid(String imp_uid);
+	int getAmountToBePaid(String imp_uid);
 
 }

@@ -1,6 +1,7 @@
 package com.smartfitness.demo.payment;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -30,9 +31,9 @@ public class PaymentsService {
 	/**
 	 * 토큰을 통해 결제 정보 가져오기
 	 * **/
-	public PaymentsModel getPaymentInfo(String accessToken, PaymentsModel paymentsModel) throws Exception {
-		String reqURL = "https://api.iamport.kr/payments/" + paymentsModel.getImp_uid();
+	public PaymentsModel getPaymentInfo(String accessToken, PaymentsModel paymentsModel) {
 		PaymentsModel paymentInfo = new PaymentsModel();
+		String reqURL = "https://api.iamport.kr/payments/" + paymentsModel.getImp_uid();
 		try {
 			URL url = new URL(reqURL);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -44,26 +45,38 @@ public class PaymentsService {
 	        int responseCode = conn.getResponseCode();
 	        if(responseCode == 200) { // 결과 코드가 200이면 성공
 	        	// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-	    		String jsonStr = gson.toJson(conn.getInputStream());
-	    		paymentInfo = gson.fromJson(jsonStr, PaymentsModel.class);
-	    		System.out.println("결제 정보 확인 : "+paymentInfo);
+	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	            String line = "";
+	            String result = "";
+	            
+	            while ((line = br.readLine()) != null) {
+	                result += line;
+	            }
+	     
+	            // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+	            JsonParser parser = new JsonParser();
+	            JsonElement element = parser.parse(result);
+	            
+	            JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
+	            if(!response.getAsJsonObject().get("amount").isJsonNull()) { paymentInfo.setAmount(response.getAsJsonObject().get("amount").getAsInt()); }
+	            if(!response.getAsJsonObject().get("apply_num").isJsonNull()) { paymentInfo.setApply_num(response.getAsJsonObject().get("apply_num").getAsString()); }
+	            if(!response.getAsJsonObject().get("bank_code").isJsonNull()) { paymentInfo.setBank_code(response.getAsJsonObject().get("bank_code").getAsString()); }
+	            if(!response.getAsJsonObject().get("status").isJsonNull()) { paymentInfo.setStatus(response.getAsJsonObject().get("status").getAsString()); }
+	            br.close();	
 	        }
-	        else {
-	        	throw new CustomException(ErrorCode.NOT_FOUND);
-	        }
-	        return paymentInfo;
 		}catch(Exception e) {
-	        throw new CustomException(ErrorCode.BAD_REQUEST);
+	        e.printStackTrace();
 		}
+		return paymentInfo;
 	}
 	
 	/**
 	 * model정보를 토대로 DB에서 결제금액 정보 가져오기
 	 * imp_uid를 받아서 amount가져오기
 	 * **/
-	public String getAmountToBePaid(PaymentsModel paymentsModel) {
+	public int getAmountToBePaid(PaymentsModel paymentsModel) {
 		String imp_uid = paymentsModel.getImp_uid();
-		String amount= paymentsMapper.getAmountToBePaid(imp_uid);
+		int amount= paymentsMapper.getAmountToBePaid(imp_uid);
 		return amount;
 	}
 
@@ -82,10 +95,7 @@ public class PaymentsService {
 	public String getAccessToken(PaymentsModel paymentsModel) {
 		String access_Token = "";
 		String reqURL = "https://api.iamport.kr/users/getToken";
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("imp_key", "6610123756310771");
-		map.put("imp_secret", "nLgpQIgyUrHokuxtCWiXIzZQe2lmGh0dmjN8qdDA4s07e6BN5MaP16TGI3YDViD3HY44kZEpyiaFD0ws");
-		String data= gson.toJson(map);
+		String data = "{ \"imp_key\" : \"DwHLTXWMsQqmhdp0dDaWNh7nmWuyAhAEzBZRYwQlovYspROQQGEAlUTcDp51FohYghY2aa7N9uEDPgym\", \"imp_secret\" : \"8440563800274615\"}";
 		try {
 			URL url = new URL(reqURL);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -94,16 +104,37 @@ public class PaymentsService {
 	        conn.setDoOutput(true);
 	        conn.setRequestMethod("POST");
 	        conn.setRequestProperty("Content-Type", "application/json");
-
+	   
+	        // data 넣기
+	        try (OutputStream os = conn.getOutputStream()){
+				byte request_data[] = data.getBytes("utf-8");
+				os.write(request_data);
+				os.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}	
 	        
-	        //data넣기
 	        int responseCode = conn.getResponseCode();
 	        if(responseCode == 200) { // 결과 코드가 200이면 성공
 	        	// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-	        	access_Token = gson.toJson(conn.getInputStream());
+	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	            String line = "";
+	            String result = "";
+	            
+	            while ((line = br.readLine()) != null) {
+	                result += line;
+	            }
+
+	            // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+	            JsonParser parser = new JsonParser();
+	            JsonElement element = parser.parse(result);
+	            
+	            access_Token = element.getAsJsonObject().get("response").getAsJsonObject().get("access_token").getAsString();
+	            br.close();	
 	        }
 		}catch(Exception e) {
-	        e.getStackTrace();
+			 // TODO Auto-generated catch block
+	        e.printStackTrace();
 		}
 		return access_Token;
 	}
