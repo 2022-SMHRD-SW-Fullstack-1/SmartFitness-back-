@@ -11,6 +11,9 @@ public class QnaQuestion {
 	// 질답 순번 
     private Integer qna_seq;
 
+    // 질답 유형
+    private String qna_cate;
+    
     // 질답 제목 
     private String qna_title;
 
