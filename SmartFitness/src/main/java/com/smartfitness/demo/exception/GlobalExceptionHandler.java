@@ -2,6 +2,7 @@ package com.smartfitness.demo.exception;
 
 import java.net.BindException;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -21,7 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice // 모든 restcontrolelr에서 발생하는 exception을 처리한다.
 public class GlobalExceptionHandler extends Exception{
 
-	@ExceptionHandler(value= {CustomException.class})
+	
+	//제약 조건 위배, 데이터의 삽입/수정이 무결성 제약조건을 위반할 때 발생하는 예외
+	@ExceptionHandler(value= {ConstraintViolationException.class, DataIntegrityViolationException.class})
+	protected ResponseEntity<ErrorResponse> handleDuplicationException(){
+		return ErrorResponse.toResponseEntity(ErrorCode.INTER_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(CustomException.class)
 	protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
 		return ErrorResponse.toResponseEntity(e.getErrorCode());
 	}
@@ -31,9 +39,8 @@ public class GlobalExceptionHandler extends Exception{
 		return ErrorResponse.toResponseEntity(ErrorCode.INTER_SERVER_ERROR);
 	}	
 	
-	@ExceptionHandler(NoHandlerFoundException.class)
-	protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e,
-			HttpServletRequest request) {
+	@ExceptionHandler(NoHandlerFoundException.class)  
+	protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e,HttpServletRequest request) {
 		return ErrorResponse.toResponseEntity(ErrorCode.NOT_FOUND);
 	}
 	

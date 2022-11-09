@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
+import com.smartfitness.demo.exception.CustomException;
+import com.smartfitness.demo.exception.ErrorCode;
 import com.smartfitness.demo.mapper.ProgramsMapper;
 import com.smartfitness.demo.model.CurrentPrograms;
 import com.smartfitness.demo.model.Equipments;
@@ -66,9 +68,24 @@ public class ProgramsService {
 	}
 	
 	//프로그램 예약하기
-	public void reservPg(HashMap<String, Object> map) {
+	public void reservPg(HashMap<String, Object> map) throws Exception{
+		System.out.println(map.get("curr_pg_seq"));
 		
+//		//프로그램이 존재하지 않을 때 에러
+		HashMap num = programsMapper.read((int)map.get("curr_pg_seq"));
+		if(num==null) {
+			throw new CustomException(ErrorCode.PG_NOT_FOUND);
+		}
 		
+		//정원 초과했을 때 에러
+		int num2 = programsMapper.read2((int)map.get("curr_pg_seq"));
+		System.out.println(num2);
+		if(num2==0) {
+			throw new CustomException(ErrorCode.PG_MAX);
+		}
+
+
+
 		//예약 내역 삽입
 		programsMapper.reservPg(map);
 		
