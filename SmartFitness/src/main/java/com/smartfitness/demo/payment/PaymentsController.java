@@ -1,6 +1,8 @@
 package com.smartfitness.demo.payment;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +19,13 @@ public class PaymentsController {
 	
 	@ResponseBody
 	@PostMapping("/insertPaymentInfo")
-	public String insertPaymentInfo(@RequestBody PaymentsModel paymentsModel) {
+	public String insertPaymentInfo(@RequestBody Map<String, Object> paymentsModel) {
+		System.out.println(paymentsModel);
 		// STEP5-3. 결제 정보 검증 후 저장하기
 		// 처음에 요청했던 금액 저장하기
 		try {
 			paymentsService.insertPaymentInfo(paymentsModel);
-			return "ok";	
+			return "success";	
 		}catch(Exception e){
 			return "ng";
 		}

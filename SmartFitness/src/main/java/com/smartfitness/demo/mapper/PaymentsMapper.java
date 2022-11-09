@@ -1,6 +1,10 @@
-package com.smartfitness.demo.payment;
+package com.smartfitness.demo.mapper;
+
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.smartfitness.demo.payment.PaymentsModel;
 
 @Mapper
 public interface PaymentsMapper {
@@ -8,7 +12,7 @@ public interface PaymentsMapper {
 	/**
 	 * 결제정보 DB에 저장
 	 * **/
-	void insertPaymentInfo(PaymentsModel paymentsModel);
+	void insertPaymentInfo(Map<String, Object> paymentsModel);
 
 	
 	/**

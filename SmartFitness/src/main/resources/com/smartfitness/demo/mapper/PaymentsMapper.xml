@@ -8,12 +8,12 @@
 		where imp_uid=#{imp_uid}
 	</select>
 
-	<insert id="insert_pay" parameterType="payed_list">
+	<insert id="insertPaymentInfo" parameterType="java.util.HashMap">
 	 	insert into payed_list
-	 	values(#{imp_uid},#{merchant_uid}, #{buyer_email}, #{pay_date}, #{amount}, #{card_no}, #{status})
+	 	values(#{imp_uid},#{merchant_uid}, null, null, #{amount}, null, #{status})
 	</insert>
 	
-	<update id="insertPaymentInfo">
+	<update id="updatePaymentInfo">
 		update payed_list
 		set status=#{status}
 		where imp_uid=#{imp_uid}

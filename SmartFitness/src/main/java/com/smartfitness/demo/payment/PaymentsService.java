@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.smartfitness.demo.exception.CustomException;
 import com.smartfitness.demo.exception.ErrorCode;
+import com.smartfitness.demo.mapper.PaymentsMapper;
 import com.smartfitness.demo.model.Members;
 
 @Service
@@ -81,7 +82,10 @@ public class PaymentsService {
 	public String getAccessToken(PaymentsModel paymentsModel) {
 		String access_Token = "";
 		String reqURL = "https://api.iamport.kr/users/getToken";
-		String data = "{ \"imp_key\" : \"{REST API 키}\", \"imp_secret\" : \"{REST API secret}\"}";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("imp_key", "6610123756310771");
+		map.put("imp_secret", "nLgpQIgyUrHokuxtCWiXIzZQe2lmGh0dmjN8qdDA4s07e6BN5MaP16TGI3YDViD3HY44kZEpyiaFD0ws");
+		String data= gson.toJson(map);
 		try {
 			URL url = new URL(reqURL);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -90,26 +94,16 @@ public class PaymentsService {
 	        conn.setDoOutput(true);
 	        conn.setRequestMethod("POST");
 	        conn.setRequestProperty("Content-Type", "application/json");
-	   
-	        // data 넣기
-	        try (OutputStream os = conn.getOutputStream()){
-				byte request_data[] = data.getBytes("utf-8");
-				os.write(request_data);
-				os.close();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}	
+
 	        
+	        //data넣기
 	        int responseCode = conn.getResponseCode();
 	        if(responseCode == 200) { // 결과 코드가 200이면 성공
 	        	// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 	        	access_Token = gson.toJson(conn.getInputStream());
 	        }
-	        else {
-	        	throw new CustomException(ErrorCode.NOT_FOUND);
-	        }
 		}catch(Exception e) {
-	        throw new CustomException(ErrorCode.BAD_REQUEST);
+	        e.getStackTrace();
 		}
 		return access_Token;
 	}
@@ -117,7 +111,7 @@ public class PaymentsService {
 	/**
 	 * 결제정보 DB에 입력
 	 * **/
-	public void insertPaymentInfo(PaymentsModel paymentsModel) {
+	public void insertPaymentInfo(Map<String, Object> paymentsModel) {
 		paymentsMapper.insertPaymentInfo(paymentsModel);
 	}
 	
