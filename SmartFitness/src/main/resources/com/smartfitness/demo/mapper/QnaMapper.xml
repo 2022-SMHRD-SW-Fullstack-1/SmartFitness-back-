@@ -25,13 +25,13 @@
 	
 	<!-- 질문 작성 -->
 	<insert id="qnaWrite" parameterType="com.smartfitness.demo.model.QnaQuestion">
-		insert into qna_question values(null, #{qna_title},#{qna_contents},now(),#{qna_file},#{mem_id})
+		insert into qna_question values(null, #{qna_cate},#{qna_title},#{qna_contents},now(),#{qna_file},#{mem_id})
 	</insert>
 	
 	<!-- 질문 수정 -->
 	<update id="qnaQueUpdate" parameterType="com.smartfitness.demo.model.QnaQuestion">
 		update qna_question 
-		set qna_title=#{qna_title},qna_contents=#{qna_contents},qna_date=now(),qna_file=#{qna_file}
+		set qna_cate=#{qna_cate}, qna_title=#{qna_title},qna_contents=#{qna_contents},qna_date=now(),qna_file=#{qna_file}
 		where qna_seq=#{qna_seq}
 	</update>
 	
