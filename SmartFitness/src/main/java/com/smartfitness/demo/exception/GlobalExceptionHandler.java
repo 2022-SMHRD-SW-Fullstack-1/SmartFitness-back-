@@ -33,11 +33,6 @@ public class GlobalExceptionHandler extends Exception{
 	protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
 		return ErrorResponse.toResponseEntity(e.getErrorCode());
 	}
-
-	@ExceptionHandler(value= {ConstraintViolationException.class, DataIntegrityViolationException.class})
-	protected ResponseEntity<ErrorResponse> handleDuplicationException(){
-		return ErrorResponse.toResponseEntity(ErrorCode.INTER_SERVER_ERROR);
-	}	
 	
 	@ExceptionHandler(NoHandlerFoundException.class)  
 	protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e,HttpServletRequest request) {
