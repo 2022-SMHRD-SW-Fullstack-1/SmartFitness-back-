@@ -15,12 +15,12 @@
 	
 	<!-- 회원 인증, 인가 -->
 	<select id="findByUserId" resultType="com.smartfitness.demo.model.MembersDetail">
-		select mem_id, mem_pw, mem_name, mem_email, mem_auth
+		select mem_id, mem_pw, mem_name, mem_email, mem_auth, mem_phone
 		from sf_members
 		where mem_id = #{mem_id} 
 	</select>
 	<select id="read" resultType="com.smartfitness.demo.model.Members">
-		select mem_id, mem_pw, mem_name, mem_email, mem_auth
+		select mem_id, mem_pw, mem_name, mem_email, mem_auth, mem_phone
 		from sf_members
 		where mem_id = #{mem_id}
 	</select>

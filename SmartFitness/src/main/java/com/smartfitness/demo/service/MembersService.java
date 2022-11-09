@@ -58,9 +58,8 @@ public class MembersService {
 		else {
 			String DBmem_id = md.getMem_id();
 			String DBmem_auth = md.getMem_auth();
-			String DBmem_email = md.getMem_email();
-			String accessToken= jwtTokenProvider.createToken(DBmem_id, "Access-Token");
-			Auth auth = new Auth(accessToken,DBmem_id,DBmem_auth,DBmem_email);
+			String accessToken= jwtTokenProvider.createToken(md, "Access-Token");
+			Auth auth = new Auth(accessToken,DBmem_id,DBmem_auth);
 			return auth;
 		}
 	}
