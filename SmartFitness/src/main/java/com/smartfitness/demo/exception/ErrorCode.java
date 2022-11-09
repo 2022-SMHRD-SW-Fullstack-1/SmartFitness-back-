@@ -1,6 +1,7 @@
 package com.smartfitness.demo.exception;
 
 import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,6 +47,8 @@ public enum ErrorCode {
     BK_CONFLICT(409,"MEM-BK-ERR-409","ALREADY BOOKED"),
     //네가 이미 예약했다(중복)
     MEM_BK_CONFLICT(409,"MEM-BK-ERR-409","YOU ALREADY BOOKED"),
+    //정원 초과했을 때 에러
+    PG_MAX(409,"PG-MAX","FULLY BOOKED"),
     
     //이미 존재하는 아이디다(회원정보 수정)
     MEM_CONFLICT(409,"MEM-ERR-409","MEMBER ID CONFLICT"),

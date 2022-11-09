@@ -49,6 +49,7 @@ public class EquipmentsService {
 	public void reservEm(Map<String, Object> reserv) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		result.put("기구예약가능", equipmentsMapper.reservEmStatus(reserv));
+		System.out.println(result);
 		if(result.get("기구예약가능")==null) {
 			//운동기구 예약 불가
 			throw new CustomException(ErrorCode.EM_BK_NOT_FOUND);

@@ -98,17 +98,9 @@ public class ProgramsRestController {
 
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")
-	public String reservPg(@RequestBody HashMap<String,Object> map) throws Exception{
-
-		try {
-			programsService.reservPg(map);
-			return "success";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
+	public void reservPg(@RequestBody HashMap<String,Object> map) throws Exception{		
+			programsService.reservPg(map);	
 	}
-	
 
 
 	//예약 취소하기(num : curr_pg_seq)

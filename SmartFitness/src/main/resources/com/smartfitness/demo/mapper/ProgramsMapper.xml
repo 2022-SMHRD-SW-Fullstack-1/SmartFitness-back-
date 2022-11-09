@@ -73,6 +73,19 @@
 	</insert>
 	
 
+	<!-- 프로그램 예약할때 해당 프로그램이 존재하는지 확인 -->
+	<select id="read" resultType="java.util.HashMap">
+		select curr_pg_seq
+		from current_programs
+		where curr_pg_seq=#{num}
+	</select>
+	
+	<select id="read2" resultType="int">
+		select pg_status
+		from current_programs
+		where curr_pg_seq=#{num2}
+	</select>
+	
 	
 	<!-- 프로그램 예약하기 -->
 	<insert id="reservPg">
@@ -143,7 +156,7 @@
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">
-		select curr_pt_s_dt, curr_pt_d_dt
+		select curr_pt_s_dt, curr_pt_d_dt, trainer
 		from reserv_pt
 		where month(curr_pt_s_dt)=#{month}
 	</select>
