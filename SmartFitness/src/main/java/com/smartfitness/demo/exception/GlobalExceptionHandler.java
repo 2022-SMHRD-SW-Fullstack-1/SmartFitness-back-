@@ -21,15 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice // 모든 restcontrolelr에서 발생하는 exception을 처리한다.
 public class GlobalExceptionHandler extends Exception{
 
-	@ExceptionHandler(value= {ConstraintViolationException.class, DataIntegrityViolationException.class})
-	protected ResponseEntity<ErrorResponse> handleDuplicationException(){
-		return ErrorResponse.toResponseEntity(ErrorCode.INTER_SERVER_ERROR);
-	}	
-	
 	@ExceptionHandler(value= {CustomException.class})
 	protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e){
 		return ErrorResponse.toResponseEntity(e.getErrorCode());
 	}
+
+	@ExceptionHandler(value= {ConstraintViolationException.class, DataIntegrityViolationException.class})
+	protected ResponseEntity<ErrorResponse> handleDuplicationException(){
+		return ErrorResponse.toResponseEntity(ErrorCode.INTER_SERVER_ERROR);
+	}	
 	
 	@ExceptionHandler(NoHandlerFoundException.class)
 	protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e,

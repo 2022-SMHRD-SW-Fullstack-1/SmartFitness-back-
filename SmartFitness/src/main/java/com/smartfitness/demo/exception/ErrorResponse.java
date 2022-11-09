@@ -21,6 +21,7 @@ public class ErrorResponse {
     private int status;
     private String errorcode;
     private String message;
+    
     public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode){
     	return ResponseEntity
     			.status(errorCode.getStatus())
