@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartfitness.demo.mapper.PaymentsMapper">
+
+	<select id="getAmountToBePaid">
+		select amount
+		from payed_list
+		where merchant_uid=#{merchant_uid}
+	</select>
+
+	<insert id="insertPaymentInfo" parameterType="java.util.HashMap">
+	 	insert into payed_list
+	 	values(#{imp_uid},#{merchant_uid}, #{buyer_email}, now(), #{amount}, null, "paid")
+	</insert>
+	
+	<update id="updatePaymentInfo">
+		update payed_list
+		set status=#{status}
+		where imp_uid=#{imp_uid}
+	</update>
+</mapper>

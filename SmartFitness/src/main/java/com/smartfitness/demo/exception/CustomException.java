@@ -11,5 +11,4 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CustomException extends RuntimeException{
 	private ErrorCode errorCode;
-	
 }
