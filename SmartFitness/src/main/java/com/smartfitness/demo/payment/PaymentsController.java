@@ -30,8 +30,8 @@ public class PaymentsController {
 		// STEP5-3. 결제 정보 검증 후 저장하기
 		// 처음에 요청했던 금액 저장하기
 		try {
-			paymentsService.insertPaymentInfo(paymentsModel);
 			memberService.insertInfo(paymentsModel);
+			paymentsService.insertPaymentInfo(paymentsModel);
 			return "ok";	
 		}catch(Exception e){
 			e.getStackTrace();

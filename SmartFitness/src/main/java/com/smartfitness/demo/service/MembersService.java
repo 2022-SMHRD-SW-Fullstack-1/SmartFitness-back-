@@ -128,7 +128,9 @@ public class MembersService {
 		
 		if(amount==100) {
 		membersMapper.insertInfo(map);
+
 		}else if(amount==500) {
+
 		membersMapper.insertInfo2(map);
 			}
 		}
