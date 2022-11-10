@@ -44,7 +44,7 @@
 	<!-- 결제(30일)  pg_seq가 0이면 헬스장만 결제인걸로 가정-->
 	<insert id ="insertInfo" parameterType="java.util.Map">
 		insert into membership_list
-		values(null,#{mem_id},0,null,DATE_ADD(NOW(),INTERVAL 30 DAY))
+		values(null,#{mem_id},0,2,DATE_ADD(NOW(),INTERVAL 30 DAY))
 	</insert>
 	
 		<!-- 결제(45일) -->
@@ -59,12 +59,14 @@
 	<update id="updateInfo" parameterType="java.util.Map">
 		update membership_list
 		set mbs_period=DATE_ADD(mbs_period,INTERVAL 30 DAY)
+		,mbs_cnt=mbs_cnt+2
 		where mem_id=#{mem_id}
 	</update>
 	<!-- 기간 연장(45)일 -->
 	<update id="updateInfo2" parameterType="java.util.Map">
 		update membership_list
 		set mbs_period=DATE_ADD(mbs_period,INTERVAL 45 DAY)
+		,mbs_cnt=mbs_cnt+2
 		where mem_id=#{mem_id}
 	</update>
 	<!-- 이메일 통해 아이디 받아오기 -->
