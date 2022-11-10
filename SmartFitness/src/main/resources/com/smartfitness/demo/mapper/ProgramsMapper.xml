@@ -102,7 +102,7 @@
 	<update id="reservPg3">
 		update current_programs
 		set pg_status=0
-		where curr_num_peo>= pg_max_peo
+		where curr_num_peo >= pg_max_peo
 	</update>
 	
 	<!-- 예약 취소하기 -->
