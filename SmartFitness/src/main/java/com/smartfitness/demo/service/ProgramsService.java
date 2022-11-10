@@ -120,8 +120,8 @@ public class ProgramsService {
 	}
 	
 	//트레이너 정보 확인(All)
-	public List<HashMap> confirmAllT(int ex) {
-		return programsMapper.confirmAllT(ex);
+	public List<HashMap> confirmAllT() {
+		return programsMapper.confirmAllT();
 	}
 	//트레이너 추가
 	public int addTrainer(Trainer trainer) {
