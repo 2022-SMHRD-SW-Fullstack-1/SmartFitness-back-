@@ -1,5 +1,6 @@
 package com.smartfitness.demo.mapper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -37,6 +38,8 @@ public interface MembersMapper {
 	int updateInfo(Map<String, Object> map);
 
 	int updateInfo2(Map<String, Object> map);
+
+	HashMap mbs(String mem_id);
 
 
 
