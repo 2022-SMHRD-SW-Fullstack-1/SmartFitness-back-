@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.smartfitness.demo.model.QnaAnswer;
 import com.smartfitness.demo.model.QnaQuestion;
-import com.smartfitness.demo.common.Criteria;
 import com.smartfitness.demo.exception.CustomException;
 import com.smartfitness.demo.exception.ErrorCode;
 import com.smartfitness.demo.mapper.QnaMapper;

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
+import com.smartfitness.demo.config.auth.CustomUserDetailService;
 import com.smartfitness.demo.model.Members;
 import com.smartfitness.demo.model.MembersDetail;
 
@@ -30,7 +31,7 @@ public class JwtTokenProvider {
 	
 	//토큰 유효시간 지정 30분
 	private long tokenValidTime = 30*60*1000L;
-	private final UserDetailsService userDetailsService;
+	private final CustomUserDetailService userDetailsService;
 	
 	//객체 초기화, secretKet를 Base64로 encoding한다.
 	@PostConstruct
@@ -39,9 +40,28 @@ public class JwtTokenProvider {
 	}
 	
 	//JWT토큰 생성
-	public String createToken(MembersDetail Mem, String tokenName) {
+//	public String createToken(Authentication authentication) {
+//		MembersDetail membersDetail = (MembersDetail) authentication.getPrincipal();
+//		
+//		Date now = new Date();
+//		long exp = this.tokenValidTime;
+//		
+//		return Jwts.builder()
+//				.setSubject((String)membersDetail.getUsername())
+//				.setIssuedAt(new Date())
+//				.setExpiration(new Date(now.getTime()+exp))
+//				.signWith(SignatureAlgorithm.HS256, secretKey) // 사용할 암호화 알고리즘과
+//															   // signature에 들어갈 secret 값 세팅
+//				.compact(); // 명령문을 닫아주는 명령어
+//	}
+	//JWT토큰 생성
+	public String createToken(String sub, String tokenName) {
 		Date now = new Date();
-		Claims claims = Jwts.claims().setSubject(Mem.getMem_id()); // JWT payload에 저장되는 정보단위
+		long exp = this.tokenValidTime;
+		if (tokenName.equals("Refresh-Token")) {
+			exp*=8;
+		}
+		Claims claims = Jwts.claims().setSubject(sub); // JWT payload에 저장되는 정보단위
 		claims.put("token", tokenName); // 정보는 key, value쌍으로 저장된다.
 //		claims.put("mem_email", Mem.getMem_email());
 //		claims.put("mem_name", Mem.getMem_name());
@@ -49,9 +69,9 @@ public class JwtTokenProvider {
 		return Jwts.builder()
 				.setClaims(claims) //정보 저장
 				.setIssuedAt(now) // 토큰 발행 시간 정보
-				.setExpiration(new Date(now.getTime()+tokenValidTime)) // set Expire Time
+				.setExpiration(new Date(now.getTime()+exp)) // set Expire Time
 				.signWith(SignatureAlgorithm.HS256, secretKey) // 사용할 암호화 알고리즘과
-															   // signature에 들어갈 secret 값 세팅
+				// signature에 들어갈 secret 값 세팅
 				.compact(); // 명령문을 닫아주는 명령어
 	}
 	
@@ -69,7 +89,6 @@ public class JwtTokenProvider {
 	public String resolveToken(HttpServletRequest request) {
 		String token = null;
 		Cookie cookie = WebUtils.getCookie(request, "X-Auth-TOKEN");
-//		cookie.setHttpOnly(true);
 		if(cookie != null) token = cookie.getValue();
 		return token;
 	}

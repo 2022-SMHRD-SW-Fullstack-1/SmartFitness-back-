@@ -3,7 +3,7 @@
 <mapper namespace="com.smartfitness.demo.mapper.QnaMapper">
 
 	<!-- admin이 받은 질문 전부 -->
-	<select id="selectQnaAll" parameterType="com.smartfitness.demo.common.Criteria" resultType="com.smartfitness.demo.model.QnaQuestion">
+	<select id="selectQnaAll" resultType="com.smartfitness.demo.model.QnaQuestion">
 		select * from qna_question
 	</select>
 
