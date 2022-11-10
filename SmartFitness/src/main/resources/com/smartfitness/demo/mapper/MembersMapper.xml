@@ -50,7 +50,7 @@
 		<!-- 결제(45일) -->
 	<insert id ="insertInfo2" parameterType="java.util.Map">
 		insert into membership_list
-		values(null,#{mem_id},null,null,DATE_ADD(NOW(),INTERVAL 45 DAY))
+		values(null,#{mem_id},null,2,DATE_ADD(NOW(),INTERVAL 45 DAY))
 	</insert>
 	
 	<!-- 이메일 통해 아이디 받아오기 -->
