@@ -32,6 +32,12 @@ public interface MembersMapper {
 	
 	String readE(String email);
 
+	int readM(String id);
+
+	int updateInfo(Map<String, Object> map);
+
+	int updateInfo2(Map<String, Object> map);
+
 
 
 }
