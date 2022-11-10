@@ -12,13 +12,12 @@
 	</insert>
 	
 	<!-- 수업 시간표 -->
-	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
+	<select id="selectCurrPg"   resultType="java.util.HashMap">
 		select cp.curr_pg_seq as class_num, sp.pg_name as pg_name,DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d') as start_date
 		,DATE_FORMAT(cp.curr_pg_s_dt,'%H%i%s') as start_time,dayofweek(cp.curr_pg_s_dt) as weekday,cp.pg_status
 		from current_programs cp join sf_programs sp
 		ON cp.pg_seq = sp.pg_seq
 		AND month(curr_pg_s_dt)=#{month}
-		And day(curr_pg_s_dt)=#{day}
 		order by DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d')
 	</select>
 	
@@ -131,12 +130,17 @@
 	</select>
 	
 	<select id="confirmAllT" resultType="java.util.HashMap">
-		select t.trainer_seq, t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating) AS rate
+		select *
+		from sf_trainer
+	</select>
+	
+	<!-- 
+	select t.trainer_seq, t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating) AS rate
 		from sf_trainer t join rating_trainer r
 		ON t.trainer_seq=r.trainer_seq and pg_seq=#{num}
 		GROUP BY t.trainer_seq
 		ORDER BY AVG(r.rating) desc
-	</select>
+	 -->
 	
 	<!-- 트레이너 추가 -->
 	<insert id="addTrainer">
@@ -150,14 +154,14 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},#{curr_pt_s_dt},#{curr_pt_d_dt},#{trainer})
+		insert into reserv_pt values(null,#{mem_id},#{start},#{end},#{trainer})
 	</insert>
 	
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">
-		select curr_pt_s_dt, curr_pt_d_dt, trainer
+		select start, end, trainer
 		from reserv_pt
-		where month(curr_pt_s_dt)=#{month}
+		where month(start)=#{month}
 	</select>
 </mapper>

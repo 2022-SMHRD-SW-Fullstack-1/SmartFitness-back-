@@ -38,6 +38,49 @@
 		delete from sf_members
 		where mem_id=#{mem_id}
 	</delete>
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ결제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	
+	<!-- 결제(30일)  pg_seq가 0이면 헬스장만 결제인걸로 가정-->
+	<insert id ="insertInfo" parameterType="java.util.Map">
+		insert into membership_list
+		values(null,#{mem_id},0,null,DATE_ADD(NOW(),INTERVAL 30 DAY))
+	</insert>
+	
+		<!-- 결제(45일) -->
+	<insert id ="insertInfo2" parameterType="java.util.Map">
+		insert into membership_list
+
+		values(null,#{mem_id},0,2,DATE_ADD(NOW(),INTERVAL 45 DAY))
+
+	</insert>
+	
+	<!-- 기간 연장(30)일 -->
+	<update id="updateInfo" parameterType="java.util.Map">
+		update membership_list
+		set mbs_period=DATE_ADD(mbs_period,INTERVAL 30 DAY)
+		where mem_id=#{mem_id}
+	</update>
+	<!-- 기간 연장(45)일 -->
+	<update id="updateInfo2" parameterType="java.util.Map">
+		update membership_list
+		set mbs_period=DATE_ADD(mbs_period,INTERVAL 45 DAY)
+		where mem_id=#{mem_id}
+	</update>
+	<!-- 이메일 통해 아이디 받아오기 -->
+	<select id = "readE" resultType = "String">
+		select mem_id
+		from sf_members
+		where mem_email=#{email}
+	</select>
+	
+	<!-- 아이디 결제 내역이 존재하는지 확인(프로그램은 X) -->
+	<select id="readM" resultType="int">
+		select count(*)
+		from membership_list
+		where mem_id=#{id}
+		and pg_seq=0
+	</select>
 		
 </mapper>
 

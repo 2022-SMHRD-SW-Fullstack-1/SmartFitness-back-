@@ -43,5 +43,4 @@ public class GlobalExceptionHandler extends Exception{
 	protected ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request) {
 		return ErrorResponse.toResponseEntity(ErrorCode.BAD_REQUEST);
 	}
-    
 }

@@ -1,6 +1,7 @@
 package com.smartfitness.demo.config.jwt;
 
 import io.jsonwebtoken.Claims;
+
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
