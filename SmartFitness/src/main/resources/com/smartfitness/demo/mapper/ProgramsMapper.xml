@@ -18,7 +18,6 @@
 		from current_programs cp join sf_programs sp
 		ON cp.pg_seq = sp.pg_seq
 		AND month(curr_pg_s_dt)=#{month}
-		And day(curr_pg_s_dt)=#{day}
 		order by DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d')
 	</select>
 	
@@ -150,14 +149,14 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},#{curr_pt_s_dt},#{curr_pt_d_dt},#{trainer})
+		insert into reserv_pt values(null,#{mem_id},#{start},#{end},#{trainer})
 	</insert>
 	
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">
-		select curr_pt_s_dt, curr_pt_d_dt, trainer
+		select start, end, trainer
 		from reserv_pt
-		where month(curr_pt_s_dt)=#{month}
+		where month(start)=#{month}
 	</select>
 </mapper>

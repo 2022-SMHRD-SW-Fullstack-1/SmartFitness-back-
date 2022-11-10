@@ -27,6 +27,8 @@ public class ProgramsRestController {
 	
 	
 	
+	
+	
 	// 프로그램 등록하기
 	@PostMapping("/enroll")
 	public String enroll(@RequestBody HashMap<String,Object>map)throws Exception{
@@ -65,7 +67,7 @@ public class ProgramsRestController {
 	}
 	
 	//프로그램 타임테이블
-	@PostMapping("/timetable/{month}/{day}")
+	@PostMapping("/timetable/{month}")
 	public String selectCurrPg(@RequestBody HashMap<String,Object> map) {
 		String result = gson.toJson(programsService.selectCurrPg(map));
 		System.out.println(result);
@@ -130,6 +132,7 @@ public class ProgramsRestController {
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
+		System.out.println(map);
 		
 		String curr_pt_s_dt = (String)map.get("curr_pt_s_dt");
 		curr_pt_s_dt=curr_pt_s_dt.replace("T"," ");
