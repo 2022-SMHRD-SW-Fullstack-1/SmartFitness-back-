@@ -34,7 +34,7 @@ public interface ProgramsMapper {
 	public HashMap<String,Object> confirmT(int num);
 	
 
-	public List<HashMap> confirmAllT(int ex);
+	public List<HashMap> confirmAllT();
 
 	public int addTrainer(Trainer trainer);
 

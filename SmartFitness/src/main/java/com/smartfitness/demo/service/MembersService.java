@@ -59,6 +59,7 @@ public class MembersService {
 		} else {
 			String DBmem_id = md.getMem_id();
 			String DBmem_auth = md.getMem_auth();
+
 			String DBmem_email = md.getMem_auth();
 			String DBmem_name = md.getMem_name();
 			String DBmem_phone = md.getMem_phone();
