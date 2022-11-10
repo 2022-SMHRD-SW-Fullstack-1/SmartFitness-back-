@@ -145,6 +145,13 @@ public class PaymentsService {
 	public void insertPaymentInfo(Map<String, Object> paymentsModel) {
 		paymentsMapper.insertPaymentInfo(paymentsModel);
 	}
+
+	public void enroll(HashMap map) {
+		paymentsMapper.enroll(map);
+		
+	}
+
+	
 	
 	
 

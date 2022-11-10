@@ -1,5 +1,7 @@
 package com.smartfitness.demo.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.smartfitness.demo.model.Members;
@@ -21,6 +23,15 @@ public interface MembersMapper {
 
 	//회원탈퇴
 	int delete(String mem_id);
+	
+	//30일 결제
+	int insertInfo(Map<String, Object> map);
+	
+	//45일 결제
+	int insertInfo2(Map<String, Object> map);
+	
+	String readE(String email);
+
 
 
 }

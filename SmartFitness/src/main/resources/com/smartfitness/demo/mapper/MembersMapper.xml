@@ -38,6 +38,28 @@
 		delete from sf_members
 		where mem_id=#{mem_id}
 	</delete>
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ결제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	
+	<!-- 결제(30일) -->
+	<insert id ="insertInfo" parameterType="java.util.Map">
+		insert into membership_list
+		values(null,#{mem_id},null,null,DATE_ADD(NOW(),INTERVAL 30 DAY))
+	</insert>
+	
+		<!-- 결제(45일) -->
+	<insert id ="insertInfo2" parameterType="java.util.Map">
+		insert into membership_list
+		values(null,#{mem_id},null,null,DATE_ADD(NOW(),INTERVAL 45 DAY))
+	</insert>
+	
+	<!-- 이메일 통해 아이디 받아오기 -->
+	<select id = "readE" resultType = "String">
+		select mem_id
+		from sf_members
+		where mem_email = #{email}
+	</select>
+	
 		
 </mapper>
 
