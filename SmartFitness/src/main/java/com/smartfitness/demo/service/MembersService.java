@@ -182,6 +182,11 @@ public class MembersService {
 			}
 		}
 	}
+
+	public HashMap mbs(String mem_id) {
+		return membersMapper.mbs(mem_id);
+		
+	}
 }
 
 ////현재 날짜 불러오기(그냥 DB에서 하겠음)

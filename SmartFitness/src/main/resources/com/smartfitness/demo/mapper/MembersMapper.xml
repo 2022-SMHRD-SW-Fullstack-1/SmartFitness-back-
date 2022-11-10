@@ -82,5 +82,10 @@
 		and pg_seq=0
 	</select>
 		
+	<select id="mbs">
+		select *
+		from membership_list
+		where mem_id=#{mem_id}
+	</select>
 </mapper>
 
