@@ -1,6 +1,9 @@
 package com.smartfitness.demo.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +96,74 @@ public class MembersService {
 			}
 		}
 	}
+
+	//멤버십 결제
+	public void insertInfo(Map<String, Object> paymentsModel) {
+		System.out.println(paymentsModel);
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String email = (String)paymentsModel.get("buyer_email");
+		//email 확인 mapper를 불러오자
+		String id = membersMapper.readE(email);
+		//금액 뽑아오자
+		int amount = (int)(paymentsModel.get("amount"));
+		
+		System.out.println(id);
+		//아이디 넣기
+		map.put("mem_id",id);	
+		
+		System.out.println(map.get("mem_id"));
+		//마감기한
+		map.put("amount", amount);
+		
+		
+		if(amount==100) {
+		membersMapper.insertInfo(map);
+		}
+		if(amount==500) {
+		membersMapper.insertInfo2(map);
+		}
+	}
 }
+
+
+
+
+
+
+
+////현재 날짜 불러오기(그냥 DB에서 하겠음)
+//Date date = new Date();
+//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//String date2 = formatter.format(date);
+//map.put("date",date2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

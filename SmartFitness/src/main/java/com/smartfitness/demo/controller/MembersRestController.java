@@ -100,5 +100,27 @@ public class MembersRestController {
 	public String adminResponseTest() {
 		return "admin ok";
 	}
-
+	
+//	@GetMapping("/membership/{mem_id}")
+//	public String membership(@PathVariable("mem_id") String mem_id){
+//		membersService.
+//	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

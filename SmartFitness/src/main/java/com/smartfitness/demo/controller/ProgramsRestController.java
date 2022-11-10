@@ -27,6 +27,8 @@ public class ProgramsRestController {
 	
 	
 	
+	
+	
 	// 프로그램 등록하기
 	@PostMapping("/enroll")
 	public String enroll(@RequestBody HashMap<String,Object>map)throws Exception{
@@ -130,10 +132,12 @@ public class ProgramsRestController {
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
+
 		String start = (String)map.get("start");
 		start=start.replace("T"," ");
 		start=start.replace("+09:00","");
 		map.put("start", start);
+
 		
 		String end = (String)map.get("end");
 		end=end.replace("T"," ");
