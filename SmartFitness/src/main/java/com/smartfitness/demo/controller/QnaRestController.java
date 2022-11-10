@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.smartfitness.demo.common.Criteria;
 import com.smartfitness.demo.model.QnaAnswer;
 import com.smartfitness.demo.model.QnaQuestion;
 import com.smartfitness.demo.service.QnaService;
-import com.smartfitness.demo.common.Page;
 
 @RequestMapping("/qna")
 @RestController
