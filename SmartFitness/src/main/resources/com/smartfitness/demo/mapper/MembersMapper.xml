@@ -84,7 +84,7 @@
 		and pg_seq=0
 	</select>
 		
-	<select id="mbs">
+	<select id="mbs" resultType="java.util.Map">
 		select *
 		from membership_list
 		where mem_id=#{mem_id}
