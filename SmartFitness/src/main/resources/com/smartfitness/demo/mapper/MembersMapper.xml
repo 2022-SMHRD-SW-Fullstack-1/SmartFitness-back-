@@ -87,7 +87,9 @@
 		and pg_seq=0
 	</select>
 		
+
 	<!-- 잔여 보내주기 -->
+
 	<select id="mbs" resultType="java.util.Map">
 		select *
 		from membership_list

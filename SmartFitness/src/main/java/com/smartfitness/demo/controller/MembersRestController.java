@@ -102,6 +102,7 @@ public class MembersRestController {
 		return "admin ok";
 	}
 	
+	//잔여기간 보내주기
 	@GetMapping("/membership/{mem_id}")
 	public String membership(@PathVariable("mem_id") String mem_id){
 		membersService.mbs(mem_id);

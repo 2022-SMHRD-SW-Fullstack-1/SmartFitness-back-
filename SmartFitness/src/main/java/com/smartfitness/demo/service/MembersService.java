@@ -81,7 +81,7 @@ public class MembersService {
 		else {
 			System.out.println("사용자 권한 : "+DB_members.getAuthorities());
 			String DBmem_id = DB_members.getMem_id();
-			String DBmem_email =DB_members.getMem_auth();
+			String DBmem_email =DB_members.getMem_email();
 			String DBmem_name = DB_members.getMem_name();
 			String DBmem_phone =DB_members.getMem_phone();
 			
