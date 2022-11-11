@@ -132,7 +132,10 @@ public class ProgramsRestController {
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
-
+		
+		String mem_id = (String)map.get("mem_id");
+		map.put("mem_id", mem_id);
+		System.out.println(map);
 		String start = (String)map.get("start");
 		start=start.replace("T"," ");
 		start=start.replace("+09:00","");
