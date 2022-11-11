@@ -63,7 +63,6 @@ public class MembersRestController {
 		// 로그인 이후, 권한을 부여하고 토큰을 발행한다
 		// 오류 처리는 service에서 했다
 		Auth auth = membersService.login(user);
-
 		String result = gson.toJson(auth);
 		System.out.println("반환 정보 : " + result);
 		return result;

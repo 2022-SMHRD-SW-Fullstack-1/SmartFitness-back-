@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.smartfitness.demo.config.jwt.JwtAuthenticationFilter;
 import com.smartfitness.demo.config.jwt.JwtTokenProvider;
+import com.smartfitness.demo.config.jwt.TokenAuthenticationFilter;
 import com.smartfitness.demo.model.MembersDetail;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,12 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private final JwtTokenProvider jwtTokenProvider;
+	
+	//1.주석 해제
+//	@Bean
+//	public TokenAuthenticationFilter tokenAuthenticationFilter() {
+//	return new TokenAuthenticationFilter();	
+//	}
 	
 	@Autowired
 	private CorsConfig corsConfig;
@@ -53,8 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 				.addFilter(corsConfig.corsFilter())
 				.csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
-				.and()
+				.sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
+					.and()
 				.formLogin().disable()
 				.httpBasic().disable()
 				.authorizeHttpRequests() //요청에 대한 사용권한 체크
@@ -62,7 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //				.antMatchers("/mypage/**").hasAnyRole("ROLE_M","ROLE_A") // M, A중 하나만 있으면 접근가능
 //				.antMatchers("/add/**").hasRole("A") or authority
 				.anyRequest().permitAll() //그외 나머지 요청은 누구나 접근 가능
-				.and()
+					.and()
+					//2.주석해제
+//				.addFilterBefore(new TokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 				// JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다.
 		http
@@ -70,20 +80,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.logoutUrl("/logout")
 				.invalidateHttpSession(true)
 				.deleteCookies("X-Auth-Token","X-Auth-Token");
-	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth
-			.inMemoryAuthentication()
-			.withUser("ADMIN")
-			.password(passwordEncoder().encode("ADMIN"))
-			.roles("A")
-			.accountExpired(true)
-			.and()
-			.withUser("MEMBER")
-			.password(passwordEncoder().encode("MEMBER"))
-			.roles("M");
 	}
 
 }
