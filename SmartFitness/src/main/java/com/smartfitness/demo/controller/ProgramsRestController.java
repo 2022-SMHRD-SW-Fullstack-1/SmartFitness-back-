@@ -1,5 +1,6 @@
 package com.smartfitness.demo.controller;
 import java.sql.Timestamp;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -129,11 +130,14 @@ public class ProgramsRestController {
 		return result;
 	}
 	
-	//2022-11-06T02:00:00+09:00
+	
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
-
+		
+		String mem_id = (String)map.get("mem_id");
+		map.put("mem_id", mem_id);
+		System.out.println(map);
 		String start = (String)map.get("start");
 		start=start.replace("T"," ");
 		start=start.replace("+09:00","");
@@ -153,6 +157,31 @@ public class ProgramsRestController {
 		}
 	}
 	
+	//전부 보내줄겡 ㅎㅎ
+	
+	
+	
+	
+	//PT 예약 취소하기
+	@PostMapping("/PT/cancel")
+	public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
+		
+		String mem_id = (String)map.get("mem_id");
+		map.put("mem_id", mem_id);
+		String start = (String)map.get("start");
+		start=start.replace("T"," ");
+		start=start.replace(".000Z","");
+		map.put("start", start);
+		System.out.println(start);
+		
+		try {
+			programsService.cancelPt(map);
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
 	
 	
 	//여기부터는 트레이너 ==============================================
@@ -171,9 +200,9 @@ public class ProgramsRestController {
 	}
 	
 	//트레이너 정보 확인(1명)
-	@GetMapping("/trainer/{num}")
-	public String confirmT(@PathVariable("num")int num) {
-		String result = gson.toJson(programsService.confirmT(num));
+	@GetMapping("/trainer/{name}")
+	public String confirmT(@PathVariable("name")String name) {
+		String result = gson.toJson(programsService.confirmT(name));
 		return result;	
 	}
 	

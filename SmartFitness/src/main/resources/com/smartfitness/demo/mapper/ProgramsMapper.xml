@@ -105,13 +105,15 @@
 		where curr_num_peo >= pg_max_peo
 	</update>
 	
-	<!-- 예약 취소하기 -->
+	<!-- 프로그램 예약 취소하기 -->
 	<delete id="cancelPg">
 		delete
 		from reserv_programs
 		where curr_pg_seq = #{num}
 		and mem_id=#{mem_id}
 	</delete>
+	
+	
 	
 	<!-- 취소를 했으니 현재 프로그램 테이블에 인원 -, 예약 가능 상태로 변경 -->
 	<update id="cancelPg2">
@@ -120,13 +122,20 @@
 		where curr_pg_seq=#{num}
 	</update>
 	
+	<!-- PT 예약 취소하기 -->
+	<delete id="cancelPt">
+		delete
+		from reserv_pt
+		where start=#{start}
+		and mem_id=#{mem_id}
+	</delete>
+	
 
 	
 	<select id="confirmT" resultType="java.util.HashMap">
-		select t.trainer_seq , t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating)
-		from sf_trainer t join rating_trainer r
-		ON t.trainer_seq=r.trainer_seq
-		AND t.trainer_seq=#{num}
+		select *
+		from sf_trainer
+		where trainer_name = #{name}
 	</select>
 	
 	<select id="confirmAllT" resultType="java.util.HashMap">
@@ -154,7 +163,7 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},#{start},#{end},#{trainer})
+		insert into reserv_pt values(null,#{mem_id},#{start},#{end},null)
 	</insert>
 	
 	
