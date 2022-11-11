@@ -123,9 +123,10 @@ public class ProgramsRestController {
 	
 	//여기부터는 PT =================================================
 	//PT 타임테이블 보내주기(여기서 num은 트레이너 번호)
-	@GetMapping("/PT/timetable/{month}")
+	@PostMapping("/PT/timetable/{month}")
 	public String selectCurrPt(@PathVariable("month") int month){
 		String result = gson.toJson(programsService.selectCurrPt(month));
+		System.out.println(result);
 		return result;
 	}
 	
@@ -222,5 +223,42 @@ public class ProgramsRestController {
 			else {
 				return "fail";
 		}	
-	}		
+	}
+		
+		//PT 예약 취소하기
+		@PostMapping("/PT/cancel")
+		public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
+			
+			String mem_id = (String)map.get("mem_id");
+			map.put("mem_id", mem_id);
+			String start = (String)map.get("start");
+//		     Timestamp timestamp = Timestamp.valueOf(date);
+//		     System.out.println(timestamp);
+			
+//			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			Date date2 = format.parse(date);
+//			System.out.println(date2);
+//			System.out.println(date2);
+			map.put("start", start);
+			
+			try {
+				programsService.cancelPt(map);
+				return "success";
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "fail";
+			}
+		}
+		
+		
 }
+
+
+
+
+
+
+
+
+
+

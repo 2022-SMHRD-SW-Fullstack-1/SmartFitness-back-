@@ -62,5 +62,5 @@ public interface ProgramsMapper {
 	//예약하려는 프로그램의 정원이 초과했는지
 	public int read2(int num2);
 
-	
+
 }

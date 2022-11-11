@@ -152,6 +152,11 @@ public class ProgramsService {
 		return programsMapper.cancelPt(map);
 	}
 
+	public int cancelPt(HashMap<String, Object> map) {
+		return programsMapper.cancelPt(map);
+		
+	}
+
 	
 
 
