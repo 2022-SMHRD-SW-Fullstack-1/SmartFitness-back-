@@ -154,7 +154,7 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},#{start},#{end},#{trainer})
+		insert into reserv_pt values(null,#{mem_id},#{start},#{end},null)
 	</insert>
 	
 	

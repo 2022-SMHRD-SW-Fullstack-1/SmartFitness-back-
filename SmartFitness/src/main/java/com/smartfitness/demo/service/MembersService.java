@@ -179,7 +179,7 @@ public class MembersService {
 			}
 		}
 	}
-
+	//잔여기간 보내주기
 	public HashMap mbs(String mem_id) {
 		return membersMapper.mbs(mem_id);
 		
