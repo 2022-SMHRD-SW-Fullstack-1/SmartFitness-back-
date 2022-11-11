@@ -115,8 +115,8 @@ public class ProgramsService {
 	}
 	
 	//트레이너 정보 확인(1명)
-	public HashMap<String,Object> confirmT(int num) {
-		return programsMapper.confirmT(num);
+	public HashMap<String,Object> confirmT(String name) {
+		return programsMapper.confirmT(name);
 	}
 	
 	//트레이너 정보 확인(All)
@@ -145,6 +145,11 @@ public class ProgramsService {
 
 	public List<HashMap> sendMy(String mem_id) {
 		return programsMapper.sendMy(mem_id);
+	}
+	
+	//PT 취소하기
+	public int cancelPt(HashMap<String,Object> map) {
+		return programsMapper.cancelPt(map);
 	}
 
 	
