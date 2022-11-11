@@ -164,4 +164,13 @@
 		from reserv_pt
 		where month(start)=#{month}
 	</select>
+	
+	<!-- PT 예약 취소하기 -->
+	<delete id="cancelPt">
+		delete
+		from reserv_pt
+		where start=STR_TO_DATE(#{start}, '%YY%m%d%H%i%s')
+		and mem_id=#{mem_id}
+	</delete>
+	
 </mapper>

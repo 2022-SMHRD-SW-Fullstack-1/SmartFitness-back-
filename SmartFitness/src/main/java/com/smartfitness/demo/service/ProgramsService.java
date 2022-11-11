@@ -147,6 +147,11 @@ public class ProgramsService {
 		return programsMapper.sendMy(mem_id);
 	}
 
+	public int cancelPt(HashMap<String, Object> map) {
+		return programsMapper.cancelPt(map);
+		
+	}
+
 	
 
 
