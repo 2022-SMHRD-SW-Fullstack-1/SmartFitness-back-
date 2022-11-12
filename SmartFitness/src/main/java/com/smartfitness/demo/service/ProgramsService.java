@@ -114,24 +114,7 @@ public class ProgramsService {
 //		programsMapper.cancelPg3(num);
 	}
 	
-	//트레이너 정보 확인(1명)
-	public HashMap<String,Object> confirmT(String name) {
-		return programsMapper.confirmT(name);
-	}
-	
-	//트레이너 정보 확인(All)
-	public List<HashMap> confirmAllT() {
-		return programsMapper.confirmAllT();
-	}
-	//트레이너 추가
-	public int addTrainer(Trainer trainer) {
-		return programsMapper.addTrainer(trainer);
-	}
-	
-	//트레이너 평점 매기기
-	public int rate(HashMap<String, Object> map) {
-		return programsMapper.rate(map);
-	}
+
 	
 	// PT 예약하기
 	public void reservPt(HashMap<String, Object> map) {
@@ -150,6 +133,43 @@ public class ProgramsService {
 	//PT 취소하기
 	public int cancelPt(HashMap<String,Object> map) {
 		return programsMapper.cancelPt(map);
+	}
+	
+	// 여기서부터 트레이너!!
+	//트레이너 정보 확인(1명)
+	public HashMap<String,Object> confirmT(String name) {
+		return programsMapper.confirmT(name);
+	}
+	
+	//트레이너 정보 확인(All)
+	public List<HashMap> confirmAllT() {
+		return programsMapper.confirmAllT();
+	}
+	//트레이너 추가
+	public int addTrainer(Trainer trainer) {
+		return programsMapper.addTrainer(trainer);
+	}
+	
+	//트레이너 평점 매기기
+	public void rate(HashMap<String, Object> map)throws CustomException {
+		
+		int cnt2 = programsMapper.rate2(map);
+		
+		
+	
+		if(cnt2>0) {
+			throw new CustomException(ErrorCode.TR_DU);
+		}
+		int cnt = programsMapper.rate(map);
+		
+	}
+	
+	public int rating(int tr) {
+		return programsMapper.rating(tr);
+	}
+
+	public int rate2(HashMap<String, Object> map) {
+		return programsMapper.rate2(map);
 	}
 
 }

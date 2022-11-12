@@ -214,15 +214,23 @@ public class ProgramsRestController {
 		
 	//트레이너 평점 주기
 		@PostMapping("/trainer/rate")
-		public String rate(@RequestBody HashMap<String,Object> map)throws Exception{
-			int cnt = programsService.rate(map);
-			if(cnt > 0 ) {
-				return "success";
-			}
-			else {
-				return "fail";
-		}	
+		public void rate(@RequestBody HashMap<String,Object> map){	
+			programsService.rate(map);	
 	}
+		
+	//트레이너 평점 보내주기  tr에 트레이너 시퀀스 넣어주세요
+		@GetMapping("/trainer/rate/{tr}")
+		public String rate(@PathVariable("tr") int tr) {
+			
+			try {
+				String result = gson.toJson(programsService.rating(tr));
+				return result;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "fail";
+			}
+			
+		}
 	
 }
 
