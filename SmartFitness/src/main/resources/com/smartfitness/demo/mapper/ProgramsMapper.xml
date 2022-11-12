@@ -157,7 +157,9 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
+
 		insert into reserv_pt values(null,#{mem_id},DATE_ADD(#{start},interval -9 HOUR),DATE_ADD(#{end},interval -9 HOUR),#{trainer})
+
 	</insert>
 	
 	
@@ -167,7 +169,7 @@
 		from reserv_pt
 		where month(start)=#{month}
 	</select>
-	
+
 	<!-- PT 예약 취소하기 -->
 	<delete id="cancelPt" parameterType="java.util.HashMap">
 		delete 
@@ -175,5 +177,5 @@
 		where start= #{strart}
 		and mem_id=#{mem_id}
 	</delete>
-	
+
 </mapper>
