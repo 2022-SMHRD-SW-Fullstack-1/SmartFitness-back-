@@ -152,18 +152,7 @@ public class ProgramsService {
 		return programsMapper.cancelPt(map);
 	}
 
-
-		
-	}
-
-	
-
-
-
-	
-	
-	
-
+}
 
 
 

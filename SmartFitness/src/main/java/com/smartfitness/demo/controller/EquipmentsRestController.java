@@ -71,7 +71,7 @@ public class EquipmentsRestController {
 	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/timetable/{em_seq}")
 	public String selectCurrEm(@PathVariable("em_seq") int em_seq) throws Exception {
-		System.out.println(em_seq);
+		System.out.println("예약 확인할 기구"+em_seq);
 		Map<String, Object> curr_em = new HashMap<String, Object>();
 		curr_em.put("current_equipment", equipmentsService.selectCurrEm(em_seq));
 		// {예약시간1:Y,예약시간2:N} 으로 반환

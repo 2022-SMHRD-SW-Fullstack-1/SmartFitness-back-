@@ -39,7 +39,7 @@ public class EquipmentsService {
 	// 운동 기구 예약 가능한지 확인
 	public Map<String, Object> selectCurrEm(int em_seq) throws Exception {
 		Map<String, Object> result = equipmentsMapper.selectCurrEm(em_seq);
-		if (result.get("current_equipment")==null) {
+		if (result==null) {
 			throw new CustomException(ErrorCode.EM_NOT_FOUND);
 		}
 		return result;
