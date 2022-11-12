@@ -26,17 +26,21 @@ public class ProgramsRestController {
 	ProgramsService programsService;
 	
 
-	// 프로그램 등록하기.
-	@PostMapping("/enroll")
-	public String enroll(@RequestBody HashMap<String,Object>map)throws Exception{
-		try {
-			programsService.enroll(map);
-			return "success";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
-	}
+	
+	
+//
+//	// 프로그램 등록하기
+//	@PostMapping("/enroll")
+//	public String enroll(@RequestBody HashMap<String,Object>map)throws Exception{
+//		try {
+//			programsService.enroll(map);
+//			return "success";
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return "fail";
+//		}
+//	}
+
 	
 	// 프로그램 추가
 	@PostMapping("/add")
@@ -87,13 +91,13 @@ public class ProgramsRestController {
 	String result = gson.toJson(programsService.reservMy(mem_id));
 	return result;
 	}
-	
-	//타임테이블에서 클래스 선택했을 떄(클래스 번호 보내줄 때) 상단에 띄어줄 클래스 정보(클래스 정보 보내주기) 1, 마이페이지에서 예약 내역 확인할때 2, 타임테이블에서 클릭해서 프로그램 정보 확인할 때
-	@GetMapping("/{mem_id}/timetable/pg/{curr_pg_seq}")
-	public String sendC(@PathVariable("curr_pg_seq") int num) {
-		String result = gson.toJson(programsService.sendC(num));
-		return result;
-	}
+//	
+//	//타임테이블에서 클래스 선택했을 떄(클래스 번호 보내줄 때) 상단에 띄어줄 클래스 정보(클래스 정보 보내주기) 1, 마이페이지에서 예약 내역 확인할때 2, 타임테이블에서 클릭해서 프로그램 정보 확인할 때
+//	@GetMapping("/{mem_id}/timetable/pg/{curr_pg_seq}")
+//	public String sendC(@PathVariable("curr_pg_seq") int num) {
+//		String result = gson.toJson(programsService.sendC(num));
+//		return result;
+//	}
 
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")
@@ -153,7 +157,7 @@ public class ProgramsRestController {
 		}
 	}
 	
-	//전부 보내줄겡 ㅎㅎ
+
 	
 	
 	
@@ -181,19 +185,19 @@ public class ProgramsRestController {
 	
 	
 	//여기부터는 트레이너 ==============================================
-	
-	//트레이너 추가
-	@PostMapping("/trainer/add")
-	public String addTrainer(@RequestBody Trainer trainer)throws Exception {
-		
-		try {
-			programsService.addTrainer(trainer);
-			return "success";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
-	}
+//	
+//	//트레이너 추가
+//	@PostMapping("/trainer/add")
+//	public String addTrainer(@RequestBody Trainer trainer)throws Exception {
+//		
+//		try {
+//			programsService.addTrainer(trainer);
+//			return "success";
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return "fail";
+//		}
+//	}
 	
 	//트레이너 정보 확인(1명)
 	@GetMapping("/trainer/{name}")
