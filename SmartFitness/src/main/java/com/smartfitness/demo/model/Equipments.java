@@ -24,5 +24,6 @@ public class Equipments {
     private String em_type;
     
     //운동 기구 이미지
-    private String em_img;
+    private String em_img1;
+    private String em_img2;
 }
