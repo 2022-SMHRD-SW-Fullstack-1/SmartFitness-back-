@@ -163,7 +163,7 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},#{start},#{end},null)
+		insert into reserv_pt values(null,#{mem_id},#{start},#{end},#{trainer})
 	</insert>
 	
 	
@@ -174,12 +174,6 @@
 		where month(start)=#{month}
 	</select>
 	
-	<!-- PT 예약 취소하기 -->
-	<delete id="cancelPt">
-		delete
-		from reserv_pt
-		where start=STR_TO_DATE(#{start}, '%YY%m%d%H%i%s')
-		and mem_id=#{mem_id}
-	</delete>
+	
 	
 </mapper>
