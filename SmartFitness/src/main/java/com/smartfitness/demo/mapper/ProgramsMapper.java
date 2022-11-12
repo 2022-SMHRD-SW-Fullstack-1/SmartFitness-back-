@@ -26,15 +26,20 @@ public interface ProgramsMapper {
 	public int reservPg2(HashMap<String,Object> map);
 	public int reservPg3(HashMap<String, Object> map);
 
+	
+	//프로그램 취소
 	public int cancelPg(int num,String mem_id);
 	public int cancelPg2(int num);
 	public int cancelPg3(int num);
 	
+	//PT 취소
+	public int cancelPt(HashMap<String, Object> map);
+	
 	//트레이너 정보 확인
-	public HashMap<String,Object> confirmT(int num);
+	public HashMap<String,Object> confirmT(String name);
 	
 
-	public List<HashMap> confirmAllT(int ex);
+	public List<HashMap> confirmAllT();
 
 	public int addTrainer(Trainer trainer);
 
@@ -56,4 +61,6 @@ public interface ProgramsMapper {
 	public HashMap read(int num);
 	//예약하려는 프로그램의 정원이 초과했는지
 	public int read2(int num2);
+
+
 }

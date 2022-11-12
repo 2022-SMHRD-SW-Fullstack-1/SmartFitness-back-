@@ -12,13 +12,12 @@
 	</insert>
 	
 	<!-- 수업 시간표 -->
-	<select id="selectCurrPg"  parameterType = "int" resultType="java.util.HashMap">
+	<select id="selectCurrPg"   resultType="java.util.HashMap">
 		select cp.curr_pg_seq as class_num, sp.pg_name as pg_name,DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d') as start_date
 		,DATE_FORMAT(cp.curr_pg_s_dt,'%H%i%s') as start_time,dayofweek(cp.curr_pg_s_dt) as weekday,cp.pg_status
 		from current_programs cp join sf_programs sp
 		ON cp.pg_seq = sp.pg_seq
 		AND month(curr_pg_s_dt)=#{month}
-		And day(curr_pg_s_dt)=#{day}
 		order by DATE_FORMAT(cp.curr_pg_s_dt,'%y%m%d')
 	</select>
 	
@@ -103,16 +102,18 @@
 	<update id="reservPg3">
 		update current_programs
 		set pg_status=0
-		where curr_num_peo>= pg_max_peo
+		where curr_num_peo >= pg_max_peo
 	</update>
 	
-	<!-- 예약 취소하기 -->
+	<!-- 프로그램 예약 취소하기 -->
 	<delete id="cancelPg">
 		delete
 		from reserv_programs
 		where curr_pg_seq = #{num}
 		and mem_id=#{mem_id}
 	</delete>
+	
+	
 	
 	<!-- 취소를 했으니 현재 프로그램 테이블에 인원 -, 예약 가능 상태로 변경 -->
 	<update id="cancelPg2">
@@ -121,22 +122,34 @@
 		where curr_pg_seq=#{num}
 	</update>
 	
+	<!-- PT 예약 취소하기 -->
+	<delete id="cancelPt">
+		delete
+		from reserv_pt
+		where start=#{start}
+		and mem_id=#{mem_id}
+	</delete>
+	
 
 	
 	<select id="confirmT" resultType="java.util.HashMap">
-		select t.trainer_seq , t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating)
-		from sf_trainer t join rating_trainer r
-		ON t.trainer_seq=r.trainer_seq
-		AND t.trainer_seq=#{num}
+		select *
+		from sf_trainer
+		where trainer_name = #{name}
 	</select>
 	
 	<select id="confirmAllT" resultType="java.util.HashMap">
-		select t.trainer_seq, t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating) AS rate
+		select *
+		from sf_trainer
+	</select>
+	
+	<!-- 
+	select t.trainer_seq, t.trainer_name, trainer_price, trainer_info, trainer_pic, trainer_ment, avg(r.rating) AS rate
 		from sf_trainer t join rating_trainer r
 		ON t.trainer_seq=r.trainer_seq and pg_seq=#{num}
 		GROUP BY t.trainer_seq
 		ORDER BY AVG(r.rating) desc
-	</select>
+	 -->
 	
 	<!-- 트레이너 추가 -->
 	<insert id="addTrainer">
@@ -150,14 +163,23 @@
 	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
-		insert into reserv_pt values(null,#{mem_id},#{curr_pt_s_dt},#{curr_pt_d_dt},#{trainer})
+		insert into reserv_pt values(null,#{mem_id},#{start},#{end},null)
 	</insert>
 	
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">
-		select curr_pt_s_dt, curr_pt_d_dt, trainer
+		select start, end, trainer
 		from reserv_pt
-		where month(curr_pt_s_dt)=#{month}
+		where month(start)=#{month}
 	</select>
+	
+	<!-- PT 예약 취소하기 -->
+	<delete id="cancelPt">
+		delete
+		from reserv_pt
+		where start=STR_TO_DATE(#{start}, '%YY%m%d%H%i%s')
+		and mem_id=#{mem_id}
+	</delete>
+	
 </mapper>

@@ -1,5 +1,6 @@
 package com.smartfitness.demo.controller;
 import java.sql.Timestamp;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public class ProgramsRestController {
 	Gson gson = new Gson();
 	@Autowired
 	ProgramsService programsService;
+	
+	
 	
 	
 	
@@ -65,7 +68,7 @@ public class ProgramsRestController {
 	}
 	
 	//프로그램 타임테이블
-	@PostMapping("/timetable/{month}/{day}")
+	@PostMapping("/timetable/{month}")
 	public String selectCurrPg(@RequestBody HashMap<String,Object> map) {
 		String result = gson.toJson(programsService.selectCurrPg(map));
 		System.out.println(result);
@@ -120,26 +123,31 @@ public class ProgramsRestController {
 	
 	//여기부터는 PT =================================================
 	//PT 타임테이블 보내주기(여기서 num은 트레이너 번호)
-	@GetMapping("/PT/timetable/{month}")
+	@PostMapping("/PT/timetable/{month}")
 	public String selectCurrPt(@PathVariable("month") int month){
 		String result = gson.toJson(programsService.selectCurrPt(month));
+		System.out.println(result);
 		return result;
 	}
 	
-	//2022-11-06T02:00:00+09:00
+	
 	//PT 예약
 	@PostMapping("/PT/reserv")
 	public String reservPt( @RequestBody HashMap<String,Object> map)throws Exception {
 		
-		String curr_pt_s_dt = (String)map.get("curr_pt_s_dt");
-		curr_pt_s_dt=curr_pt_s_dt.replace("T"," ");
-		curr_pt_s_dt=curr_pt_s_dt.replace("+09:00","");
-		map.put("curr_pt_s_dt", curr_pt_s_dt);
+		String mem_id = (String)map.get("mem_id");
+		map.put("mem_id", mem_id);
+		System.out.println(map);
+		String start = (String)map.get("start");
+		start=start.replace("T"," ");
+		start=start.replace("+09:00","");
+		map.put("start", start);
+
 		
-		String curr_pt_d_dt = (String)map.get("curr_pt_d_dt");
-		curr_pt_d_dt=curr_pt_s_dt.replace("T"," ");
-		curr_pt_d_dt=curr_pt_s_dt.replace("+09:00","");
-		map.put("curr_pt_d_dt", curr_pt_d_dt);
+		String end = (String)map.get("end");
+		end=end.replace("T"," ");
+		end=end.replace("+09:00","");
+		map.put("end", end);
 		try {
 			programsService.reservPt(map);
 			return "success";
@@ -149,6 +157,31 @@ public class ProgramsRestController {
 		}
 	}
 	
+	//전부 보내줄겡 ㅎㅎ
+	
+	
+	
+	
+	//PT 예약 취소하기
+	@PostMapping("/PT/cancel")
+	public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
+		
+		String mem_id = (String)map.get("mem_id");
+		map.put("mem_id", mem_id);
+		String start = (String)map.get("start");
+		start=start.replace("T"," ");
+		start=start.replace(".000Z","");
+		map.put("start", start);
+		System.out.println(start);
+		
+		try {
+			programsService.cancelPt(map);
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+	}
 	
 	
 	//여기부터는 트레이너 ==============================================
@@ -167,16 +200,16 @@ public class ProgramsRestController {
 	}
 	
 	//트레이너 정보 확인(1명)
-	@GetMapping("/trainer/{num}")
-	public String confirmT(@PathVariable("num")int num) {
-		String result = gson.toJson(programsService.confirmT(num));
+	@GetMapping("/trainer/{name}")
+	public String confirmT(@PathVariable("name")String name) {
+		String result = gson.toJson(programsService.confirmT(name));
 		return result;	
 	}
 	
 	//트레이너 정보 확인(ALL) 운동별로(PT,GX, 필라테스)
-		@GetMapping("/trainer/rank/{ex}")
-		public String confirmAllT(@PathVariable("ex")int ex) {
-			String result = gson.toJson(programsService.confirmAllT(ex));
+		@GetMapping("/trainer/rank")
+		public String confirmAllT() {
+			String result = gson.toJson(programsService.confirmAllT());
 			return result;	
 		}
 		
@@ -190,5 +223,42 @@ public class ProgramsRestController {
 			else {
 				return "fail";
 		}	
-	}		
+	}
+		
+//		//PT 예약 취소하기
+//		@PostMapping("/PT/cancel")
+//		public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
+//			
+//			String mem_id = (String)map.get("mem_id");
+//			map.put("mem_id", mem_id);
+//			String start = (String)map.get("start");
+////		     Timestamp timestamp = Timestamp.valueOf(date);
+////		     System.out.println(timestamp);
+//			
+////			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////			Date date2 = format.parse(date);
+////			System.out.println(date2);
+////			System.out.println(date2);
+//			map.put("start", start);
+//			
+//			try {
+//				programsService.cancelPt(map);
+//				return "success";
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//				return "fail";
+//			}
+//		}
+		
+		
 }
+
+
+
+
+
+
+
+
+
+

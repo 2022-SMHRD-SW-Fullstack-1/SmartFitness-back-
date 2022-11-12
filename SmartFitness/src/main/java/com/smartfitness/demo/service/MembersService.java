@@ -1,7 +1,10 @@
 package com.smartfitness.demo.service;
 
 import java.util.Collection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,7 @@ import com.smartfitness.demo.model.MembersDetail;
 
 @Service
 public class MembersService {
-	
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 	@Autowired
@@ -37,6 +40,7 @@ public class MembersService {
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	JwtTokenProvider jwtTokenProvider;
+
 	@Autowired
 	CustomUserDetailService customUserDetailService;
 	
@@ -45,19 +49,20 @@ public class MembersService {
 	
 	//회원가입
 	public void join(Members members) throws Exception{
+
 		String mem_id = members.getMem_id();
 		String DBmem_id = membersMapper.read(mem_id).getMem_id();
-		if(DBmem_id!=null) {
-			//아이디 중복일 때, 예외 처리
-			throw new CustomException(ErrorCode.MEM_CONFLICT);	
+		if (DBmem_id != null) {
+			// 아이디 중복일 때, 예외 처리
+			throw new CustomException(ErrorCode.MEM_CONFLICT);
 		}
 		int cnt = membersMapper.join(members);
-		if(cnt==0) {
-			//회원가입 실패
+		if (cnt == 0) {
+			// 회원가입 실패
 			throw new CustomException(ErrorCode.MEM_BAD_REQUEST);
 		}
 	}
-	
+
 	//로그인
 	public Auth login(Members login_members) throws Exception{
 		String login_mem_id = login_members.getMem_id();
@@ -78,7 +83,7 @@ public class MembersService {
 		else {
 			System.out.println("사용자 권한 : "+DB_members.getAuthorities());
 			String DBmem_id = DB_members.getMem_id();
-			String DBmem_email =DB_members.getMem_auth();
+			String DBmem_email =DB_members.getMem_email();
 			String DBmem_name = DB_members.getMem_name();
 			String DBmem_phone =DB_members.getMem_phone();
 			
@@ -110,35 +115,83 @@ public class MembersService {
 			Auth auth = new Auth(accessToken,DBmem_id,DBmem_email,DBmem_name,DBmem_phone);
 			System.out.println(ResponseEntity.ok(new AuthResponse(accessToken)));
 			System.out.println(auth);
+
 			return auth;
 		}
 	}
-	//회원정보 수정
-	public void update(Members members) throws Exception{
-		String rawPassword=members.getMem_pw();
-		String encPassword=passwordEncoder.encode(rawPassword);
+
+	// 회원정보 수정
+	public void update(Members members) throws Exception {
+		String rawPassword = members.getMem_pw();
+		String encPassword = passwordEncoder.encode(rawPassword);
 		members.setMem_pw(encPassword);
 		int result = membersMapper.update(members);
-		if(result==0) {
-			//아이디 중복
+		if (result == 0) {
+			// 아이디 중복
 			throw new CustomException(ErrorCode.MEM_CONFLICT);
 		}
 	}
 
-	//회원탈퇴
+	// 회원탈퇴
 	public void delete(String mem_id, String mem_pw) throws Exception {
 		MembersDetail md = membersMapper.findByUserId(mem_id);
-		if(!passwordEncoder.matches(mem_pw, md.getPassword())) {
-			//잘못된 비밀번호
+		if (!passwordEncoder.matches(mem_pw, md.getPassword())) {
+			// 잘못된 비밀번호
 			throw new CustomException(ErrorCode.WRONG_PW);
-		}
-		else {
-		int result = membersMapper.delete(mem_id);
-			if(result==0) {
-				//회원탈퇴 실패
+		} else {
+			int result = membersMapper.delete(mem_id);
+			if (result == 0) {
+				// 회원탈퇴 실패
 				throw new CustomException(ErrorCode.MEM_BAD_REQUEST);
 			}
 		}
 	}
+
+	// 멤버십 결제
+	public void insertInfo(Map<String, Object> paymentsModel) {
+		System.out.println(paymentsModel);
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		String email = (String)paymentsModel.get("buyer_email");
+		//email 확인 mapper를 불러오자
+		String id = membersMapper.readE(email);
+		//금액 뽑아오자
+		int amount = (int)(paymentsModel.get("amount"));
+		
+		System.out.println(id);
+		//아이디 넣기
+		map.put("mem_id",id);	
+		
+		System.out.println(map.get("mem_id"));
+		//마감기한
+		map.put("amount", amount);
+		
+		System.out.println("a:"+id);
+		int num = membersMapper.readM(id);
+		
+		if(num>0) {
+			if(amount==100) {
+			membersMapper.updateInfo(map);
+			}else if(amount==500) {
+			membersMapper.updateInfo2(map);
+			}
+		}else {
+		if(amount==100) {
+		membersMapper.insertInfo(map);
+		}else if(amount==500) {
+		membersMapper.insertInfo2(map);
+			}
+		}
+	}
+	//잔여기간 보내주기
+	public HashMap mbs(String mem_id) {
+		return membersMapper.mbs(mem_id);
+		
+	}
 }
 
+////현재 날짜 불러오기(그냥 DB에서 하겠음)
+//Date date = new Date();
+//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//String date2 = formatter.format(date);
+//map.put("date",date2);

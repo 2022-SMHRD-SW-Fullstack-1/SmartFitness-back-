@@ -48,14 +48,14 @@ public class ProgramsService {
 	//프로그램 시간표 확인
 	public List<HashMap> selectCurrPg(HashMap<String, Object> map) {
 		List<HashMap> res = programsMapper.selectCurrPg(map);
-//		map.put("")
+
 		
 		return res;
 	}
 	
 	//나의 프로그램 예약 내역 확인
 	public List<Map> reservMy(String mem_id) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		
 		List<Map> pgList = programsMapper.reservMy(mem_id);
 		
 		for(int i=0; i<pgList.size();i++) {
@@ -64,6 +64,11 @@ public class ProgramsService {
 			String pg_name = programsMapper.reservMy2(seq);
 			pgList.get(i).put("pg_name", pg_name);
 		}
+		System.out.println(pgList.size());
+		if(pgList.size()==0) {
+			throw new CustomException(ErrorCode.MEM_BK_NOT_FOUND);
+		}
+		
 		return pgList;
 	}
 	
@@ -84,8 +89,6 @@ public class ProgramsService {
 			throw new CustomException(ErrorCode.PG_MAX);
 		}
 
-
-
 		//예약 내역 삽입
 		programsMapper.reservPg(map);
 		
@@ -100,6 +103,7 @@ public class ProgramsService {
 	
 	
 	public void cancelPg(int num,String mem_id) {
+		
 		//예약 내역 취소
 		programsMapper.cancelPg(num,mem_id);
 		
@@ -111,13 +115,13 @@ public class ProgramsService {
 	}
 	
 	//트레이너 정보 확인(1명)
-	public HashMap<String,Object> confirmT(int num) {
-		return programsMapper.confirmT(num);
+	public HashMap<String,Object> confirmT(String name) {
+		return programsMapper.confirmT(name);
 	}
 	
 	//트레이너 정보 확인(All)
-	public List<HashMap> confirmAllT(int ex) {
-		return programsMapper.confirmAllT(ex);
+	public List<HashMap> confirmAllT() {
+		return programsMapper.confirmAllT();
 	}
 	//트레이너 추가
 	public int addTrainer(Trainer trainer) {
@@ -142,6 +146,12 @@ public class ProgramsService {
 	public List<HashMap> sendMy(String mem_id) {
 		return programsMapper.sendMy(mem_id);
 	}
+	
+	//PT 취소하기
+	public int cancelPt(HashMap<String,Object> map) {
+		return programsMapper.cancelPt(map);
+	}
+
 
 	
 

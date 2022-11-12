@@ -39,7 +39,7 @@ public class EquipmentsService {
 	// 운동 기구 예약 가능한지 확인
 	public Map<String, Object> selectCurrEm(int em_seq) throws Exception {
 		Map<String, Object> result = equipmentsMapper.selectCurrEm(em_seq);
-		if (result.get("current_equipment")==null) {
+		if (result==null) {
 			throw new CustomException(ErrorCode.EM_NOT_FOUND);
 		}
 		return result;
@@ -92,13 +92,13 @@ public class EquipmentsService {
 	}
 
 	// 운동 기구 예약 내역 확인
-	public List<Map<String,Object>> rsvAll(String mem_id) throws Exception {
-		List<Map<String,Object>> emList = equipmentsMapper.rsvAll(mem_id);
-		for (int i = 0; i < emList.size(); i++) {
-			if(emList.get(0).get("reserv_em_seq")==null) {
-				//예약내역이 없다
-				throw new CustomException(ErrorCode.MEM_BK_NOT_FOUND);
-			}
+	public List<Map> rsvAll(String mem_id) throws Exception {
+		List<Map> emList = equipmentsMapper.rsvAll(mem_id);
+		if(emList.size()==0) {
+			//예약내역이 없다
+			throw new CustomException(ErrorCode.MEM_BK_NOT_FOUND);		
+		}
+		for (int i=0; i<emList.size();i++) {
 			int em_seq = (int) emList.get(i).get("em_seq");
 			emList.get(i).put("em_name", equipmentsMapper.selectEmName(em_seq));
 		}
@@ -106,3 +106,36 @@ public class EquipmentsService {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

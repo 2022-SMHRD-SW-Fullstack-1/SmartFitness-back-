@@ -1,5 +1,6 @@
 package com.smartfitness.demo.mapper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -24,5 +25,8 @@ public interface PaymentsMapper {
 	 * imp_uid를 토대로 DB에서 amount 추출
 	 * **/
 	int getAmountToBePaid(String imp_uid);
+
+
+	int enroll(HashMap map);
 
 }

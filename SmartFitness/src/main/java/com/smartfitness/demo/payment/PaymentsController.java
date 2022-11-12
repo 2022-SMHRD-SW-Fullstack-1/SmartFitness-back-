@@ -1,6 +1,7 @@
 package com.smartfitness.demo.payment;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartfitness.demo.service.MembersService;
+
 @RestController
 @RequestMapping("/payments")
 public class PaymentsController {
+	
+	@Autowired
+	MembersService memberService;
 	
 	@Autowired
     private PaymentsService paymentsService;
@@ -20,13 +26,15 @@ public class PaymentsController {
 	@ResponseBody
 	@PostMapping("/insertPaymentInfo")
 	public String insertPaymentInfo(@RequestBody Map<String, Object> paymentsModel) {
-		System.out.println(paymentsModel);
+		System.out.println("결제요청 : "+paymentsModel);
 		// STEP5-3. 결제 정보 검증 후 저장하기
 		// 처음에 요청했던 금액 저장하기
 		try {
+			memberService.insertInfo(paymentsModel);
 			paymentsService.insertPaymentInfo(paymentsModel);
 			return "ok";	
 		}catch(Exception e){
+			e.getStackTrace();
 			return "ng";
 		}
 	}
@@ -39,7 +47,7 @@ public class PaymentsController {
 			// STEP5-2. 결제 정보 조회하기
 			// 액세스 토큰(access token) 발급 받기
 			String accessToken = paymentsService.getAccessToken(paymentsModel); 
-			System.out.println(accessToken);
+			System.out.println("haha"+ accessToken);
 			// imp_uid로 아임포트 서버에서 결제 정보 조회
 			PaymentsModel paymentInfo = paymentsService.getPaymentInfo(accessToken, paymentsModel);
 			// STEP5-3. 결제 정보 검증 후 저장하기
