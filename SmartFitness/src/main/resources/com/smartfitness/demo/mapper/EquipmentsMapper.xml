@@ -4,7 +4,7 @@
 
 	<!-- 기구 추가 -->
 	<insert id="addEm" parameterType="com.smartfitness.demo.model.Equipments">
-		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part},#{em_type})
+		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part},#{em_type},#{em_img})
 	</insert>
 
 	<!-- 기구 전체 확인 -->
@@ -26,7 +26,7 @@
 	<!-- 기구 수정 -->
 	<update id="updateEm" parameterType="java.util.HashMap">
 		update sf_equipments
-		set em_name=#{em_name},em_video=#{em_video},em_part=#{em_part},em_type=#{em_type}
+		set em_name=#{em_name},em_video=#{em_video},em_part=#{em_part},em_type=#{em_type},em_img=#{em_img}
 		where em_seq=#{em_seq}
 	</update>
 
