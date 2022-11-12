@@ -25,11 +25,7 @@ public class ProgramsRestController {
 	@Autowired
 	ProgramsService programsService;
 	
-	
-	
-	
-	
-	
+
 	// 프로그램 등록하기
 	@PostMapping("/enroll")
 	public String enroll(@RequestBody HashMap<String,Object>map)throws Exception{
@@ -172,7 +168,7 @@ public class ProgramsRestController {
 		start=start.replace("T"," ");
 		start=start.replace(".000Z","");
 		map.put("start", start);
-		System.out.println(start);
+		System.out.println("가공 후" +start);
 		
 		try {
 			programsService.cancelPt(map);
