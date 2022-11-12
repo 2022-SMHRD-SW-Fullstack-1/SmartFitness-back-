@@ -122,10 +122,6 @@
 		where curr_pg_seq=#{num}
 	</update>
 	
-	
-	
-
-	
 	<select id="confirmT" resultType="java.util.HashMap">
 		select *
 		from sf_trainer
@@ -174,8 +170,20 @@
 	<delete id="cancelPt" parameterType="java.util.HashMap">
 		delete 
 		from reserv_pt
-		where start= #{strart}
+		where start=  DATE_ADD(start,interval 9 HOUR)
 		and mem_id=#{mem_id}
 	</delete>
-
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

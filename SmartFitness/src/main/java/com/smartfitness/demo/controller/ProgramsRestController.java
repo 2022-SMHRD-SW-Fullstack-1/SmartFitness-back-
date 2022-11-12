@@ -25,6 +25,7 @@ public class ProgramsRestController {
 	@Autowired
 	ProgramsService programsService;
 	
+
 	
 	
 //
@@ -39,6 +40,7 @@ public class ProgramsRestController {
 //			return "fail";
 //		}
 //	}
+
 	
 	// 프로그램 추가
 	@PostMapping("/add")
@@ -170,7 +172,7 @@ public class ProgramsRestController {
 		start=start.replace("T"," ");
 		start=start.replace(".000Z","");
 		map.put("start", start);
-		System.out.println(start);
+		System.out.println("가공 후" +start);
 		
 		try {
 			programsService.cancelPt(map);

@@ -142,7 +142,7 @@ public class ProgramsService {
 	public List<HashMap> selectCurrPt(int month) {
 		return programsMapper.selectCurrPt(month);
 	}
-
+	
 	public List<HashMap> sendMy(String mem_id) {
 		return programsMapper.sendMy(mem_id);
 	}
