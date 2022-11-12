@@ -225,30 +225,30 @@ public class ProgramsRestController {
 		}	
 	}
 		
-		//PT 예약 취소하기
-		@PostMapping("/PT/cancel")
-		public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
-			
-			String mem_id = (String)map.get("mem_id");
-			map.put("mem_id", mem_id);
-			String start = (String)map.get("start");
-//		     Timestamp timestamp = Timestamp.valueOf(date);
-//		     System.out.println(timestamp);
-			
-//			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//			Date date2 = format.parse(date);
-//			System.out.println(date2);
-//			System.out.println(date2);
-			map.put("start", start);
-			
-			try {
-				programsService.cancelPt(map);
-				return "success";
-			}catch(Exception e) {
-				e.printStackTrace();
-				return "fail";
-			}
-		}
+//		//PT 예약 취소하기
+//		@PostMapping("/PT/cancel")
+//		public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
+//			
+//			String mem_id = (String)map.get("mem_id");
+//			map.put("mem_id", mem_id);
+//			String start = (String)map.get("start");
+////		     Timestamp timestamp = Timestamp.valueOf(date);
+////		     System.out.println(timestamp);
+//			
+////			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////			Date date2 = format.parse(date);
+////			System.out.println(date2);
+////			System.out.println(date2);
+//			map.put("start", start);
+//			
+//			try {
+//				programsService.cancelPt(map);
+//				return "success";
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//				return "fail";
+//			}
+//		}
 		
 		
 }

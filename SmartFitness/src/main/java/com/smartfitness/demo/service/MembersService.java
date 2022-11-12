@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.smartfitness.demo.config.auth.Auth;
 import com.smartfitness.demo.config.auth.CustomUserDetailService;
+import com.smartfitness.demo.config.jwt.AuthResponse;
 import com.smartfitness.demo.config.jwt.JwtTokenProvider;
 import com.smartfitness.demo.exception.CustomException;
 import com.smartfitness.demo.exception.ErrorCode;
@@ -101,15 +103,17 @@ public class MembersService {
 			//옵션(eraseCredentialsAfterAuthentication)으로 삭제되지 않도록 하는 것도 가능하다.
 //			System.out.println((String)authentication.getCredentials());
 			
+//			String accessToken= jwtTokenProvider.createToken(DBmem_id, "Access-Token");
 			//access token 생성 -> json payload에 담아서 보내줄 것
-			String accessToken= jwtTokenProvider.createToken(DBmem_id, "Access-Token");
-			System.out.println("accessToken: "+accessToken);
+			String refreshToken= jwtTokenProvider.createToken(authentication);
+			System.out.println("refreshToken는 DB로: "+refreshToken);
 			//refresh token 생성 -> httpresponse set cookie header에 refresh token 값을 설정
-			String refreshToken = jwtTokenProvider.createToken(accessToken, "Refresh-Token");
+			String accessToken = jwtTokenProvider.createToken(refreshToken, "Access-Token");
 			//refreshToken값을 DB에 저장
-			tokenMapper.insertToken(refreshToken, DBmem_id);
-			System.out.println("refreshToken: "+refreshToken);
+			tokenMapper.insertToken(accessToken, DBmem_id);
+			System.out.println("accessToken은 프론트payload로: "+accessToken);
 			Auth auth = new Auth(accessToken,DBmem_id,DBmem_email,DBmem_name,DBmem_phone);
+			System.out.println(ResponseEntity.ok(new AuthResponse(accessToken)));
 			System.out.println(auth);
 
 			return auth;
