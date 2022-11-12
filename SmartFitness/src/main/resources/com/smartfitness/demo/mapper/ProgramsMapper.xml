@@ -173,7 +173,4 @@
 		from reserv_pt
 		where month(start)=#{month}
 	</select>
-	
-	
-	
 </mapper>
