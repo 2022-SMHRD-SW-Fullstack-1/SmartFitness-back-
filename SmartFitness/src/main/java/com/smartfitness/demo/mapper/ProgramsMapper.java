@@ -45,7 +45,7 @@ public interface ProgramsMapper {
 
 	public int openPg(CurrentPrograms curr);
 
-	public int rate(HashMap<String, Object> map);
+	
 
 	public void reservPt(HashMap<String, Object> map);
 
@@ -61,6 +61,12 @@ public interface ProgramsMapper {
 	public HashMap read(int num);
 	//예약하려는 프로그램의 정원이 초과했는지
 	public int read2(int num2);
+	
+	public int rate(HashMap<String, Object> map);
+
+	public int rating(int tr);
+
+	public int rate2(HashMap<String, Object> map);
 
 
 }

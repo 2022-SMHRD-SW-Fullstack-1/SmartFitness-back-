@@ -50,6 +50,9 @@ public enum ErrorCode {
     //정원 초과했을 때 에러
     PG_MAX(409,"PG-MAX","FULLY BOOKED"),
     
+    //한 사람이 트레이너에게 여러번 평점을 주려고 할 때
+    TR_DU(409,"TR_DU","TR RATED"),
+    
     //이미 존재하는 아이디다(회원정보 수정)
     MEM_CONFLICT(409,"MEM-ERR-409","MEMBER ID CONFLICT"),
     

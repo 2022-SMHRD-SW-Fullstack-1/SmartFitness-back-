@@ -151,6 +151,22 @@
 		insert into rating_trainer values(null,#{trainer_seq},#{rating},now(),#{mem_id})
 	</insert>
 	
+	<!-- 한 아이디로 똑같은 트레이너에 준적 있나 확인 -->
+	<select id ="rate2" resultType="int">
+		select count(*)
+		from rating_trainer
+		where mem_id = #{mem_id}
+		and trainer_seq = #{trainer_seq}
+	</select>
+	
+	<!-- 트레이너 평점 보내주기 -->
+	<select id="rating" resultType="int">
+		select avg(rating)
+		from rating_trainer
+		group by trainer_seq
+		having trainer_seq = #{tr}
+	</select>
+	
 	<!-- PT 예약 -->
 	<insert id="reservPt">
 
