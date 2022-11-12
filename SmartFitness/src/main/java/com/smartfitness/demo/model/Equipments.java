@@ -22,4 +22,7 @@ public class Equipments {
 
     //운동 기구 분류
     private String em_type;
+    
+    //운동 기구 이미지
+    private String em_img;
 }
