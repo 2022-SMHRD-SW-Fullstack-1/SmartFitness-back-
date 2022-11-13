@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -64,7 +65,9 @@ public class MembersService {
 	}
 
 	//로그인
-	public Auth login(Members login_members) throws Exception{
+	public ResponseEntity<?> login(Members login_members) throws Exception{
+		HttpHeaders headers = new HttpHeaders();
+		
 		String login_mem_id = login_members.getMem_id();
 		String login_mem_pw = login_members.getMem_pw();
 		
@@ -105,18 +108,20 @@ public class MembersService {
 			
 //			String accessToken= jwtTokenProvider.createToken(DBmem_id, "Access-Token");
 			//access token 생성 -> json payload에 담아서 보내줄 것
-			String refreshToken= jwtTokenProvider.createToken(authentication);
-			System.out.println("refreshToken는 DB로: "+refreshToken);
+			String accessToken= jwtTokenProvider.createToken(authentication);
 			//refresh token 생성 -> httpresponse set cookie header에 refresh token 값을 설정
-			String accessToken = jwtTokenProvider.createToken(refreshToken, "Access-Token");
+			String refreshToken = jwtTokenProvider.createToken(accessToken, "Access-Token");
+			System.out.println("refreshToken는 DB, header로: "+refreshToken);
+			headers.add(HttpHeaders.AUTHORIZATION, refreshToken);
 			//refreshToken값을 DB에 저장
-			tokenMapper.insertToken(accessToken, DBmem_id);
+			tokenMapper.insertToken(refreshToken, DBmem_id);
 			System.out.println("accessToken은 프론트payload로: "+accessToken);
 			Auth auth = new Auth(accessToken,DBmem_id,DBmem_email,DBmem_name,DBmem_phone);
-			System.out.println(ResponseEntity.ok(new AuthResponse(accessToken)));
-			System.out.println(auth);
+			System.out.println("body에 보내는 값"+auth);
 
-			return auth;
+			return ResponseEntity.ok()
+					.headers(headers)
+					.body(auth);
 		}
 	}
 

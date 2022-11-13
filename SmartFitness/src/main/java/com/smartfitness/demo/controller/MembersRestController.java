@@ -5,12 +5,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,7 +56,7 @@ public class MembersRestController {
 
 	// 로그인
 	@PostMapping("/login")
-	public String login(@RequestBody Map<String, String> param) throws Exception {
+	public ResponseEntity<?> login(@RequestBody Map<String, String> param) throws Exception {
 		String jsonStr = gson.toJson(param);
 		System.out.println("사용자가 입력한 값 : "+jsonStr);
 		Members user = gson.fromJson(jsonStr, Members.class);
@@ -63,10 +65,7 @@ public class MembersRestController {
 
 		// 로그인 이후, 권한을 부여하고 토큰을 발행한다
 		// 오류 처리는 service에서 했다
-		Auth auth = membersService.login(user);
-		String result = gson.toJson(auth);
-		System.out.println("반환 정보 : " + result);
-		return result;
+		return membersService.login(user);
 	}
 
 	// 회원 정보 수정

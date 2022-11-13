@@ -83,7 +83,11 @@ public class JwtTokenProvider {
 	
 	//토큰에서 회원 정보 추출
 	private String getUserPk(String token) {
-		return Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(token).getBody().getSubject();
+		return Jwts.parser()
+				.setSigningKey(secretKey)
+				.parseClaimsJwt(token)
+				.getBody()
+				.getSubject();
 	}
 	/**
 	 * 토큰의 sub 값 가져오기
