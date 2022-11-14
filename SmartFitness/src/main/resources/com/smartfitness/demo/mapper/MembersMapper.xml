@@ -91,7 +91,7 @@
 	<!-- 잔여 보내주기 -->
 
 	<select id="mbs" resultType="java.util.Map">
-		select *
+		select datediff(mbs_period,now()) as period
 		from membership_list
 		where mem_id=#{mem_id}
 	</select>
