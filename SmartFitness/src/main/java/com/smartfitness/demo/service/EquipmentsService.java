@@ -67,6 +67,8 @@ public class EquipmentsService {
 		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
 		if(token_sub.equals(token)) {
 			System.out.println("토큰값일치");
+		}else {
+			System.out.println("토큰 값 불일치");
 		}
 		//else{ 추가하면 됨
 		Map<String, Integer> result = new HashMap<>();
