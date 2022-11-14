@@ -7,4 +7,6 @@ public interface TokenMapper {
 
 	int insertToken(String refreshToken, String DBmem_id);
 
+	String getToken(String mem_token_id);
+
 }
