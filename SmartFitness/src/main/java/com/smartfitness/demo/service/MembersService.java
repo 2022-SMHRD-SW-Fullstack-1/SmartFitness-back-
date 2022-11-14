@@ -189,9 +189,11 @@ public class MembersService {
 		}
 	}
 	//잔여기간 보내주기
-	public HashMap mbs(String mem_id) {
-		return membersMapper.mbs(mem_id);
-		
+	public ResponseEntity<?> mbs(String mem_id) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("period", membersMapper.mbs(mem_id));
+		return ResponseEntity.ok()
+				.body(map);
 	}
 }
 
