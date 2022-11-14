@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
+import com.smartfitness.demo.config.jwt.JwtTokenProvider;
 import com.smartfitness.demo.exception.CustomException;
 import com.smartfitness.demo.exception.ErrorCode;
 import com.smartfitness.demo.mapper.ProgramsMapper;
+import com.smartfitness.demo.mapper.TokenMapper;
 import com.smartfitness.demo.model.CurrentPrograms;
 import com.smartfitness.demo.model.Equipments;
 import com.smartfitness.demo.model.Programs;
@@ -26,6 +28,12 @@ import com.smartfitness.demo.model.Trainer;
 public class ProgramsService {
 	@Autowired
 	ProgramsMapper programsMapper;
+	
+	@Autowired
+	JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	TokenMapper tokenMapper;
 	
 	//클래스 정보 보내주기
 	public HashMap sendC(int num){
@@ -74,6 +82,20 @@ public class ProgramsService {
 	
 	//프로그램 예약하기
 	public void reservPg(HashMap<String, Object> map) throws Exception{
+		
+		String token=(String)map.get("token");
+		System.out.println("토큰 값 추출"+token);
+		String mem_token_id = jwtTokenProvider.getUserIDFromToken(token);
+		System.out.println("토큰에서 아이디 추출 : "+jwtTokenProvider.getUserIDFromToken(token));
+		String mem_token = tokenMapper.getToken(mem_token_id);
+		System.out.println("DB에서 토큰 추출"+mem_token);
+		String token_sub = jwtTokenProvider.getUserIDFromToken(mem_token);
+		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
+		if(token_sub.equals(token)) {
+			System.out.println("토큰값일치");
+		}
+		//else{ 추가하면 됨
+		
 		System.out.println(map.get("curr_pg_seq"));
 		
 //		//프로그램이 존재하지 않을 때 에러
@@ -118,6 +140,21 @@ public class ProgramsService {
 	
 	// PT 예약하기
 	public void reservPt(HashMap<String, Object> map) {
+		
+		String token=(String)map.get("token");
+		System.out.println("토큰 값 추출"+token);
+		String mem_token_id = jwtTokenProvider.getUserIDFromToken(token);
+		System.out.println("토큰에서 아이디 추출 : "+jwtTokenProvider.getUserIDFromToken(token));
+		String mem_token = tokenMapper.getToken(mem_token_id);
+		System.out.println("DB에서 토큰 추출"+mem_token);
+		String token_sub = jwtTokenProvider.getUserIDFromToken(mem_token);
+		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
+		if(token_sub.equals(token)) {
+			System.out.println("토큰값일치");
+		}
+		//else{ 추가하면 됨
+		
+		
 		programsMapper.reservPt(map);
 		
 	}
@@ -132,6 +169,21 @@ public class ProgramsService {
 	
 	//PT 취소하기
 	public int cancelPt(HashMap<String,Object> map) {
+		
+		String token=(String)map.get("token");
+		System.out.println("토큰 값 추출"+token);
+		String mem_token_id = jwtTokenProvider.getUserIDFromToken(token);
+		System.out.println("토큰에서 아이디 추출 : "+jwtTokenProvider.getUserIDFromToken(token));
+		String mem_token = tokenMapper.getToken(mem_token_id);
+		System.out.println("DB에서 토큰 추출"+mem_token);
+		String token_sub = jwtTokenProvider.getUserIDFromToken(mem_token);
+		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
+		if(token_sub.equals(token)) {
+			System.out.println("토큰값일치");
+		}
+		//else{ 추가하면 됨
+		
+		
 		return programsMapper.cancelPt(map);
 	}
 	
@@ -152,6 +204,21 @@ public class ProgramsService {
 	
 	//트레이너 평점 매기기
 	public void rate(HashMap<String, Object> map)throws CustomException {
+		
+		String token=(String)map.get("token");
+		System.out.println("토큰 값 추출"+token);
+		String mem_token_id = jwtTokenProvider.getUserIDFromToken(token);
+		System.out.println("토큰에서 아이디 추출 : "+jwtTokenProvider.getUserIDFromToken(token));
+		String mem_token = tokenMapper.getToken(mem_token_id);
+		System.out.println("DB에서 토큰 추출"+mem_token);
+		String token_sub = jwtTokenProvider.getUserIDFromToken(mem_token);
+		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
+		if(token_sub.equals(token)) {
+			System.out.println("토큰값일치");
+		}
+		//else{ 추가하면 됨
+		
+		
 		
 		int cnt2 = programsMapper.rate2(map);
 		
