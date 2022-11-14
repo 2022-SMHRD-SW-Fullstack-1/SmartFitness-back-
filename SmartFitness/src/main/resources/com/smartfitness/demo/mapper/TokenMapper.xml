@@ -6,4 +6,10 @@
 	set token=#{refreshToken}
 	where mem_id=#{DBmem_id}
 </update>
+
+<select id="getToken" resultType="String">
+	select token
+	from sf_members
+	where mem_id=#{mem_token_id}
+</select>
 </mapper>

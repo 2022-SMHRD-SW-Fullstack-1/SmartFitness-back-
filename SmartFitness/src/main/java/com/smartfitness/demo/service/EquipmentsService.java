@@ -7,9 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smartfitness.demo.config.jwt.JwtTokenProvider;
 import com.smartfitness.demo.exception.CustomException;
 import com.smartfitness.demo.exception.ErrorCode;
 import com.smartfitness.demo.mapper.EquipmentsMapper;
+import com.smartfitness.demo.mapper.TokenMapper;
 import com.smartfitness.demo.model.Equipments;
 
 @Service
@@ -17,6 +19,12 @@ public class EquipmentsService {
 
 	@Autowired
 	EquipmentsMapper equipmentsMapper;
+	
+	@Autowired
+	JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	TokenMapper tokenMapper;
 
 	// 운동 기구 추가
 	public void addEm(Map<String, Object> newEquipments) throws Exception {
@@ -47,6 +55,19 @@ public class EquipmentsService {
 
 	// 운동 기구 예약
 	public void reservEm(Map<String, Object> reserv) throws Exception {
+		
+		String token=(String)reserv.get("token");
+		System.out.println("토큰 값 추출"+token);
+		String mem_token_id = jwtTokenProvider.getUserIDFromToken(token);
+		System.out.println("토큰에서 아이디 추출 : "+jwtTokenProvider.getUserIDFromToken(token));
+		String mem_token = tokenMapper.getToken(mem_token_id);
+		System.out.println("DB에서 토큰 추출"+mem_token);
+		String token_sub = jwtTokenProvider.getUserIDFromToken(mem_token);
+		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
+		if(token_sub.equals(token)) {
+			System.out.println("토큰값일치");
+		}
+		//else{ 추가하면 됨
 		Map<String, Object> result = new HashMap<>();
 		result.put("기구예약가능", equipmentsMapper.reservEmStatus(reserv));
 		System.out.println(result);
