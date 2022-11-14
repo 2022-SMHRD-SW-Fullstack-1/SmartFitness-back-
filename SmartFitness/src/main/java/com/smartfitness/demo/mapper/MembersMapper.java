@@ -39,7 +39,7 @@ public interface MembersMapper {
 
 	int updateInfo2(Map<String, Object> map);
 
-	HashMap mbs(String mem_id);
+	int mbs(String mem_id);
 
 
 
