@@ -44,16 +44,12 @@ public class CustomUserDetailService implements UserDetailsService{
 		} else {
 			if(membersMapper.findByUserId(login_mem_id).getMem_auth().equals("ROLE_M")){
 				userDetails.setAuthorities(Arrays.asList(new SimpleGrantedAuthority(userDetails.getMem_auth())));
-				return userDetails;
-							
+				return userDetails;		
 			}else {
 				authorities.add(new SimpleGrantedAuthority("ROLE_A"));
 				userDetails.setAuthorities(Arrays.asList(new SimpleGrantedAuthority(userDetails.getMem_auth())));
 				return userDetails;
-					
-			}
-			
+			}	
 		}
-		
 	}
 }

@@ -68,15 +68,15 @@ public class EquipmentsService {
 			System.out.println("토큰값일치");
 		}
 		//else{ 추가하면 됨
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Integer> result = new HashMap<>();
 		result.put("기구예약가능", equipmentsMapper.reservEmStatus(reserv));
 		System.out.println(result);
-		if(result.get("기구예약가능")==null) {
+		if(result.get("기구예약가능")==0) {
 			//운동기구 예약 불가
 			throw new CustomException(ErrorCode.EM_BK_NOT_FOUND);
 		}
 		result.put("회원예약가능", equipmentsMapper.reservEm(reserv));
-		if(result.get("회원예약가능")==null) {
+		if(result.get("회원예약가능")==0) {
 			//회원 예약 불가
 			throw new CustomException(ErrorCode.BK_CONFLICT);
 		}

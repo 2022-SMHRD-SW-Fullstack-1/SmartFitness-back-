@@ -103,8 +103,6 @@ public class MembersRestController {
 	//잔여기간 보내주기
 	@GetMapping("/membership/{mem_id}")
 	public ResponseEntity<?> membership(@PathVariable("mem_id") String mem_id){
-//		membersService.mbs(mem_id);
-//		String result = gson.toJson(membersService.mbs(mem_id));
 		return membersService.mbs(mem_id);
 	}
 }
