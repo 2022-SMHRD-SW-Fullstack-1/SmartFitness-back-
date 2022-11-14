@@ -17,7 +17,8 @@ public class CorsConfig {
 		config.addAllowedOriginPattern("*"); //Access-Controll-Allow-Origin (Response에 자동으로 추가해줌)
 		config.addAllowedHeader("*"); //Access-Control-Request-Headers
 		config.addAllowedMethod("*"); //Access-Control-Request-Method
-		config.setAllowCredentials(true); // 암호화된 페이지 허용?
+		config.setAllowCredentials(true);
+		config.addExposedHeader("Authorization");
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
 	}
