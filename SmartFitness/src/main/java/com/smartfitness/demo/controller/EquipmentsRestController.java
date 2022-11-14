@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.ibatis.javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,13 +71,14 @@ public class EquipmentsRestController {
 
 	// 운동 기구 예약 가능 시간 확인
 	@GetMapping("/timetable/{em_seq}")
-	public String selectCurrEm(@PathVariable("em_seq") int em_seq) throws Exception {
+	public ResponseEntity<?> selectCurrEm(@PathVariable("em_seq") int em_seq) throws Exception {
 		System.out.println("예약 확인할 기구"+em_seq);
-		Map<String, Object> curr_em = new HashMap<String, Object>();
-		curr_em.put("current_equipment", equipmentsService.selectCurrEm(em_seq));
+//		Map<String, Object> curr_em = new HashMap<String, Object>();
+//		curr_em.put("current_equipment", equipmentsService.selectCurrEm(em_seq));
 		// {예약시간1:Y,예약시간2:N} 으로 반환
-		String result = gson.toJson(curr_em);
-		return result;
+		List<HashMap> res =  equipmentsService.selectCurrEm(em_seq);
+		return ResponseEntity.ok()
+				.body(res);
 	}
 
 	// 운동 기구 예약

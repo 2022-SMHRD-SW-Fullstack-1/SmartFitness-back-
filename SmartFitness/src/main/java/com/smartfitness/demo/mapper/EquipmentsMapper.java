@@ -19,7 +19,7 @@ public interface EquipmentsMapper {
 	int updateEm(Map<String, Object> equipments);
 	
 	//운동 기구 확인
-	Map<String, Object> selectCurrEm(int em_seq);
+	List<HashMap> selectCurrEm(int em_seq);
 	
 	//운동 기구 예약
 	int reservEmStatus(Map<String, Object> reserv);
@@ -39,6 +39,8 @@ public interface EquipmentsMapper {
 	List<Map> rsvAll(String mem_id);
 
 	String selectEmName(int em_seq);
+
+	int addEmCurr(Map<String, Object> newEquipments);
 
 
 }

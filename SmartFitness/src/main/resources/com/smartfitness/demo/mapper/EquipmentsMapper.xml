@@ -7,6 +7,9 @@
 		insert into sf_equipments values(null,#{em_name},#{em_video},#{em_part},#{em_type},#{em_img1},#{em_img2})
 	</insert>
 
+	<insert id="addEmCurr" parameterType="com.smartfitness.demo.model.Equipments">
+		insert into current_equipments (ce_seq,em_seq) values (null,#{em_seq})
+	</insert>
 	<!-- 기구 전체 확인 -->
 	<select id="selectAll" resultType="com.smartfitness.demo.model.Equipments">
 		select * from sf_equipments

@@ -29,6 +29,7 @@ public class EquipmentsService {
 	// 운동 기구 추가
 	public void addEm(Map<String, Object> newEquipments) throws Exception {
 		int result = equipmentsMapper.addEm(newEquipments);
+		equipmentsMapper.addEmCurr(newEquipments);
 		if (result == 0) {
 			// 운동기구 정보 전달 오류
 			throw new CustomException(ErrorCode.EM_BAD_REQUEST);
@@ -45,8 +46,8 @@ public class EquipmentsService {
 	}
 
 	// 운동 기구 예약 가능한지 확인
-	public Map<String, Object> selectCurrEm(int em_seq) throws Exception {
-		Map<String, Object> result = equipmentsMapper.selectCurrEm(em_seq);
+	public List<HashMap> selectCurrEm(int em_seq) throws Exception {
+		List<HashMap> result = equipmentsMapper.selectCurrEm(em_seq);
 		if (result==null) {
 			throw new CustomException(ErrorCode.EM_NOT_FOUND);
 		}
