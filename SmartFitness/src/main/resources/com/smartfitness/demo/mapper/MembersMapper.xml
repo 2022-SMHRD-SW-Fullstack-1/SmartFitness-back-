@@ -94,6 +94,7 @@
 		select datediff(mbs_period,now()) as period
 		from membership_list
 		where mem_id=#{mem_id}
+		and mbs_period > now()
 	</select>
 </mapper>
 
