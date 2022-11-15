@@ -69,6 +69,8 @@ public interface ProgramsMapper {
 
 	public int rate2(HashMap<String, Object> map);
 
+	public int readP(Object object);
+
 	
 
 
