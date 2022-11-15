@@ -63,18 +63,34 @@ public class ProgramsService {
 	
 	//나의 프로그램 예약 내역 확인
 	public List<Map> reservMy(String mem_id) {
-		
+		int j=0;
 		List<Map> pgList = programsMapper.reservMy(mem_id);
 		
+		//멤버 아이디 통해서 클래스 번호 따왔어
+		List<HashMap> currList = programsMapper.reservMy3(mem_id);
+		
+		
+		
+		for(int i=0; i<currList.size();i++) {
+
+			System.out.println(currList.get(i));
+		}
+
 		for(int i=0; i<pgList.size();i++) {
 			int seq = (int)pgList.get(i).get("pg_seq");
 			//시퀀스 번호 통해서 프로그램 이름 따오기
 			String pg_name = programsMapper.reservMy2(seq);
-			int curr_pg_seq = programsMapper.reservMy3(seq);
+			
+			
+			
+			
 			pgList.get(i).put("pg_name", pg_name);
-			pgList.get(i).put("curr_pg_seq", curr_pg_seq);
+			if(j!=2) {
+				pgList.get(i).put("curr_pg_seq", currList.get(j).values());
+			}
+			j++;
 		}
-		System.out.println(pgList.size());
+		System.out.println(pgList);
 		if(pgList.size()==0) {
 			throw new CustomException(ErrorCode.MEM_BK_NOT_FOUND);
 		}

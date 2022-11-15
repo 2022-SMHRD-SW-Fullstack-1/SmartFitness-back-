@@ -21,7 +21,7 @@ public interface ProgramsMapper {
 	//나의 예약 내역 확인하기
 	public List<Map> reservMy(String mem_id);
 	public String reservMy2(int pg_seq);
-	public int reservMy3(int seq);
+	public List<HashMap> reservMy3(String mem_id);
 	
 	public int reservPg(HashMap<String,Object> map);
 	public int reservPg2(HashMap<String,Object> map);
