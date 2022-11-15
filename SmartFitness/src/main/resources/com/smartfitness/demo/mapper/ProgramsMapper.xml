@@ -54,6 +54,13 @@
 		where pg_seq=#{pg_seq}
 	</select>
 	
+	<select id="reservMy3" resultType="int">
+		select curr_pg_seq
+		from current_programs
+		where pg_seq = #{seq}
+		limit 1
+	</select>
+	
 	<!--  
 	<select id="reservMy">
 		select pg_seq, trainer_seq, curr_pg_s_dt, curr_pg_d_dt

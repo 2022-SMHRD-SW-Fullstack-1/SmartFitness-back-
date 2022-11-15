@@ -70,7 +70,9 @@ public class ProgramsService {
 			int seq = (int)pgList.get(i).get("pg_seq");
 			//시퀀스 번호 통해서 프로그램 이름 따오기
 			String pg_name = programsMapper.reservMy2(seq);
+			int curr_pg_seq = programsMapper.reservMy3(seq);
 			pgList.get(i).put("pg_name", pg_name);
+			pgList.get(i).put("curr_pg_seq", curr_pg_seq);
 		}
 		System.out.println(pgList.size());
 		if(pgList.size()==0) {

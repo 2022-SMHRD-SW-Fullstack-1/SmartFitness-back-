@@ -65,10 +65,18 @@ public class EquipmentsService {
 		System.out.println("DB에서 토큰 추출"+mem_token);
 		String token_sub = jwtTokenProvider.getUserIDFromToken(mem_token);
 		System.out.println("DB토큰에서 SUB추출 : "+token_sub);
-		if(token_sub.equals(token)) {
+		System.out.println();
+		
+		System.out.println(token_sub);
+		System.out.println(token);
+		System.out.println(jwtTokenProvider.getUserIDFromToken(token_sub));
+		System.out.println(jwtTokenProvider.getUserIDFromToken(token));
+		String mem_id = (String)reserv.get("mem_id");
+		if(token_sub.equals(token)&&mem_token_id.equals(mem_id)) {
 			System.out.println("토큰값일치");
 		}else {
 			System.out.println("토큰 값 불일치");
+			throw new CustomException(ErrorCode.MEM_ERROR);
 		}
 		//else{ 추가하면 됨
 		Map<String, Integer> result = new HashMap<>();
