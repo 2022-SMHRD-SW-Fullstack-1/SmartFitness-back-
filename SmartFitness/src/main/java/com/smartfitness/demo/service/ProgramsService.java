@@ -79,11 +79,7 @@ public class ProgramsService {
 		for(int i=0; i<pgList.size();i++) {
 			int seq = (int)pgList.get(i).get("pg_seq");
 			//시퀀스 번호 통해서 프로그램 이름 따오기
-			String pg_name = programsMapper.reservMy2(seq);
-			
-			
-			
-			
+			String pg_name = programsMapper.reservMy2(seq);			
 			pgList.get(i).put("pg_name", pg_name);
 			if(j!=2) {
 				pgList.get(i).put("curr_pg_seq", currList.get(j).values());
@@ -115,6 +111,13 @@ public class ProgramsService {
 		//else{ 추가하면 됨
 		
 		System.out.println(map.get("curr_pg_seq"));
+		
+		// 한사람이 두번 예약했을 때 막아보자
+		int num1 = programsMapper.readP(map.get("mem_id"));
+		if(num1!=0) {
+			throw new CustomException(ErrorCode.BK_CONFLICT);
+		}
+		
 		
 //		//프로그램이 존재하지 않을 때 에러
 		HashMap num = programsMapper.read((int)map.get("curr_pg_seq"));

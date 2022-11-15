@@ -99,6 +99,14 @@
 		insert into reserv_programs values(null,#{mem_id},#{curr_pg_seq})
 	</insert>
 	
+	<!-- 프로그램 예약하기전에 이사람이 똑같은 프로그램 예약했었는지 확인 -->
+	<select id="readP" resultType="int">
+		select count(*)
+		from reserv_programs
+		where mem_id = #{mem_id}
+	</select>
+	
+	
 	<!-- 예약을 했으니 현재 프로그램 테이블에 인원 + -->
 	<update id="reservPg2">
 		update current_programs
