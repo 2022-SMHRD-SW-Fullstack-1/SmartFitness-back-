@@ -59,11 +59,13 @@ public enum ErrorCode {
     //서버 오류
     INTER_SERVER_ERROR(500,"COMMON-ERR-500","INTER SERVER ERROR"),    
     //서버에서 바디 값을 못받음
-    BODY_MISSING(500,"REQUIRE-ERR-500","REQURED REQUEST BODY IS MISSING")
+    BODY_MISSING(500,"REQUIRE-ERR-500","REQURED REQUEST BODY IS MISSING"),
 //    MEM_DUPLICATION(409,"MEMBER-ERR-409","DUPLICATED"),
     
-    ;
+    
 
+	MEM_ERROR(401,"MEM_ERROR","MEM_HACKING");
+	
     private int status;
     private String errorCode;
     private String message;

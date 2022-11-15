@@ -91,7 +91,7 @@
 	<!-- 잔여 보내주기 -->
 
 	<select id="mbs" resultType="int">
-		select datediff(mbs_period,now()) as period
+		select datediff(mbs_period,now()) as period, 
 		from membership_list
 		where mem_id=#{mem_id}
 		and mbs_period > now()

@@ -29,7 +29,6 @@ public class JwtAuthenticationFilter  extends GenericFilterBean{
 		if("OPTIONS".equalsIgnoreCase(request.getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK); // 상태코드 200을 뜻하며 요청이 정상적으로 처리되었다는 뜻
 		}
-		
 		//헤더에서 JWT를 가져옵니다.
 		String token = jwtTokenProvider.resolveToken(request);
 //		String bearerToken = request.getHeader("Authorization");
@@ -48,5 +47,4 @@ public class JwtAuthenticationFilter  extends GenericFilterBean{
 		response.setHeader("Access-Control-Allow-Header", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 		chain.doFilter(req, res);
 	}
-
 }
