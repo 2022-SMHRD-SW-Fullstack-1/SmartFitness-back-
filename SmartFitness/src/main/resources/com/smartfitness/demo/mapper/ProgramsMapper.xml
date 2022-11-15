@@ -185,7 +185,7 @@
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">
-		select DATE_ADD(start,interval 9 HOUR) as start, DATE_ADD(end,interval 9 HOUR) as end, trainer
+		select DATE_ADD(start,interval 9 HOUR) as start, DATE_ADD(end,interval 9 HOUR) as end, trainer as title
 		from reserv_pt
 		where month(start)=#{month}
 	</select>

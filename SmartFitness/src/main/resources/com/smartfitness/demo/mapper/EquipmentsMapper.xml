@@ -37,7 +37,6 @@
 	<select id="selectCurrEm" parameterType="int" resultType="java.util.HashMap">
 		select * from current_equipments 
 		where em_seq=#{em_seq} and ce_switch="O"
-		and COLUMN_NAME LIKE '%ce%';
 	</select>
 	
 	
