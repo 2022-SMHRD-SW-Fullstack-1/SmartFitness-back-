@@ -53,13 +53,14 @@
 		from sf_programs
 		where pg_seq=#{pg_seq}
 	</select>
-	
-	<select id="reservMy3" resultType="int">
+	  
+	<select id="reservMy3" resultType="java.util.HashMap">
 		select curr_pg_seq
-		from current_programs
-		where pg_seq = #{seq}
-		limit 1
+		from reserv_programs
+		where mem_id=#{mem_id}
+		
 	</select>
+	
 	
 	<!--  
 	<select id="reservMy">
