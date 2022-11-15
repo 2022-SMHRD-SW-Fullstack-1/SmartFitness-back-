@@ -101,6 +101,7 @@ public class ProgramsRestController {
 	//프로그램 예약하기
 	@PostMapping("timetable/{month}/reserv")
 	public void reservPg(@RequestBody HashMap<String,Object> map) throws Exception{		
+			System.out.println(map);
 			programsService.reservPg(map);	
 	}
 
@@ -136,14 +137,17 @@ public class ProgramsRestController {
 		
 		String mem_id = (String)map.get("mem_id");
 		map.put("mem_id", mem_id);
-		System.out.println(map);
-		String start = (String)map.get("start");
+		System.out.println("입력값 "+map);
+		HashMap<String,Object> eventMap=(HashMap<String, Object>) map.get("newEvent"); 
+		System.out.println(eventMap);
+		String start = (String)eventMap.get("start");
+		System.out.println(start);
 		start=start.replace("T"," ");
 		start=start.replace("+09:00","");
 		map.put("start", start);
 
 		
-		String end = (String)map.get("end");
+		String end = (String)eventMap.get("end");
 		end=end.replace("T"," ");
 		end=end.replace("+09:00","");
 		
@@ -168,9 +172,12 @@ public class ProgramsRestController {
 	@PostMapping("/PT/cancel")
 	public String cancelPt(@RequestBody HashMap<String,Object> map )throws Exception {
 		
+		System.out.println("입력값  "+map);
+		HashMap<String,Object> eventMap=(HashMap<String, Object>) map.get("newEvent"); 
+		System.out.println("가공 값 " +eventMap);
 		String mem_id = (String)map.get("mem_id");
 		map.put("mem_id", mem_id);
-		String start = (String)map.get("start");
+		String start = (String)eventMap.get("start");
 		start=start.replace("T"," ");
 		start=start.replace(".000Z","");
 		map.put("start", start);

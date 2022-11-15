@@ -87,8 +87,9 @@ public class EquipmentsRestController {
 			@PathVariable("time") int time) throws Exception {
 
 		// param에는 mem_id만 존재, param에 다른 값들을 추가
-		System.out.println(reserv); // 값 확인
-
+		System.out.println("???"+reserv); // 값 확인
+System.out.println(em_seq);
+System.out.println(time);
 		reserv.put("em_seq", em_seq);
 		reserv.put("time", time);
 
