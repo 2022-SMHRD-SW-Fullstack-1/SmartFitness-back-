@@ -179,6 +179,9 @@ public class ProgramsService {
 		programsMapper.reservPt(map);
 		
 	}
+	
+	
+	
 	//PT 시간표 확인
 	public List<HashMap> selectCurrPt(int month) {
 		return programsMapper.selectCurrPt(month);
@@ -258,6 +261,10 @@ public class ProgramsService {
 
 	public int rate2(HashMap<String, Object> map) {
 		return programsMapper.rate2(map);
+	}
+
+	public String reservPt2(HashMap<String, Object> map) {
+		return programsMapper.reservPt2(map);
 	}
 
 }

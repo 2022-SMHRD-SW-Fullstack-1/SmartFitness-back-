@@ -146,7 +146,10 @@ public class ProgramsRestController {
 		String end = (String)map.get("end");
 		end=end.replace("T"," ");
 		end=end.replace("+09:00","");
+		
+		String name = programsService.reservPt2(map);
 		map.put("end", end);
+		map.put("name", name);
 		try {
 			programsService.reservPt(map);
 			return "success";

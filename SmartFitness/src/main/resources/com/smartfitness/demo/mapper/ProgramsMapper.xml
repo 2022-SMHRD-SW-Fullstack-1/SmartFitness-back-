@@ -186,10 +186,14 @@
 	<!-- PT 예약 -->
 	<insert id="reservPt">
 
-		insert into reserv_pt values(null,#{mem_id},DATE_ADD(#{start},interval -9 HOUR),DATE_ADD(#{end},interval -9 HOUR),#{trainer})
+		insert into reserv_pt values(null,#{mem_id},DATE_ADD(#{start},interval -9 HOUR),DATE_ADD(#{end},interval -9 HOUR),#{name})
 
 	</insert>
-	
+	<select id="reservPt2" resultType="String">
+		select trainer_name
+		from sf_trainer
+		where trainer_seq = #{trainer_seq}
+	</select>
 	
 	<!-- PT 시간표(예약되어있는 내역들 확인 -->
 	<select id="selectCurrPt"  resultType="java.util.HashMap">

@@ -71,6 +71,8 @@ public interface ProgramsMapper {
 
 	public int readP(Object object);
 
+	public String reservPt2(HashMap<String, Object> map);
+
 	
 
 
