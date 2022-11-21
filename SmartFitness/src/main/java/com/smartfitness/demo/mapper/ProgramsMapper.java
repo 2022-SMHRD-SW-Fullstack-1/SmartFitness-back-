@@ -58,7 +58,7 @@ public interface ProgramsMapper {
 	public List<HashMap> findMy(HashMap<String, Object> map);
 	
 	//예약하려는 프로그램이 존재하는지
-	public HashMap read(int num);
+	public HashMap<String, Object> read(int num);
 	//예약하려는 프로그램의 정원이 초과했는지
 	public int read2(int num2);
 	
